@@ -1,3 +1,4 @@
+from datetime import timedelta
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils import timezone
@@ -58,6 +59,9 @@ class RoomTypes(models.Model):
 
     id = models.PositiveSmallIntegerField(choices=ROOM_TYPES, primary_key=True)
 
+def default_expiry_date():
+    now = timezone.now()
+    return now + timedelta(days=30)
 
 class Listing(models.Model):
     poster = models.OneToOneField(User, on_delete=models.CASCADE, blank=False)
@@ -71,6 +75,7 @@ class Listing(models.Model):
     room_type = models.ManyToManyField(RoomTypes, blank=False)
     room_desc = models.CharField(max_length=1024, blank=False)
     is_furnished = models.BooleanField(blank=False)
+    
 
     number_current_residents = models.PositiveIntegerField(blank=False)
     rent_per_month = models.DecimalField(max_digits=7, decimal_places=2, 
@@ -80,6 +85,7 @@ class Listing(models.Model):
     
     earliest_move_in_date = models.DateField()
     latest_move_in_date = models.DateField(blank=False)
+    listing_expiry_date = models.DateField(default=default_expiry_date)
 
     created_at = models.DateTimeField(auto_now=True, editable=False)
     updated_at = models.DateTimeField(auto_now=True)
@@ -94,4 +100,4 @@ class ListingImage(models.Model):
     image = models.ImageField(upload_to=upload_listing_gallery_image)
     
     created_at = models.DateTimeField(auto_now=True, editable=False)
-    updated_at = models.DateTimeField(auto_now=True)
+    updated_at = models.DateTimeField(auto_now=True, editable=True)

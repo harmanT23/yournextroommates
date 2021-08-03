@@ -64,31 +64,44 @@ def default_expiry_date():
     return now + timedelta(days=30)
 
 class Listing(models.Model):
+    
+    class ListingObjects(models.Manager):
+        def get_queryset(self):
+            return super().get_queryset().filter(
+                    listing_expiry_date__gt=timezone.now()
+                )
+                
     poster = models.OneToOneField(User, on_delete=models.CASCADE, blank=False)
     
-    address1 = models.CharField(max_length=1024, blank=False)
-    address2 = models.CharField(max_length=10, blank=False)
-    postal_code = models.CharField(max_length=5, blank=False)
-    city = models.CharField(max_length=32, blank=False)
-    province = models.CharField(max_length=25, blank=False)
+    listing_title = models.CharField(max_length=70, blank=False)
 
     room_type = models.ManyToManyField(RoomTypes, blank=False)
     room_desc = models.CharField(max_length=1024, blank=False)
     is_furnished = models.BooleanField(blank=False)
     
-
     number_current_residents = models.PositiveIntegerField(blank=False)
     rent_per_month = models.DecimalField(max_digits=7, decimal_places=2, 
                                          blank=False)
     additional_expenses_per_month = models.DecimalField(max_digits=6, 
                                                         decimal_places=2)
+
+    address1 = models.CharField(max_length=1024, blank=False)
+    address2 = models.CharField(max_length=10, blank=False)
+    postal_code = models.CharField(max_length=5, blank=False)
+    city = models.CharField(max_length=32, blank=False)
+    province = models.CharField(max_length=25, blank=False)
     
     earliest_move_in_date = models.DateField()
     latest_move_in_date = models.DateField(blank=False)
     listing_expiry_date = models.DateField(default=default_expiry_date)
 
+    listing_visits = models.PositiveIntegerField(default=0)
+
     created_at = models.DateTimeField(auto_now=True, editable=False)
     updated_at = models.DateTimeField(auto_now=True)
+
+    objects = models.Manager() # default manager
+    listingobjects = ListingObjects() # custom manager for valid listings
 
 
 def upload_listing_gallery_image(instance, filename):

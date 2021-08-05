@@ -21,3 +21,4 @@ class UserAdmin(admin.ModelAdmin):
     inlines = [
         ListingImageInline,
     ]
+    

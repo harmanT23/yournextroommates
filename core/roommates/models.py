@@ -2,18 +2,21 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils import timezone
 from datetime import timedelta
+from .managers import CustomUserManager
 
 def upload_user_profile_image(instance, filename):
     return f'images/users/{instance.id}/profile/{filename}'
 
 class User(AbstractUser):
+    username = None
     first_name = models.CharField(max_length=150, blank=False)
     last_name = models.CharField(max_length=150, blank=False)
-    email = models.EmailField(blank=False, max_length=254,
-                              verbose_name="email address", unique=True)
+    email = models.EmailField(max_length=254, verbose_name="email address",
+                              unique=True, blank=False)
+    
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
 
-    # profile_picture = models.ImageField(upload_to=upload_user_profile_image, 
-                                        # blank=True, default='default.jpeg')
     date_of_birth = models.DateField(blank=False)
     about_me = models.CharField(max_length=500, blank=False)
     
@@ -33,12 +36,25 @@ class User(AbstractUser):
     created_at = models.DateTimeField(auto_now=True, editable=False)
     updated_at = models.DateTimeField(auto_now=True)
 
+    objects = CustomUserManager()
+
+    def __str__(self):
+        return self.email
+
+class UserProfileImage(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, blank=False)
+    profile_picture = models.ImageField(upload_to=upload_user_profile_image, 
+                                        blank=True, default='default.jpeg')
+
+    created_at = models.DateTimeField(auto_now=True, editable=False)
+    updated_at = models.DateTimeField(auto_now=True)
+    
 
 def upload_user_gallery_image(instance, filename):
     return f'images/users/{instance.user.id}/gallery/{filename}'
 
 
-class UserImage(models.Model):
+class UserImageGallery(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=False)
     image = models.ImageField(upload_to=upload_user_gallery_image)
     
@@ -50,7 +66,6 @@ def default_expiry_date():
     return now + timedelta(days=30)
 
 class Listing(models.Model):
-
     # Room Types
     UNKNOWN             = 'UNKN'
     BEDROOM             = 'BDR'
@@ -116,7 +131,7 @@ def upload_listing_gallery_image(instance, filename):
     return f'images/listings/{instance.listing.id}/gallery/{filename}'
 
 
-class ListingImage(models.Model):
+class ListingImageGallery(models.Model):
     listing = models.ForeignKey(Listing, on_delete=models.CASCADE, blank=False)
     image = models.ImageField(upload_to=upload_listing_gallery_image)
     

@@ -1,7 +1,10 @@
 from typing import List
 from rest_framework import generics
-from roommates.models import User, UserImage, Listing, ListingImage
+from roommates.models import Listing
+from django.contrib.auth import get_user_model
 from .serializers import ListingSerializer, UserSerializer
+
+User = get_user_model()
 
 
 class ListingList(generics.ListCreateAPIView):

@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.contrib.auth import get_user_model
-from roommates.models import Listing, ListingImage, UserImage
+from roommates.models import Listing
 from django.utils import timezone
 from datetime import timedelta
 

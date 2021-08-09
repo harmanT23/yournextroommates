@@ -1,13 +1,15 @@
 from django.contrib import admin
-from .models import User, UserImage, Listing, ListingImage
+from django.utils.translation import ugettext_lazy as _
+from .models import User, UserImageGallery, Listing, ListingImageGallery
+
 
 # Register your models here.
 class UserImageInline(admin.TabularInline):
-    model = UserImage
+    model = UserImageGallery
 
 
 class ListingImageInline(admin.TabularInline):
-    model = ListingImage
+    model = ListingImageGallery
 
 
 @admin.register(User)
@@ -17,7 +19,7 @@ class UserAdmin(admin.ModelAdmin):
     ]
 
 @admin.register(Listing)
-class UserAdmin(admin.ModelAdmin):
+class ListingAdmin(admin.ModelAdmin):
     inlines = [
         ListingImageInline,
     ]

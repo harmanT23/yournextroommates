@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
-from roommates.models import UserImage, Listing, ListingImage
+from roommates.models import Listing
 
 User = get_user_model()
 

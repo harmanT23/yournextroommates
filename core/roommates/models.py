@@ -5,7 +5,9 @@ from datetime import timedelta
 from .managers import CustomUserManager
 
 def upload_user_profile_image(instance, filename):
-    return f'images/users/{instance.id}/profile/{filename}'
+    ext = filename.split('.')[-1]
+    n_filename = f'{instance.id}.' + ext
+    return f'images/users/{instance.id}/profile/{n_filename}'
 
 class User(AbstractUser):
     username = None
@@ -51,7 +53,9 @@ class UserProfileImage(models.Model):
     
 
 def upload_user_gallery_image(instance, filename):
-    return f'images/users/{instance.user.id}/gallery/{filename}'
+    ext = filename.split('.')[-1]
+    n_filename = f'{filename.upper()[:4]}.' + ext
+    return f'images/users/{instance.user.id}/gallery/{n_filename}'
 
 
 class UserImageGallery(models.Model):

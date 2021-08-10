@@ -71,14 +71,14 @@ def default_expiry_date():
 
 class Listing(models.Model):
     # Room Types
-    UNKNOWN             = 'UNKN'
-    BEDROOM             = 'BDR'
-    SHARED_BEDROOM      = 'SBDR'
-    DEN                 = 'DEN'
-    LIVING_ROOM         = 'LR'
-    SHARED_LIVING_ROOM  = 'SLR'
-    SUNROOM             = 'SR'
-    CLOSET              = 'CLO'
+    UNKNOWN             = 'Unknown'
+    BEDROOM             = 'Bedroom'
+    SHARED_BEDROOM      = 'Shared Bedroom'
+    DEN                 = 'Den'
+    LIVING_ROOM         = 'Living Room'
+    SHARED_LIVING_ROOM  = 'Shared Living Room'
+    SUNROOM             = 'Sunroom'
+    CLOSET              = 'Closet'
 
     ROOM_TYPES = (
         (UNKNOWN,            'Unknown'),
@@ -102,7 +102,7 @@ class Listing(models.Model):
     
     listing_title = models.CharField(max_length=70, blank=False)
 
-    room_type = models.CharField(max_length=4, choices=ROOM_TYPES, 
+    room_type = models.CharField(max_length=18, choices=ROOM_TYPES, 
                                  default=UNKNOWN)
     room_desc = models.CharField(max_length=1024, blank=False)
     is_furnished = models.BooleanField(blank=False)

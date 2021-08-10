@@ -1,25 +1,33 @@
-import logo from './logo.svg';
+import React, { useEffect, useState } from 'react';
 import './App.css';
+import Listings from './components/Listings';
+import DataLoading from './components/DataLoading';
 
 function App() {
+  const LoadListing = DataLoading(Listings);
+  const [appState, setAppState] = useState({
+      loading: false,
+      listings: null,
+  });
+
+  useEffect(() => {
+    setAppState({loading: true});
+    const apiURL = 'http://127.0.0.1:8000/api/listings/';
+    fetch(apiURL)
+        .then((data) => data.json())
+        .then((listings) => {
+          setAppState({loading: false, listings: listings})
+        }); 
+      }, [setAppState]);
+  
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <LoadListing 
+          isLoading={appState.loading} 
+          listings={appState.listings} 
+      />
     </div>
   );
 }
 
-export default App;
+export default App

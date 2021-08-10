@@ -16,9 +16,6 @@ class User(AbstractUser):
     email = models.EmailField(max_length=254, verbose_name="email address",
                               unique=True, blank=False)
     
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
-
     date_of_birth = models.DateField(blank=False)
     about_me = models.CharField(max_length=500, blank=False)
     
@@ -39,6 +36,18 @@ class User(AbstractUser):
     updated_at = models.DateTimeField(auto_now=True)
 
     objects = CustomUserManager()
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = [
+            'first_name', 
+            'last_name', 
+            'date_of_birth'
+            'about_me',
+            'current_city',
+            'current_province',
+            'is_lister',
+            'is_seeker',
+    ]
 
     def __str__(self):
         return self.email

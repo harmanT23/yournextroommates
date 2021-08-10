@@ -10,6 +10,7 @@ class CustomUserManager(BaseUserManager):
 
         extra_fields.setdefault('is_staff', False)
         extra_fields.setdefault('is_superuser', False)
+        extra_fields.setdefault('is_active', True)
         
         if email is None:
             raise ValueError(_('User must have email set'))
@@ -35,7 +36,6 @@ class CustomUserManager(BaseUserManager):
     def create_superuser(self, email, password, **extra_fields):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
-        extra_fields.setdefault('is_active', True)
         extra_fields.setdefault('first_name', 'Super')
         extra_fields.setdefault('last_name', 'User')
         extra_fields.setdefault('date_of_birth', timezone.now().date())
@@ -50,8 +50,6 @@ class CustomUserManager(BaseUserManager):
             raise ValueError(_('Superuser must have is_staff=True'))
         if extra_fields.get('is_superuser') is not True:
             raise ValueError(_('Superuser must have is_superuser=True'))
-        if extra_fields.get('is_active') is not True:
-            raise ValueError(_('Superuser must have is_active=True'))
         if extra_fields.get('is_lister') is not False:
             raise ValueError(_('Superuser must have is_vendor=False'))
         if extra_fields.get('is_seeker') is not False:

@@ -2,10 +2,11 @@ from typing import List
 from rest_framework import generics
 from roommates.models import Listing
 from django.contrib.auth import get_user_model
-from .serializers import ListingSerializer, UserSerializer
+from .serializers import ListingSerializer, UserSerializer,\
+                         RegisterUserSerializer
 from .permissions import IsListingOwnerOrReadOnly, IsUserOwnerOrReadOnly
-from rest_framework.permissions import DjangoModelPermissionsOrAnonReadOnly,\
-                                       IsAuthenticated
+from rest_framework.permissions import AllowAny,\
+                                       DjangoModelPermissionsOrAnonReadOnly
 
 User = get_user_model()
 
@@ -24,9 +25,9 @@ class ListingDetail(generics.RetrieveUpdateDestroyAPIView,
 
 
 class UserCreate(generics.CreateAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
     queryset = User.objects.all().order_by('id')
-    serializer_class = UserSerializer
+    serializer_class = RegisterUserSerializer
     
 
 class UserDetail(generics.RetrieveUpdateDestroyAPIView, IsUserOwnerOrReadOnly):

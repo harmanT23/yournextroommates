@@ -57,6 +57,14 @@ class ListingSerializer(serializers.ModelSerializer):
     
     def to_representation(self, instance):
         response = super().to_representation(instance)
-        response['poster'] = UserSerializer(instance.poster).data
+        response['poster'] = {
+                                'id': instance.poster.id,
+                                'first_name': instance.poster.first_name,
+                                'last_name': instance.poster.last_name,
+                                'profession': instance.poster.profession,
+                                'university': instance.poster.university,
+                                'university_major': 
+                                        instance.poster.university_major,
+                             }
         return response
         

@@ -20,4 +20,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('roommates.urls'), name='roommates'),
     path('api/', include('roommates_api.urls'), name='roommates_api'),
+    path('api-auth/', include('rest_framework.urls'), name='rest_framework'),
 ]

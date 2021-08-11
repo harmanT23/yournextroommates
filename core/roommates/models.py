@@ -17,7 +17,7 @@ class User(AbstractUser):
                               unique=True, blank=False)
     
     date_of_birth = models.DateField(blank=False)
-    about_me = models.CharField(max_length=500, blank=False)
+    about_me = models.CharField(max_length=500, blank=True)
     
     university = models.CharField(max_length=80, blank=True)
     university_major = models.CharField(max_length=50, blank=True)
@@ -29,8 +29,8 @@ class User(AbstractUser):
     current_city = models.CharField(max_length=32, blank=False)
     current_province = models.CharField(max_length=25, blank=False)
 
-    is_lister = models.BooleanField(blank=False)
-    is_seeker = models.BooleanField(blank=False)
+    is_lister = models.BooleanField(default=False, blank=True)
+    is_seeker = models.BooleanField(default=True, blank=True)
 
     created_at = models.DateTimeField(auto_now=True, editable=False)
     updated_at = models.DateTimeField(auto_now=True)
@@ -45,8 +45,6 @@ class User(AbstractUser):
             'about_me',
             'current_city',
             'current_province',
-            'is_lister',
-            'is_seeker',
     ]
 
     def __str__(self):

@@ -21,8 +21,6 @@ class RegisterUserSerializer(serializers.ModelSerializer):
                 'home_province',
                 'current_city',
                 'current_province',
-                'is_lister',
-                'is_seeker',
         )
         extra_kwargs = {'password' : {'write_only': True}}
 

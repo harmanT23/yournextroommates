@@ -1,10 +1,12 @@
 import React from 'react';
+import clsx from 'clsx';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
+import Collapse from '@material-ui/core/Collapse';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -13,9 +15,10 @@ import Container from '@material-ui/core/Container';
 import IconButton from '@material-ui/core/IconButton';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Avatar from '@material-ui/core/Avatar';
 import Checkbox from '@material-ui/core/Checkbox';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { red } from '@material-ui/core/colors';
 
 
@@ -26,6 +29,20 @@ const useStyles = makeStyles((theme) => ({
       padding: 0,
       listStyle: 'none',
     },
+  },
+  media: {
+    height: 0,
+    paddingTop: '56.25%', // 16:9
+  },
+  expand: {
+    transform: 'rotate(0deg)',
+    marginLeft: 'auto',
+    transition: theme.transitions.create('transform', {
+      duration: theme.transitions.duration.shortest,
+    }),
+  },
+  expandOpen: {
+    transform: 'rotate(180deg)',
   },
   icon: {
     marginRight: theme.spacing(2),
@@ -65,6 +82,13 @@ const useStyles = makeStyles((theme) => ({
 const Listings = (props) => {
   const { listings } = props;
   const classes = useStyles();
+  const [expanded, setExpanded] = React.useState(false);
+
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
+
+
   if (!listings || listings.length === 0) {
     return (
       <Typography variant="h5" align="center" color="textSecondary" paragraph>
@@ -90,8 +114,7 @@ const Listings = (props) => {
               Listings
             </Typography>
             <Typography variant="h5" align="center" color="textSecondary" paragraph>
-              View the latest or most popular listings in your city. We hope
-              you find your next roommates!
+            Browse the latest listings in your city to find YourNextRoommates!
             </Typography>
           </Container>
           </div>
@@ -128,6 +151,11 @@ const Listings = (props) => {
                       >
                       </Avatar>
                     }
+                    action={
+                      <IconButton aria-label="settings">
+                        <MoreVertIcon />
+                      </IconButton>
+                    }
                     title={list.listing_title}
                     subheader= {"Listed by " + list.poster.first_name + 
                                 " " + list.poster.last_name}
@@ -141,65 +169,39 @@ const Listings = (props) => {
                     <Typography gutterBottom variant="h5" component="h2">
                       { (list.address2 ? list.address2 + " - ":"") + list.address1}
                     </Typography>
-                    <Typography paragraph align="left">
-                      {list.room_desc}
+                    <Typography 
+                          component="" 
+                          variant="body1" 
+                          align="left"
+                        >
+                         <strong>{ "$" + list.rent_per_month}</strong> per month
                     </Typography>
-                    <ul>
-                      <Typography 
-                          component="li" 
-                          variant="subtitle1" 
+                    <Typography 
+                          component="" 
+                          variant="body2" 
                           align="left"
                         >
-                          <FormControlLabel
-                            control={
-                              <Checkbox
-                                checked = {list.is_furnished}
-                              />
-                            }
-                            label="Furnished"
-                            labelPlacement="start"
-                          />
-                        </Typography>
-                        <Typography 
-                          component="li" 
-                          variant="subtitle1" 
-                          align="left"
-                        >
-                          Room Type: {list.room_type}
-                        </Typography>
-                        <Typography 
-                          component="li" 
-                          variant="subtitle1" 
-                          align="left"
-                        >
-                          Number of current tenants: {list.number_of_residents}
-                        </Typography>
-                        <Typography 
-                          component="li" 
-                          variant="subtitle1" 
-                          align="left"
-                        >
-                          Rent: <strong>{ "$" + list.rent_per_month}</strong> 
-                            /month
-                        </Typography>
-                        <Typography 
-                          component="li" 
-                          variant="subtitle1" 
-                          align="left"
-                        >
-                          Extra expenses: <strong>{"$" + 
-                                  list.extra_expenses_per_month}</strong> 
-                            /month
-                        </Typography>
-                        <Typography 
-                          component="li" 
-                          variant="subtitle1" 
-                          align="left"
-                        >
-                          Earliest move-in date: <strong>
-                                {list.earliest_move_in_date}</strong>
-                        </Typography>
-                    </ul>
+                          {list.room_type}
+                  </Typography>
+                  <Typography 
+                        component="" 
+                        variant="body2" 
+                        align="left"
+                      >
+                        Earliest move-in date <strong>
+                              {list.earliest_move_in_date}</strong>
+                  </Typography>
+                  <Typography 
+                        component="" 
+                        variant="body2" 
+                        align="left"
+                      >
+                    
+                      Furnished
+                      <Checkbox
+                        checked = {list.is_furnished}
+                      />
+                  </Typography> 
                   </CardContent>
                   <CardActions disableSpacing>
                     <Button size="small" color="primary">
@@ -211,7 +213,47 @@ const Listings = (props) => {
                     <IconButton aria-label="share">
                       <ShareIcon />
                     </IconButton>
+                    <IconButton
+                      className={clsx(classes.expand, {
+                        [classes.expandOpen]: expanded,
+                      })}
+                      onClick={handleExpandClick}
+                      aria-expanded={expanded}
+                      aria-label="show more"
+                    >
+                      <ExpandMoreIcon />
+                    </IconButton>
                   </CardActions>
+                  <Collapse in={expanded} timeout="auto" unmountOnExit>
+                    <CardContent>
+                    <ul>
+                      <Typography 
+                        paragraph 
+                        align="left"
+                        component="" 
+                        variant="body1" 
+                      >
+                        {list.room_desc}
+                      </Typography>
+                      <Typography 
+                        component="li" 
+                        variant="body2" 
+                        align="left"
+                      >
+                        Number of current tenants: {list.number_of_residents}
+                      </Typography>
+                      <Typography 
+                        component="li" 
+                        variant="body2" 
+                        align="left"
+                      >
+                        Extra expenses: <strong>{"$" + 
+                                list.extra_expenses_per_month}</strong> 
+                          /month
+                      </Typography>
+                    </ul>
+                    </CardContent>
+                  </Collapse>
                 </Card>
               </Grid>
             ))}

@@ -1,5 +1,6 @@
 from django.urls import path
-from .views import ListingList, ListingDetail, UserCreate, UserDetail
+from .views import ListingList, ListingDetail, UserCreate, UserDetail,\
+    BlackListTokenView
 
 app_name = 'roommates_api'
 
@@ -13,4 +14,7 @@ urlpatterns = [
     # Read, update or delete a specific user
     path('users/<int:pk>/', UserDetail.as_view(), name='detailUser'),
     # Create a landing page for API 
+
+    # Endpoint to blacklist user's refresh token
+    path('logout/blacklist/', BlackListTokenView.as_view(), name='blacklistToken')
 ]

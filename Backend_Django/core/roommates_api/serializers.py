@@ -33,10 +33,8 @@ class RegisterUserSerializer(serializers.ModelSerializer):
         return instance
 
 class UserSerializer(serializers.ModelSerializer):
-    listings = serializers.PrimaryKeyRelatedField(
-                many=False,
-                read_only=True,
-               )
+    listings = serializers.PrimaryKeyRelatedField(many=False,
+                                                  read_only=True,)
     class Meta:
         model = User
         fields = (

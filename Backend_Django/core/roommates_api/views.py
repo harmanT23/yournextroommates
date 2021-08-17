@@ -1,16 +1,19 @@
-from roommates.models import Listing
-from .serializers import CreateListingSerializer, ListingSerializer,\
-                         UserSerializer,\
-                         RegisterUserSerializer
-from .permissions import IsListingOwnerOrReadOnly, IsUserOwnerOrReadOnly
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
 from rest_framework import status, viewsets, mixins
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.permissions import AllowAny, IsAuthenticated,\
-     IsAuthenticatedOrReadOnly
+from rest_framework.permissions import AllowAny, IsAuthenticatedOrReadOnly
 from rest_framework_simplejwt.tokens import RefreshToken
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import filters
+from roommates.models import Listing
+from .serializers import CreateListingSerializer,\
+                         ListingSerializer,\
+                         UserSerializer,\
+                         RegisterUserSerializer
+from .permissions import IsListingOwnerOrReadOnly, IsUserOwnerOrReadOnly
+from .filters import ListingFilter
 
 
 User = get_user_model()
@@ -18,10 +21,24 @@ User = get_user_model()
 
 # Endpoint for displaying all listings and creating new ones
 class ListingViewset(viewsets.ModelViewSet):
+    '''
+       Defines an endpoint for listing, viewing, retrieving, updating and
+       destroying listings 
+    '''
     serializers = {
         'create': CreateListingSerializer,
         'default': ListingSerializer,
     }
+
+    filter_backends = [DjangoFilterBackend, 
+                       filters.SearchFilter, 
+                       filters.OrderingFilter]
+                       
+    filterset_class = ListingFilter
+    search_fields = ['city']
+    ordering_fields = ['rent_per_month', 
+                       'length_of_lease', 
+                       'earliest_move_in_date']
         
     def get_serializer_class(self):
         return self.serializers.get(self.action, self.serializers['default'])
@@ -38,7 +55,7 @@ class ListingViewset(viewsets.ModelViewSet):
         
     def get_queryset(self):
         return Listing.objects.all().order_by('id')
-    
+
     def get_object(self, queryset=None, **kwargs):
         title_ = self.kwargs.get('pk')
         return get_object_or_404(Listing, slug=title_)
@@ -48,6 +65,7 @@ class UserViewset(mixins.CreateModelMixin,
                   mixins.UpdateModelMixin,
                   mixins.DestroyModelMixin,
                   viewsets.GenericViewSet):
+
     serializers = {
         'create': RegisterUserSerializer,
         'default': UserSerializer,
@@ -67,7 +85,7 @@ class UserViewset(mixins.CreateModelMixin,
         return super(UserViewset, self).get_permissions()
     
     def get_queryset(self):
-        return User.objects.all().order_by('id')
+        return User.objects.all().order_by('id').filter(id=self.id)
     
     def get_object(self, queryset=None, **kwargs):
         pk_ = self.kwargs.get('pk')

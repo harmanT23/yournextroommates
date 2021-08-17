@@ -27,9 +27,9 @@ urlpatterns = [
     path('api/', include('roommates_api.urls'), name='roommates_api'),
     path('api-auth/', include('rest_framework.urls'), name='rest_framework'),
     path('', include('roommates.urls'), name='roommates'),
-    path('docs/', include_docs_urls(title='YNR API')),
+    path('docs/', include_docs_urls(title='YourNextRoommates API')),
     path('openapi', get_schema_view(
-        title='YourNextRoommatesAPI',
+        title='YourNextRoommates API',
         description='API for the YourNextRoommates web application',
         version='1.0.0'
     ), name='openapi-schema'),

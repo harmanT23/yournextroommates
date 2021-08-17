@@ -5,7 +5,7 @@ from .serializers import CreateListingSerializer, ListingSerializer,\
 from .permissions import IsListingOwnerOrReadOnly, IsUserOwnerOrReadOnly
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
-from rest_framework import status, viewsets
+from rest_framework import status, viewsets, mixins
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny, IsAuthenticated,\
@@ -43,7 +43,11 @@ class ListingViewset(viewsets.ModelViewSet):
         title_ = self.kwargs.get('pk')
         return get_object_or_404(Listing, slug=title_)
     
-class UserViewset(viewsets.ModelViewSet):
+class UserViewset(mixins.CreateModelMixin,
+                  mixins.RetrieveModelMixin,
+                  mixins.UpdateModelMixin,
+                  mixins.DestroyModelMixin,
+                  viewsets.GenericViewSet):
     serializers = {
         'create': RegisterUserSerializer,
         'default': UserSerializer,
@@ -58,8 +62,6 @@ class UserViewset(viewsets.ModelViewSet):
         '''
         if self.action == 'create':
             self.permission_classes = [AllowAny]
-        elif self.action == 'list':
-            self.permission_classes = [IsAuthenticated]
         else:
             self.permission_classes = [IsUserOwnerOrReadOnly]
         return super(UserViewset, self).get_permissions()
@@ -71,10 +73,6 @@ class UserViewset(viewsets.ModelViewSet):
         pk_ = self.kwargs.get('pk')
         return get_object_or_404(User, pk=pk_)
     
-    # Disable being able to list a set of users
-    def list(self, request):
-        return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
-
 class BlackListTokenView(APIView):
     permission_classes = [AllowAny]
 

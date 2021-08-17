@@ -33,5 +33,4 @@ urlpatterns = [
         description='API for the YourNextRoommates web application',
         version='1.0.0'
     ), name='openapi-schema'),
-
 ]

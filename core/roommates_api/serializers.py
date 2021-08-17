@@ -59,7 +59,7 @@ class UserSerializer(serializers.ModelSerializer):
         )
 
 
-class ListingSerializer(serializers.ModelSerializer):
+class CreateListingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Listing
         fields = (
@@ -70,6 +70,35 @@ class ListingSerializer(serializers.ModelSerializer):
             'room_desc',
             'is_furnished',
             'number_of_residents',
+            'length_of_lease',
+            'rent_per_month',
+            'extra_expenses_per_month',
+            'address1',
+            'address2',
+            'postal_code',
+            'city',
+            'province',
+            'earliest_move_in_date',
+        )
+    
+    def to_representation(self, instance):
+        response = super().to_representation(instance)
+        response['poster'] = { 'id': instance.poster.id, }
+        return response
+
+class ListingSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Listing
+        fields = (
+            'id',
+            'poster',
+            'slug',
+            'listing_title',
+            'room_type',
+            'room_desc',
+            'is_furnished',
+            'number_of_residents',
+            'length_of_lease',
             'rent_per_month',
             'extra_expenses_per_month',
             'address1',
@@ -94,4 +123,3 @@ class ListingSerializer(serializers.ModelSerializer):
                                         instance.poster.university_major,
                              }
         return response
-        

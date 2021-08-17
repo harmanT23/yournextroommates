@@ -1,8 +1,11 @@
+from .managers import CustomUserManager
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.template.defaultfilters import slugify
+from django.utils.crypto import get_random_string
 from django.utils import timezone
 from datetime import timedelta
-from .managers import CustomUserManager
+
 
 def upload_user_profile_image(instance, filename):
     ext = filename.split('.')[-1]
@@ -49,7 +52,7 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.email
-
+    
 class UserProfileImage(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, blank=False)
     profile_picture = models.ImageField(upload_to=upload_user_profile_image, 
@@ -108,6 +111,7 @@ class Listing(models.Model):
                                   related_name='listings')
     
     listing_title = models.CharField(max_length=70, blank=False)
+    slug = models.SlugField(max_length=250, unique=True)
 
     room_type = models.CharField(max_length=18, choices=ROOM_TYPES, 
                                  default=UNKNOWN)
@@ -117,6 +121,7 @@ class Listing(models.Model):
     number_of_residents = models.PositiveIntegerField(blank=False)
     rent_per_month = models.DecimalField(max_digits=7, decimal_places=2, 
                                          blank=False)
+    length_of_lease = models.PositiveIntegerField(blank=False)
     extra_expenses_per_month = models.DecimalField(max_digits=6, 
                                                    decimal_places=2)
 
@@ -136,6 +141,17 @@ class Listing(models.Model):
 
     objects = models.Manager() # default manager
     listingobjects = ListingObjects() # custom manager for valid listings
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            slug_str = '%s %s %s' % (self.city, self.listing_title, 
+                                     get_random_string(4))
+            self.slug = slugify(slug_str)
+        super(Listing, self).save(*args, **kwargs)
+
+
+    def __str__(self):
+        return self.listing_title
 
 
 def upload_listing_gallery_image(instance, filename):

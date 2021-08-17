@@ -17,6 +17,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Link from '@material-ui/core/Link';
 import Avatar from '@material-ui/core/Avatar';
 import Checkbox from '@material-ui/core/Checkbox';
 import { red } from '@material-ui/core/colors';
@@ -72,6 +73,9 @@ const useStyles = makeStyles((theme) => ({
   avatar: {
     backgroundColor: red[500],
   },
+  link: {
+		margin: theme.spacing(1, 1.5),
+	},
   footer: {
     backgroundColor: theme.palette.background.paper,
     padding: theme.spacing(6),
@@ -101,7 +105,6 @@ const Listings = (props) => {
     <React.Fragment>
       <CssBaseline />
       <main>
-        {/* Hero unit */}
         <div className={classes.heroContent}>
           <Container maxWidth="sm">
             <Typography 
@@ -137,11 +140,16 @@ const Listings = (props) => {
           </Container>
         </div>
         <Container className={classes.cardGrid} maxWidth="md">
-          {/* End hero unit */}
           <Grid container spacing={4}>
             {listings.map((list) => (
               <Grid item key={list.id} xs={12} sm={6} md={4}>
                 <Card className={classes.card}>
+                <Link
+                    color="textPrimary"
+                    href={'listings/' + list.slug}
+                    className={classes.Link}
+                >
+                  
                 <CardHeader
                     avatar={
                       <Avatar 
@@ -160,6 +168,7 @@ const Listings = (props) => {
                     subheader= {"Listed by " + list.poster.first_name + 
                                 " " + list.poster.last_name}
                   />
+                  </Link>
                   <CardMedia
                     className={classes.cardMedia}
                     image="https://source.unsplash.com/random/320x180/?condo"

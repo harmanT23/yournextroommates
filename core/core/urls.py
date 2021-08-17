@@ -15,16 +15,23 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from rest_framework_simplejwt.views import (
-    TokenObtainPairView,
-    TokenRefreshView,
-)
+from rest_framework_simplejwt.views import TokenObtainPairView,\
+                                           TokenRefreshView
+from rest_framework.schemas import get_schema_view
+from rest_framework.documentation import include_docs_urls
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('roommates.urls'), name='roommates'),
-    path('api/', include('roommates_api.urls'), name='roommates_api'),
-    path('api-auth/', include('rest_framework.urls'), name='rest_framework'),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('admin/', admin.site.urls),
+    path('api/', include('roommates_api.urls'), name='roommates_api'),
+    path('api-auth/', include('rest_framework.urls'), name='rest_framework'),
+    path('', include('roommates.urls'), name='roommates'),
+    path('docs/', include_docs_urls(title='YNR API')),
+    path('openapi', get_schema_view(
+        title='YourNextRoommatesAPI',
+        description='API for the YourNextRoommates web application',
+        version='1.0.0'
+    ), name='openapi-schema'),
+
 ]

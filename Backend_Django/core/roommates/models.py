@@ -113,11 +113,15 @@ class Listing(models.Model):
     listing_title = models.CharField(max_length=70, blank=False)
     slug = models.SlugField(max_length=250, unique=True)
 
+    room_desc = models.CharField(max_length=1024, blank=False)
+
     room_type = models.CharField(max_length=18, choices=ROOM_TYPES, 
                                  default=UNKNOWN)
-    room_desc = models.CharField(max_length=1024, blank=False)
     is_furnished = models.BooleanField(blank=False)
-    
+    is_air_conditioned = models.BooleanField(blank=False)
+    is_laundry_ensuite = models.BooleanField(blank=False)
+    number_of_bathrooms = models.PositiveIntegerField(blank=False)
+
     number_of_residents = models.PositiveIntegerField(blank=False)
     rent_per_month = models.DecimalField(max_digits=7, decimal_places=2, 
                                          blank=False)

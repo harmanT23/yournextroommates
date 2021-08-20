@@ -1,11 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import axiosInstance from '../Axios';
 import { useParams } from 'react-router-dom';
-//MaterialUI
+//Material UI
+import Avatar from '@material-ui/core/Avatar';
+import Button from '@material-ui/core/Button';
+import Box from '@material-ui/core/Box';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
+import SingleBedIcon from '@material-ui/icons/SingleBed';
+import EventSeatIcon from '@material-ui/icons/EventSeat';
+import LocalLaundryServiceIcon from '@material-ui/icons/LocalLaundryService';
+import AcUnitIcon from '@material-ui/icons/AcUnit';
+import BathtubIcon from '@material-ui/icons/Bathtub';
+import PeopleIcon from '@material-ui/icons/People';
+import EventIcon from '@material-ui/icons/Event';
+import PaymentIcon from '@material-ui/icons/Payment';
+import ReceiptIcon from '@material-ui/icons/Receipt';
+import SchoolIcon from '@material-ui/icons/School';
+import WorkIcon from '@material-ui/icons/Work';
+import { red } from '@material-ui/core/colors';
 
 const useStyles = makeStyles((theme) => ({
 	paper: {
@@ -14,16 +31,34 @@ const useStyles = makeStyles((theme) => ({
 		flexDirection: 'column',
 		alignItems: 'center',
 	},
+	wrapIcon: {
+		display: 'flex',
+		alignItems: 'center',
+		flexWrap: 'wrap',
+	},
+	avatar: {
+    backgroundColor: red[500],
+  },
+	heroButtons: {
+    marginTop: theme.spacing(0),
+  },
+	box: {
+		height: 100,
+		display: "flex",
+		border: "1px solid black",
+		padding: 8
+	},
 }));
 
-export default function Post() {
+function SingleListing() {
 	const { slug } = useParams();
 	const classes = useStyles();
 
 	const [data, setData] = useState({ listings: [] });
 
 	useEffect(() => {
-		axiosInstance.get(slug).then((res) => {
+		const listingSlug = 'listings/' + slug;
+		axiosInstance.get(listingSlug).then((res) => {
 			setData({ listings: res.data });
 			console.log(res.data);
 		});
@@ -34,26 +69,236 @@ export default function Post() {
 			<CssBaseline />
 			<div className={classes.paper}></div>
 			<div className={classes.heroContent}>
-				<Container maxWidth="sm">
+				<Container maxWidth="md">
 					<Typography
-						component="h1"
-						variant="h2"
-						align="center"
+						variant="h4"
+						align="left"
 						color="textPrimary"
 						gutterBottom
 					>
-						{data.listings.title}
+						{data.listings.listing_title}
 					</Typography>
-					<Typography
-						variant="h5"
-						align="center"
-						color="textSecondary"
-						paragraph
-					>
-						{data.listings.title}
-					</Typography>
+				</Container>
+				<Container maxWidth="md">
+					<Grid container spacing={1}>
+						<Grid item xs={12} sm={6} md={4}>
+							<Typography
+								variant="h6"
+								align="left"
+								color="textPrimary"
+								gutterBottom
+							>
+								About this listing
+							</Typography>
+							<Divider />
+							<Typography
+								variant="body1"
+								align="left"
+								color="textSecondary"
+								gutterBottom
+							>
+								{data.listings.room_desc}
+							</Typography>
+						</Grid>
+					</Grid>
+					<Grid container spacing={1}>
+						<Grid item xs={12} sm={6} md={4}>
+							<Typography
+								variant="h6"
+								align="left"
+								color="textPrimary"
+								gutterBottom
+							>
+								Where you'll sleep
+							</Typography>
+							<Divider />
+							<Typography
+								variant="body1"
+								align="left"
+								color="textSecondary"
+								className={classes.wrapIcon}
+							>
+								<SingleBedIcon /> {data.listings.room_type}
+							</Typography>
+						</Grid>
+					</Grid>
+					<Grid container spacing={1}>
+						<Grid item xs={12} sm={6} md={4}>
+							<Typography
+								variant="h6"
+								align="left"
+								color="textPrimary"
+								gutterBottom
+							>
+								Where you'll be located
+							</Typography>
+							<Divider />
+							<Typography
+								variant="body1"
+								align="left"
+								color="textSecondary"
+								className={classes.wrapIcon}
+							>
+								{ (data.listings.address2 ? data.listings.address2 + " - ":"") + data.listings.address1 + ", " + data.listings.city + ", " + data.listings.province}
+							</Typography>
+						</Grid>
+					</Grid>
+					<Grid container spacing={1}>
+						<Grid item xs={12} sm={6} md={4}>
+							<Typography
+								variant="h6"
+								align="left"
+								color="textPrimary"
+								gutterBottom
+							>
+								The Space
+							</Typography>
+							<Divider />
+							<Typography
+								variant="body1"
+								align="left"
+								color="textSecondary"
+								className={classes.wrapIcon}
+							>
+								<EventSeatIcon /> {data.listings.is_furnished} Furnished
+							</Typography>
+							<Typography
+								variant="body1"
+								align="left"
+								color="textSecondary"
+								className={classes.wrapIcon}
+							>
+								<LocalLaundryServiceIcon /> {data.listings.is_laundry_ensuite} Ensuite Laundry 								
+							</Typography>
+							<Typography
+								variant="body1"
+								align="left"
+								color="textSecondary"
+								className={classes.wrapIcon}
+							>
+								<AcUnitIcon /> {data.listings.is_air_conditioned} Air Conditioning 								
+							</Typography>
+							<Typography
+								variant="body1"
+								align="left"
+								color="textSecondary"
+								className={classes.wrapIcon}
+							>
+								<BathtubIcon /> {data.listings.number_of_bathrooms} Bathrooms							
+							</Typography>
+							<Typography
+								variant="body1"
+								align="left"
+								color="textSecondary"
+								className={classes.wrapIcon}
+							>
+								<PeopleIcon /> {data.listings.number_of_residents} {data.listings.number_of_residents > 1 ? "Roommates" : "Roommate"}
+							</Typography>
+						</Grid>
+					</Grid>
+					<Grid container spacing={1}>
+						<Grid item xs={12} sm={6} md={4}>
+							<Typography
+								variant="h6"
+								align="left"
+								color="textPrimary"
+								gutterBottom
+							>
+								Important Details
+							</Typography>
+							<Divider />
+							<Typography
+								variant="body1"
+								align="left"
+								color="textSecondary"
+								className={classes.wrapIcon}
+							>
+								<EventIcon /> Earliest Move-In Date - {data.listings.earliest_move_in_date}
+							</Typography>
+							<Typography
+								variant="body1"
+								align="left"
+								color="textSecondary"
+								className={classes.wrapIcon}
+							>
+								<PaymentIcon /> Monthly Rent ${data.listings.rent_per_month}
+							</Typography>
+							<Typography
+								variant="body1"
+								align="left"
+								color="textSecondary"
+								className={classes.wrapIcon}
+							>
+								<ReceiptIcon /> Additional Monthly Expenses ${data.listings.extra_expenses_per_month}
+							</Typography>
+						</Grid>
+					</Grid>
+					<Grid container spacing={1}>
+						<Grid item xs={12} sm={6} md={4}>
+								<Typography
+										variant="h6"
+										align="left"
+										color="textPrimary"
+										gutterBottom
+									>
+										Your Roommate
+								</Typography>
+								<Divider />
+								<Avatar 
+									alt={data.listings.poster ? data.listings.poster.first_name + 
+										" " + data.listings.poster.last_name : ""}
+									className={classes.avatar}
+									src="https://source.unsplash.com/random/100x100/?person" 
+								>
+								</Avatar>
+									<Typography
+									variant="body1"
+									align="left"
+									color="textPrimary"
+									className={classes.wrapIcon}
+								>
+									{data.listings.poster ? data.listings.poster.first_name + 
+                                " " + data.listings.poster.last_name: ""}
+								</Typography>
+								<Typography
+									variant="body1"
+									align="left"
+									color="textPrimary"
+									className={classes.wrapIcon}
+								>
+									<SchoolIcon />
+									{data.listings.poster ? data.listings.poster.university_major + 
+                                ", " + data.listings.poster.university: ""}
+								</Typography>
+								<Typography
+									variant="body1"
+									align="left"
+									color="textPrimary"
+									className={classes.wrapIcon}
+								>
+									<WorkIcon />
+									{data.listings.poster ? data.listings.poster.profession : ""}
+								</Typography>
+								<div className={classes.heroButtons}>
+									<Box component="span" m={0}>
+										<Button size="small" variant="contained" color="primary">
+											View Profile
+										</Button>
+									</Box>
+									<Box component="span" m={1}>
+										<Button size="small" variant="contained" color="primary">
+											Contact
+										</Button>
+									</Box>
+									
+
+            		</div>
+						</Grid>
+					</Grid>
 				</Container>
 			</div>
 		</Container>
 	);
 }
+
+export default SingleListing;

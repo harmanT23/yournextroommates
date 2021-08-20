@@ -23,7 +23,7 @@ const routing = (
           <Route path="/register" component={Register} />
           <Route path="/login" component={Login} />
           <Route path="/logout" component={Logout} />
-          <Route path="/listing/:slug" component={SingleListing} />
+          <Route path="/listings/:slug" component={SingleListing} />
         </Switch>
         <Footer />
       </React.StrictMode>

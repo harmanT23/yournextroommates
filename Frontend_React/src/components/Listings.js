@@ -1,5 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
+// Material UI
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -80,6 +81,11 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
     padding: theme.spacing(6),
   },
+  wrapIcon: {
+		display: 'flex',
+		alignItems: 'center',
+		flexWrap: 'wrap',
+	},
 }));
 
 
@@ -149,11 +155,10 @@ const Listings = (props) => {
                     href={'listings/' + list.slug}
                     className={classes.Link}
                 >
-                  
                 <CardHeader
                     avatar={
                       <Avatar 
-                        alt={list.poster.first_name + " " + list.poster.first_name}
+                        alt={list.poster.first_name + " " + list.poster.last_name}
                         className={classes.avatar}
                         src="https://source.unsplash.com/random/100x100/?person" 
                       >
@@ -189,21 +194,30 @@ const Listings = (props) => {
                           component="" 
                           variant="body2" 
                           align="left"
-                        >
-                          {list.room_type}
-                  </Typography>
-                  <Typography 
+                    >
+                      {list.room_type}
+                    </Typography>
+                    <Typography 
+                        component="" 
+                        variant="body2" 
+                        align="left"
+                    >
+                        Earliest move-in date <strong>
+                              {list.earliest_move_in_date}</strong>
+                    </Typography>
+                    <Typography 
                         component="" 
                         variant="body2" 
                         align="left"
                       >
-                        Earliest move-in date <strong>
-                              {list.earliest_move_in_date}</strong>
+                        Lease duration <strong>
+                              {list.length_of_lease} months</strong> 
                   </Typography>
                   <Typography 
                         component="" 
                         variant="body2" 
                         align="left"
+                        className={classes.wrapIcon}
                       >
                     
                       Furnished

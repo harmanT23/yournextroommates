@@ -65,11 +65,11 @@ function SingleListing() {
 	}, [setData, slug]);
 
 	return (
-		<Container component="main" maxWidth="md">
+		<Container component="main" maxWidth="xl">
 			<CssBaseline />
 			<div className={classes.paper}></div>
 			<div className={classes.heroContent}>
-				<Container maxWidth="md">
+				<Container maxWidth="xl">
 					<Typography
 						variant="h4"
 						align="left"
@@ -79,7 +79,7 @@ function SingleListing() {
 						{data.listings.listing_title}
 					</Typography>
 				</Container>
-				<Container maxWidth="md">
+				<Container maxWidth="xl">
 					<Grid container spacing={1}>
 						<Grid item xs={12} sm={6} md={4}>
 							<Typography
@@ -118,7 +118,7 @@ function SingleListing() {
 								color="textSecondary"
 								className={classes.wrapIcon}
 							>
-								<SingleBedIcon /> {data.listings.room_type}
+								<SingleBedIcon/> {data.listings.room_type}
 							</Typography>
 						</Grid>
 					</Grid>
@@ -137,7 +137,6 @@ function SingleListing() {
 								variant="body1"
 								align="left"
 								color="textSecondary"
-								className={classes.wrapIcon}
 							>
 								{ (data.listings.address2 ? data.listings.address2 + " - ":"") + data.listings.address1 + ", " + data.listings.city + ", " + data.listings.province}
 							</Typography>
@@ -154,43 +153,52 @@ function SingleListing() {
 								The Space
 							</Typography>
 							<Divider />
+							{data.listings.is_furnished && 
+								<Typography
+									variant="body1"
+									align="left"
+									color="textSecondary"
+									className={classes.wrapIcon}
+								>
+									<EventSeatIcon /> Furnished
+								</Typography>
+							}
+							{data.listings.is_laundry_ensuite &&
+								<Typography
+									variant="body1"
+									align="left"
+									color="textSecondary"
+									className={classes.wrapIcon}
+								>
+									<LocalLaundryServiceIcon /> Ensuite Laundry 								
+								</Typography>
+							}
+							{data.listings.is_air_conditioned &&
+								<Typography
+									variant="body1"
+									align="left"
+									color="textSecondary"
+									className={classes.wrapIcon}
+								>
+									<AcUnitIcon /> Air Conditioning 								
+								</Typography>
+							}
+							{data.listings.number_of_bathrooms > 0 && 
+								<Typography
+									variant="body1"
+									align="left"
+									color="textSecondary"
+									className={classes.wrapIcon}
+								>
+									<BathtubIcon /> {data.listings.number_of_bathrooms} {data.listings.number_of_bathrooms > 1 ? "Bathrooms" : "Bathroom"}							
+								</Typography>
+							}
 							<Typography
 								variant="body1"
 								align="left"
 								color="textSecondary"
 								className={classes.wrapIcon}
-							>
-								<EventSeatIcon /> {data.listings.is_furnished} Furnished
-							</Typography>
-							<Typography
-								variant="body1"
-								align="left"
-								color="textSecondary"
-								className={classes.wrapIcon}
-							>
-								<LocalLaundryServiceIcon /> {data.listings.is_laundry_ensuite} Ensuite Laundry 								
-							</Typography>
-							<Typography
-								variant="body1"
-								align="left"
-								color="textSecondary"
-								className={classes.wrapIcon}
-							>
-								<AcUnitIcon /> {data.listings.is_air_conditioned} Air Conditioning 								
-							</Typography>
-							<Typography
-								variant="body1"
-								align="left"
-								color="textSecondary"
-								className={classes.wrapIcon}
-							>
-								<BathtubIcon /> {data.listings.number_of_bathrooms} Bathrooms							
-							</Typography>
-							<Typography
-								variant="body1"
-								align="left"
-								color="textSecondary"
-								className={classes.wrapIcon}
+								justifyContent={'space-evenly'}
 							>
 								<PeopleIcon /> {data.listings.number_of_residents} {data.listings.number_of_residents > 1 ? "Roommates" : "Roommate"}
 							</Typography>
@@ -213,7 +221,7 @@ function SingleListing() {
 								color="textSecondary"
 								className={classes.wrapIcon}
 							>
-								<EventIcon /> Earliest Move-In Date - {data.listings.earliest_move_in_date}
+								<EventIcon /> Earliest Move-In Date  {data.listings.earliest_move_in_date}
 							</Typography>
 							<Typography
 								variant="body1"
@@ -229,7 +237,7 @@ function SingleListing() {
 								color="textSecondary"
 								className={classes.wrapIcon}
 							>
-								<ReceiptIcon /> Additional Monthly Expenses ${data.listings.extra_expenses_per_month}
+								<ReceiptIcon /> Extra Monthly Expenses ${data.listings.extra_expenses_per_month}
 							</Typography>
 						</Grid>
 					</Grid>
@@ -290,8 +298,6 @@ function SingleListing() {
 											Contact
 										</Button>
 									</Box>
-									
-
             		</div>
 						</Grid>
 					</Grid>

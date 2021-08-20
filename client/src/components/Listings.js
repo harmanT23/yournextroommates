@@ -170,8 +170,7 @@ const Listings = (props) => {
                       </IconButton>
                     }
                     title={list.listing_title}
-                    subheader= {"Listed by " + list.poster.first_name + 
-                                " " + list.poster.last_name}
+                    subheader= {"Listed by " + list.poster.first_name}
                   />
                   </Link>
                   <CardMedia

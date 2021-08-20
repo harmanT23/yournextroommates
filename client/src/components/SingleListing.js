@@ -37,6 +37,7 @@ const useStyles = makeStyles((theme) => ({
 		flexWrap: 'wrap',
 	},
 	avatar: {
+		marginTop: 6,
     backgroundColor: red[500],
   },
 	heroButtons: {
@@ -242,7 +243,7 @@ function SingleListing() {
 						</Grid>
 					</Grid>
 					<Grid container spacing={1}>
-						<Grid item xs={12} sm={6} md={4}>
+						<Grid item xs={12} sm={6} md={5}>
 								<Typography
 										variant="h6"
 										align="left"
@@ -251,11 +252,12 @@ function SingleListing() {
 									>
 										Your Roommate
 								</Typography>
-								<Divider />
+								<Divider styles={{padding: '10px'}}/>
 								<Avatar 
 									alt={data.listings.poster ? data.listings.poster.first_name + 
 										" " + data.listings.poster.last_name : ""}
 									className={classes.avatar}
+									variant='square'
 									src="https://source.unsplash.com/random/100x100/?person" 
 								>
 								</Avatar>
@@ -276,7 +278,7 @@ function SingleListing() {
 								>
 									<SchoolIcon /> <span> &nbsp; </span> 
 									{data.listings.poster ? data.listings.poster.university_major + 
-                                ", " + data.listings.poster.university: ""}
+                                " @ " + data.listings.poster.university: ""}
 								</Typography>
 								<Typography
 									variant="body1"

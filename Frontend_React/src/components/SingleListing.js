@@ -118,7 +118,7 @@ function SingleListing() {
 								color="textSecondary"
 								className={classes.wrapIcon}
 							>
-								<SingleBedIcon/> {data.listings.room_type}
+								<SingleBedIcon/> <span> &nbsp; </span>  {data.listings.room_type}
 							</Typography>
 						</Grid>
 					</Grid>
@@ -160,7 +160,7 @@ function SingleListing() {
 									color="textSecondary"
 									className={classes.wrapIcon}
 								>
-									<EventSeatIcon /> Furnished
+									<EventSeatIcon /> <span> &nbsp; </span>  Furnished
 								</Typography>
 							}
 							{data.listings.is_laundry_ensuite &&
@@ -170,7 +170,7 @@ function SingleListing() {
 									color="textSecondary"
 									className={classes.wrapIcon}
 								>
-									<LocalLaundryServiceIcon /> Ensuite Laundry 								
+									<LocalLaundryServiceIcon /> <span> &nbsp; </span>  Ensuite Laundry 								
 								</Typography>
 							}
 							{data.listings.is_air_conditioned &&
@@ -180,7 +180,7 @@ function SingleListing() {
 									color="textSecondary"
 									className={classes.wrapIcon}
 								>
-									<AcUnitIcon /> Air Conditioning 								
+									<AcUnitIcon /> <span> &nbsp; </span>  Air Conditioning 								
 								</Typography>
 							}
 							{data.listings.number_of_bathrooms > 0 && 
@@ -190,7 +190,7 @@ function SingleListing() {
 									color="textSecondary"
 									className={classes.wrapIcon}
 								>
-									<BathtubIcon /> {data.listings.number_of_bathrooms} {data.listings.number_of_bathrooms > 1 ? "Bathrooms" : "Bathroom"}							
+									<BathtubIcon /> <span> &nbsp; </span>  {data.listings.number_of_bathrooms} {data.listings.number_of_bathrooms > 1 ? "Bathrooms" : "Bathroom"}							
 								</Typography>
 							}
 							<Typography
@@ -200,7 +200,7 @@ function SingleListing() {
 								className={classes.wrapIcon}
 								justifyContent={'space-evenly'}
 							>
-								<PeopleIcon /> {data.listings.number_of_residents} {data.listings.number_of_residents > 1 ? "Roommates" : "Roommate"}
+								<PeopleIcon /> <span> &nbsp; </span> {data.listings.number_of_residents} {data.listings.number_of_residents > 1 ? "Roommates" : "Roommate"}
 							</Typography>
 						</Grid>
 					</Grid>
@@ -221,7 +221,7 @@ function SingleListing() {
 								color="textSecondary"
 								className={classes.wrapIcon}
 							>
-								<EventIcon /> Earliest Move-In Date  {data.listings.earliest_move_in_date}
+								<EventIcon /> <span> &nbsp; </span> Earliest Move-In Date  {data.listings.earliest_move_in_date}
 							</Typography>
 							<Typography
 								variant="body1"
@@ -229,7 +229,7 @@ function SingleListing() {
 								color="textSecondary"
 								className={classes.wrapIcon}
 							>
-								<PaymentIcon /> Monthly Rent ${data.listings.rent_per_month}
+								<PaymentIcon /> <span> &nbsp; </span>  Monthly Rent ${data.listings.rent_per_month}
 							</Typography>
 							<Typography
 								variant="body1"
@@ -237,7 +237,7 @@ function SingleListing() {
 								color="textSecondary"
 								className={classes.wrapIcon}
 							>
-								<ReceiptIcon /> Extra Monthly Expenses ${data.listings.extra_expenses_per_month}
+								<ReceiptIcon /> <span> &nbsp; </span>  Extra Monthly Expenses ${data.listings.extra_expenses_per_month}
 							</Typography>
 						</Grid>
 					</Grid>
@@ -274,7 +274,7 @@ function SingleListing() {
 									color="textPrimary"
 									className={classes.wrapIcon}
 								>
-									<SchoolIcon />
+									<SchoolIcon /> <span> &nbsp; </span> 
 									{data.listings.poster ? data.listings.poster.university_major + 
                                 ", " + data.listings.poster.university: ""}
 								</Typography>
@@ -284,7 +284,7 @@ function SingleListing() {
 									color="textPrimary"
 									className={classes.wrapIcon}
 								>
-									<WorkIcon />
+									<WorkIcon /> <span> &nbsp; </span> 
 									{data.listings.poster ? data.listings.poster.profession : ""}
 								</Typography>
 								<div className={classes.heroButtons}>

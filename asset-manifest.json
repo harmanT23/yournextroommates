@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/harmanT23/yournextroommates/static/css/main.a617e044.chunk.css",
+    "main.js": "/harmanT23/yournextroommates/static/js/main.fc96d30b.chunk.js",
+    "main.js.map": "/harmanT23/yournextroommates/static/js/main.fc96d30b.chunk.js.map",
+    "runtime-main.js": "/harmanT23/yournextroommates/static/js/runtime-main.0fb1b53f.js",
+    "runtime-main.js.map": "/harmanT23/yournextroommates/static/js/runtime-main.0fb1b53f.js.map",
+    "static/js/2.1ae2e0e1.chunk.js": "/harmanT23/yournextroommates/static/js/2.1ae2e0e1.chunk.js",
+    "static/js/2.1ae2e0e1.chunk.js.map": "/harmanT23/yournextroommates/static/js/2.1ae2e0e1.chunk.js.map",
+    "index.html": "/harmanT23/yournextroommates/index.html",
+    "static/css/main.a617e044.chunk.css.map": "/harmanT23/yournextroommates/static/css/main.a617e044.chunk.css.map",
+    "static/js/2.1ae2e0e1.chunk.js.LICENSE.txt": "/harmanT23/yournextroommates/static/js/2.1ae2e0e1.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.0fb1b53f.js",
+    "static/js/2.1ae2e0e1.chunk.js",
+    "static/css/main.a617e044.chunk.css",
+    "static/js/main.fc96d30b.chunk.js"
+  ]
+}

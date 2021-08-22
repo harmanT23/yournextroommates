@@ -1,16 +1,18 @@
-from .managers import CustomUserManager
-from django.db import models
-from django.contrib.auth.models import AbstractUser
 from django.template.defaultfilters import slugify
 from django.utils.crypto import get_random_string
 from django.utils import timezone
 from datetime import timedelta
+from django.db import models
+from django.contrib.auth.models import AbstractUser
+from django.core.validators import RegexValidator
+from .managers import CustomUserManager
 
 
 def upload_user_profile_image(instance, filename):
     ext = filename.split('.')[-1]
     n_filename = f'{instance.id}.' + ext
     return f'images/users/{instance.id}/profile/{n_filename}'
+
 
 class User(AbstractUser):
     username = None
@@ -27,10 +29,8 @@ class User(AbstractUser):
 
     profession = models.CharField(max_length=80, blank=True)
     
-    home_city = models.CharField(max_length=32, blank=True)
-    home_province = models.CharField(max_length=25, blank=True)
-    current_city = models.CharField(max_length=32, blank=False)
-    current_province = models.CharField(max_length=25, blank=False)
+    city = models.CharField(max_length=32, blank=False)
+    province = models.CharField(max_length=25, blank=False)
 
     is_lister = models.BooleanField(default=False, blank=True)
     is_seeker = models.BooleanField(default=True, blank=True)
@@ -53,6 +53,7 @@ class User(AbstractUser):
     def __str__(self):
         return self.email
     
+
 class UserProfileImage(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, blank=False)
     profile_picture = models.ImageField(upload_to=upload_user_profile_image, 
@@ -75,9 +76,11 @@ class UserImageGallery(models.Model):
     created_at = models.DateTimeField(auto_now=True, editable=False)
     updated_at = models.DateTimeField(auto_now=True)
 
+
 def default_expiry_date():
     now = timezone.now().date()
     return now + timedelta(days=30)
+
 
 class Listing(models.Model):
     # Room Types
@@ -131,7 +134,13 @@ class Listing(models.Model):
 
     address1 = models.CharField(max_length=1024, blank=False)
     address2 = models.CharField(max_length=10, blank=True)
-    postal_code = models.CharField(max_length=6, blank=False)
+
+    postal_code_validator = RegexValidator(
+            regex=r'^(?!.*[DFIOQU])[A-VXY][0-9][A-Z]●?[0-9][A-Z][0-9]$',
+            message="Enter a postal code in the following format XXX XXX")
+    postal_code = models.CharField(validators=[postal_code_validator],
+                                   max_length=6, blank=False)
+
     city = models.CharField(max_length=32, blank=False)
     province = models.CharField(max_length=25, blank=False)
     

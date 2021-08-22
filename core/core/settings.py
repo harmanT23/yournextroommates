@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
     'django_filters',
+    'cities_light',
     # local apps
     'roommates',
     'roommates_api',
@@ -180,3 +181,19 @@ SIMPLE_JWT = {
 
     'JTI_CLAIM': 'jti',
 }
+
+# Cities Filters
+CITIES_LIGHT_TRANSLATION_LANGUAGES = ['en']
+CITIES_LIGHT_INCLUDE_COUNTRIES = ['CA']
+CITIES_LIGHT_INCLUDE_CITY_TYPES = ['PPL', 'PPLA', 'PPLA2', 'PPLA3', 'PPLA4', 
+                                   'PPLC', 'PPLF', 'PPLG', 'PPLL', 'PPLR', 
+                                   'PPLS', 'STLMT',]
+
+CITIES_PLUGINS = [
+    # Canadian postal codes need region codes remapped to match geonames
+    'cities.plugin.postal_code_ca.Plugin',
+    # Reduce memory usage when importing large datasets (e.g. "allCountries.zip")
+    'cities.plugin.reset_queries.Plugin',
+]
+
+CITIES_PLUGINS_RESET_QUERIES_CHANCE = 1.0 / 1000000

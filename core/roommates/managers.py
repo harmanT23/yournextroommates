@@ -42,8 +42,6 @@ class CustomUserManager(BaseUserManager):
         extra_fields.setdefault('current_city', 'Toronto')
         extra_fields.setdefault('current_province', 'Canada')
         extra_fields.setdefault('is_lister', False)
-        extra_fields.setdefault('is_seeker', False)
-
 
         if extra_fields.get('is_staff') is not True:
             raise ValueError(_('Superuser must have is_staff=True'))
@@ -51,7 +49,5 @@ class CustomUserManager(BaseUserManager):
             raise ValueError(_('Superuser must have is_superuser=True'))
         if extra_fields.get('is_lister') is not False:
             raise ValueError(_('Superuser must have is_vendor=False'))
-        if extra_fields.get('is_seeker') is not False:
-            raise ValueError(_('Superuser must have is_customer=False'))
 
         return self.create_user(email, password, **extra_fields)

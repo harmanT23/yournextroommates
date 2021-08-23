@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
-from roommates.models import Listing
+from roommates.models import Listing, UserImageGallery
 from cities_light.models import City, Region
 
 User = get_user_model()
@@ -10,10 +10,12 @@ class RegisterUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = (
+                'id',
                 'email',
                 'password', 
                 'first_name', 
                 'last_name',
+                'profile_picture',
                 'date_of_birth',
                 'about_me',
                 'university',
@@ -27,7 +29,7 @@ class RegisterUserSerializer(serializers.ModelSerializer):
     def validate(self, data):
         """
         Do custom validation for the city and province using the cities-light
-        dataset
+        dataset and profile image extension
         """
         # Validate province 
         province = data['province']
@@ -62,6 +64,7 @@ class RegisterUserSerializer(serializers.ModelSerializer):
         instance.save()
         return instance
 
+
 class UserSerializer(serializers.ModelSerializer):
     listings = serializers.PrimaryKeyRelatedField(many=False,
                                                   read_only=True,)
@@ -72,6 +75,7 @@ class UserSerializer(serializers.ModelSerializer):
             'email',
             'first_name',
             'last_name',
+            'profile_picture',
             'date_of_birth',
             'about_me',
             'university',
@@ -80,7 +84,6 @@ class UserSerializer(serializers.ModelSerializer):
             'city',
             'province',
             'is_lister',
-            'is_seeker',
             'listings',
         )
     
@@ -117,6 +120,16 @@ class UserSerializer(serializers.ModelSerializer):
         return data
 
 
+class UserImageGallerySerializer(serializers.ModelSerializer):
+    images = serializers.ListField(child=serializers.ImageField())
+    class Meta:
+        model = UserImageGallery
+        fields = (
+            'user',
+            'image',
+        )
+
+
 class CreateListingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Listing
@@ -127,7 +140,10 @@ class CreateListingSerializer(serializers.ModelSerializer):
             'room_type',
             'room_desc',
             'is_furnished',
+            'is_air_conditioned',
+            'is_laundry_ensuite',
             'number_of_residents',
+            'number_of_bathrooms',
             'length_of_lease',
             'rent_per_month',
             'extra_expenses_per_month',

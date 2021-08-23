@@ -142,6 +142,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
@@ -152,9 +155,9 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticatedOrReadOnly',
     ],
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    ],
+    # 'DEFAULT_AUTHENTICATION_CLASSES': [
+    #     'rest_framework_simplejwt.authentication.JWTAuthentication',
+    # ],
     'DEFAULT_SCHEMA_CLASS': 
         'rest_framework.schemas.coreapi.AutoSchema',
     
@@ -197,3 +200,6 @@ CITIES_PLUGINS = [
 ]
 
 CITIES_PLUGINS_RESET_QUERIES_CHANCE = 1.0 / 1000000
+
+PROFILE_IMAGE_DIMENSION_WIDTH = 180
+PROFILE_IMAGE_DIMENSION_HEIGHT = 180

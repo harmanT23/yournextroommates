@@ -20,8 +20,7 @@ class TestUser(TestCase):
                                         university_major='Example Study',
                                         current_city='Example City',
                                         current_province='Example Province',
-                                        is_lister=True,
-                                        is_seeker=False)
+                                        is_lister=True)
         username = f'{user.username}'
         first_name = f'{user.first_name}'
         last_name = f'{user.last_name}'
@@ -32,7 +31,6 @@ class TestUser(TestCase):
         current_city = f'{user.current_city}'
         current_province = f'{user.current_province}'
         is_lister = f'{user.is_lister}'
-        is_seeker = f'{user.is_seeker}'
 
         self.assertEqual(username, 'example')
         self.assertEqual(first_name, 'Example')
@@ -44,7 +42,6 @@ class TestUser(TestCase):
         self.assertEqual(current_city, 'Example City')
         self.assertEqual(current_province, 'Example Province')
         self.assertEqual(is_lister, 'True')
-        self.assertEqual(is_seeker, 'False')
 
 
 class TestListing(TestCase):
@@ -61,8 +58,7 @@ class TestListing(TestCase):
                                         university_major='Example Study',
                                         current_city='Example City',
                                         current_province='Example Province',
-                                        is_lister='True',
-                                        is_seeker='False')
+                                        is_lister='True')
 
         listing = Listing.objects.create(poster=user,
                                          listing_title = 'Example Lisitng',

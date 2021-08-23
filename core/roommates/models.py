@@ -14,6 +14,7 @@ from django.core.exceptions import ValidationError
 from .managers import CustomUserManager
 import core.settings as app_settings
 
+
 def compress_resize_image(image, width, height):
     """
     Takes a given image, resizes it the specified width and height and
@@ -46,6 +47,7 @@ def upload_user_profile_image(instance, filename):
     n_filename = f'avatar.'+ ext
     return f'images/users/profile/{uuid.uuid4()}/{n_filename}'
 
+
 class User(AbstractUser):
     """
     User model that contains the fields for authenticaton and user identifying
@@ -56,22 +58,22 @@ class User(AbstractUser):
     first_name = models.CharField(
         _('First Name'),
         max_length=150, 
+        blank=False,
         help_text=_('First name of user.'),
-        blank=False
     )
 
     last_name = models.CharField(
         _('Last Name'),
         max_length=150, 
+        blank=False,
         help_text=_('Last name of user.'),
-        blank=False
     )
     email = models.EmailField(
         _('Email'),
         max_length=254, 
         unique=True, 
+        blank=False,
         help_text=_('Email of user. Must be unique.'),
-        blank=False
     )
 
     profile_picture = models.ImageField(
@@ -200,8 +202,8 @@ class UserImageGallery(models.Model):
     user = models.ForeignKey(
         User,
         verbose_name=_('User'),
-        help_text=_('Image belongs to associated user.'),
-        on_delete=models.CASCADE, 
+        on_delete=models.CASCADE,
+        help_text=_('Image belongs to associated user.'), 
     )
 
     image = models.ImageField(
@@ -248,7 +250,9 @@ def validate_number_residents(value):
     """
     if value < 0 or value > 10:
         raise ValidationError(
-            'The number of current residents exceeds our allowed range of [0, 10] residents. Please contact us for support.'
+             'You entered %s' % value + 'The number of current residents'\
+             + 'exceeds our allowed range of [0, 10] residents.'\
+             + 'Please contact us for support.'
         )
 
 def validate_number_bathrooms(value):
@@ -258,7 +262,9 @@ def validate_number_bathrooms(value):
     """
     if value <= 0 or value > 5:  # Your conditions here
         raise ValidationError(
-            'The number of bathrooms exceeds our allows range of [1, 5] bathrooms. Please contact us for support.'
+            'You entered %s' % value + 'The number of bathrooms exceeds our'\
+            + 'allowed range of [1, 5] bathrooms. Please contact our support'\
+            + ' team for further follow up.'
         )
 
 def validate_lease_length(value):
@@ -268,7 +274,8 @@ def validate_lease_length(value):
     """
     if value <= 0 or value > 24:
         raise ValidationError(
-            'A lease length of  %s is invalid. Please enter a number between 1 and 24 months' % value
+            'A lease length of %s is invalid.' % value + 'Please enter a'\
+            + 'number between 1 and 24 months'
         )
 
 def validate_prices(value):

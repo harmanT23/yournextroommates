@@ -90,7 +90,6 @@ class UserView(
             self.permission_classes = [AllowAny,]
         else:
             self.permission_classes = [IsUserOwnerOrReadOnly,]
-        print(self.permission_classes)
         return super(UserView, self).get_permissions()
     
     def get_queryset(self):

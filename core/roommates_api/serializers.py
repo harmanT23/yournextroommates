@@ -1,7 +1,9 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from roommates.models import Listing, UserImageGallery
-from cities_light.models import City, Region
+from .validators import validate_city_and_province,\
+                        validate_complete_address,\
+                        validate_university
 
 User = get_user_model()
 
@@ -10,51 +12,29 @@ class RegisterUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = (
-                'id',
-                'email',
-                'password', 
-                'first_name', 
-                'last_name',
-                'profile_picture',
-                'date_of_birth',
-                'about_me',
-                'university',
-                'university_major',
-                'profession',
-                'city',
-                'province',
+            'id',
+            'email',
+            'password', 
+            'first_name', 
+            'last_name',
+            'profile_picture',
+            'date_of_birth',
+            'about_me',
+            'university',
+            'university_major',
+            'profession',
+            'city',
+            'province',
         )
+
         extra_kwargs = {'password' : {'write_only': True}}
     
     def validate(self, data):
         """
-        Do custom validation for the city and province using the cities-light
-        dataset and profile image extension
+        Validate the city and province provided.
         """
-        # Validate province 
-        province = data['province']
-        if Region.objects.filter(name__iexact=province).first() is None:
-            raise serializers.ValidationError("Please enter a valid province")
-
-        province_instance = Region.objects.filter(name__iexact=province).first()
-        data['province'] = province_instance.name
-
-        # Validate city
-        city = data['city']
-        if City.objects.filter(
-                region_id=province_instance.id
-            ).filter(
-                name__iexact=city
-            ).first() is None:
-            raise serializers.ValidationError("Please enter a valid city")
-        
-        city_instance = City.objects.filter(
-                region_id=province_instance.id
-            ).filter(
-                name__iexact=city
-            ).first()
-        data['city'] = city_instance.name
-        return data 
+        data = validate_university(data)
+        return validate_city_and_province(data) 
 
     def create(self, validated_data):
         password = validated_data.pop('password', None)
@@ -66,8 +46,10 @@ class RegisterUserSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
-    listings = serializers.PrimaryKeyRelatedField(many=False,
-                                                  read_only=True,)
+    listings = serializers.PrimaryKeyRelatedField(
+        many=False,
+        read_only=True,
+    )
     class Meta:
         model = User
         fields = (
@@ -86,38 +68,6 @@ class UserSerializer(serializers.ModelSerializer):
             'is_lister',
             'listings',
         )
-    
-    def validate(self, data):
-        """
-        Do custom validation for the city and province using the cities-light
-        dataset
-        """
-        # Validate province
-        if data.get('province', None) is not None: 
-            province = data['province']
-            if Region.objects.filter(name__iexact=province).first() is None:
-                raise serializers.ValidationError("Please enter a valid province")
-
-            province_instance = Region.objects.filter(name__iexact=province).first()
-            data['province'] = province_instance.name
-
-        # Validate city
-        if data.get('city', None) is not None:
-            city = data['city']
-            if City.objects.filter(
-                    region_id=province_instance.id
-                ).filter(
-                    name__iexact=city
-                ).first() is None:
-                raise serializers.ValidationError("Please enter a valid city")
-            
-            city_instance = City.objects.filter(
-                    region_id=province_instance.id
-                ).filter(
-                    name__iexact=city
-                ).first()
-            data['city'] = city_instance.name
-        return data
 
 
 class UserImageGallerySerializer(serializers.ModelSerializer):
@@ -157,33 +107,10 @@ class CreateListingSerializer(serializers.ModelSerializer):
     
     def validate(self, data):
         """
-        Do custom validation for the city and province using the cities-light
-        dataset
+        Validate the city and province provided.
         """
-        # Validate province 
-        province = data['province']
-        if Region.objects.filter(name__iexact=province).first() is None:
-            raise serializers.ValidationError("Please enter a valid province")
-
-        province_instance = Region.objects.filter(name__iexact=province).first()
-        data['province'] = province_instance.name
-
-        # Validate city
-        city = data['city']
-        if City.objects.filter(
-                region_id=province_instance.id
-            ).filter(
-                name__iexact=city
-            ).first() is None:
-            raise serializers.ValidationError("Please enter a valid city")
         
-        city_instance = City.objects.filter(
-                region_id=province_instance.id
-            ).filter(
-                name__iexact=city
-            ).first()
-        data['city'] = city_instance.name
-        return data
+        return validate_complete_address(data) 
     
     def to_representation(self, instance):
         response = super().to_representation(instance)
@@ -218,47 +145,15 @@ class ListingSerializer(serializers.ModelSerializer):
             'listing_visits',
         )
     
-    def validate(self, data):
-        """
-        Do custom validation for the city and province using the cities-light
-        dataset
-        """
-        # Validate province
-        if data.get('province', None) is not None: 
-            province = data['province']
-            if Region.objects.filter(name__iexact=province).first() is None:
-                raise serializers.ValidationError("Please enter a valid province")
-
-            province_instance = Region.objects.filter(name__iexact=province).first()
-            data['province'] = province_instance.name
-
-        # Validate city
-        if data.get('city', None) is not None:
-            city = data['city']
-            if City.objects.filter(
-                    region_id=province_instance.id
-                ).filter(
-                    name__iexact=city
-                ).first() is None:
-                raise serializers.ValidationError("Please enter a valid city")
-            
-            city_instance = City.objects.filter(
-                    region_id=province_instance.id
-                ).filter(
-                    name__iexact=city
-                ).first()
-            data['city'] = city_instance.name
-        return data
     
     def to_representation(self, instance):
         response = super().to_representation(instance)
         response['poster'] = {
-                                'id': instance.poster.id,
-                                'first_name': instance.poster.first_name,
-                                'last_name': instance.poster.last_name,
-                                'profession': instance.poster.profession,
-                                'university': instance.poster.university,
-                                'university_major': 
-                                        instance.poster.university_major,
-                             }
+            'id': instance.poster.id,
+            'first_name': instance.poster.first_name,
+            'last_name': instance.poster.last_name,
+            'profession': instance.poster.profession,
+            'university': instance.poster.university,
+            'university_major': instance.poster.university_major,
+        }
         return response

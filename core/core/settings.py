@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt.token_blacklist',
     'django_filters',
     'cities_light',
+    'profanity',
     # local apps
     'roommates',
     'roommates_api',
@@ -155,9 +156,9 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticatedOrReadOnly',
     ],
-    # 'DEFAULT_AUTHENTICATION_CLASSES': [
-    #     'rest_framework_simplejwt.authentication.JWTAuthentication',
-    # ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
     'DEFAULT_SCHEMA_CLASS': 
         'rest_framework.schemas.coreapi.AutoSchema',
     
@@ -201,5 +202,11 @@ CITIES_PLUGINS = [
 
 CITIES_PLUGINS_RESET_QUERIES_CHANCE = 1.0 / 1000000
 
+GEOCODE_BASE_URL = 'https://maps.googleapis.com/maps/api/geocode/json?'
+GOOGLE_API_KEY = ''
+
+UNIVERSITY_DOMAIN_BASE_URL = 'http://universities.hipolabs.com/search?'
+
 PROFILE_IMAGE_DIMENSION_WIDTH = 180
 PROFILE_IMAGE_DIMENSION_HEIGHT = 180
+

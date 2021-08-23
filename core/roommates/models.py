@@ -11,6 +11,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import RegexValidator
 from django.core.exceptions import ValidationError
+from profanity.validators import validate_is_profane
 from .managers import CustomUserManager
 import core.settings as app_settings
 
@@ -59,6 +60,7 @@ class User(AbstractUser):
         _('First Name'),
         max_length=150, 
         blank=False,
+        validators=[validate_is_profane],
         help_text=_('First name of user.'),
     )
 
@@ -66,6 +68,7 @@ class User(AbstractUser):
         _('Last Name'),
         max_length=150, 
         blank=False,
+        validators=[validate_is_profane],
         help_text=_('Last name of user.'),
     )
     email = models.EmailField(
@@ -81,7 +84,7 @@ class User(AbstractUser):
         upload_to=upload_user_profile_image, 
         blank=True, 
         default='images/users/profile/default.jpeg',
-        help_text=_('Profile picture of user.'),
+        help_text=_('Profile picture of user. If none choses default displayed.'),
     )
     
     date_of_birth = models.DateField(
@@ -94,6 +97,7 @@ class User(AbstractUser):
         _('About Me'),
         max_length=500, 
         blank=False,
+        validators=[validate_is_profane],
         help_text=_('Short description about the user.'),
     )
     
@@ -108,6 +112,7 @@ class User(AbstractUser):
         _('University Major'),
         max_length=50, 
         blank=True,
+        validators=[validate_is_profane],
         help_text=_('University major of user. Can be empty.'),
     )
 
@@ -115,6 +120,7 @@ class User(AbstractUser):
         _('Profession'),
         max_length=80, 
         blank=True,
+        validators=[validate_is_profane],
         help_text=_('Profession of user. Can be empty.'),
     )
     
@@ -170,7 +176,7 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.email
-    
+
     def save(self, *args, **kwargs):
         """
         Saves a new user instance. Also compresses and resizes user profile
@@ -183,6 +189,7 @@ class User(AbstractUser):
                 app_settings.PROFILE_IMAGE_DIMENSION_HEIGHT,
         )
         super(User, self).save()
+    
     
 
 def upload_user_gallery_image(instance, filename):
@@ -331,6 +338,7 @@ class Listing(models.Model):
         _('Listing Title'),
         max_length=70, 
         blank=False,
+        validators=[validate_is_profane],
         help_text=_('Title of the rental listing.'),
     )
 
@@ -345,6 +353,7 @@ class Listing(models.Model):
         _('Room Description'),
         max_length=1024, 
         blank=False,
+        validators=[validate_is_profane],
         help_text=_('A description of the room being listed.'),
     )
 
@@ -400,10 +409,10 @@ class Listing(models.Model):
 
     extra_expenses_per_month = models.DecimalField(
         _('Extra Expenses Per Month'),
-        max_digits=6, 
+        max_digits=5, 
         decimal_places=2,
         validators=[validate_prices],
-        help_text=_('Extra expenses per month between $0.00 to $9,999.99.'),
+        help_text=_('Extra expenses per month between $0.00 to $999.99.'),
     )
 
     length_of_lease = models.PositiveIntegerField(

@@ -11,9 +11,11 @@ django-autoslug==1.9.8
 django-cities-light==3.8.1
 django-cors-headers==3.7.0
 django-filter==2.4.0
+django-profanity-filter==0.2.1
 djangorestframework==3.12.4
 djangorestframework-simplejwt==4.7.2
 idna==3.2
+inflection==0.5.1
 isort==5.9.3
 itypes==1.2.0
 Jinja2==3.0.1

@@ -1,59 +1,32 @@
+import os
 import uuid
-from io import BytesIO
-from PIL import Image
+import shutil
+import core.settings as app_settings
 from django.utils import timezone
 from datetime import timedelta
-from django.core.files import File
+from django.db import models
+from django.core.files.storage import get_storage_class
 from django.template.defaultfilters import slugify
 from django.utils.crypto import get_random_string
 from django.utils.translation import gettext_lazy as _
-from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import RegexValidator
 from profanity.validators import validate_is_profane
 from .managers import CustomUserManager
-import core.settings as app_settings
 from .validators import (
     validate_lease_length,
     validate_number_bathrooms,
     validate_number_residents,
     validate_prices
 )
+from .image_handlers import (
+    compress_resize_image,
+    upload_user_profile_image,
+    upload_user_gallery_image,
+    upload_listing_gallery_image
+)
 
-
-
-def compress_resize_image(image, width, height):
-    """
-    Takes a given image, resizes it the specified width and height and
-    saves the image either as a png by default or if the image was of jpeg
-    format it will retain that formatting. 
-    """
-    img = Image.open(image).convert('RGB')
-    img_io = BytesIO()
-    img_name = image.name.split('.')[0]
-    img_ext = image.name.split('.')[-1]
-
-    img = img.resize((width, height), Image.ANTIALIAS)
-
-    if img_ext in ['jpeg', 'jpg']:
-        img.save(img_io, format='jpeg', optimize=True, quality=55)
-        new_img = File(img_io, name='%s.jpeg' % img_name,)
-    else:
-        img.save(img_io, format='png', optimize=True, quality=55)
-        new_img = File(img_io, name='%s.png' % img_name,)
-    return new_img
-
-
-def upload_user_profile_image(instance, filename):
-    """
-    Creates a file path for a user's unique profile image. The path
-    is made unique for each user by using a unique uuid. Filename is specified
-    as avatar.
-    """
-    ext = filename.split('.')[-1]
-    n_filename = f'avatar.'+ ext
-    return f'images/users/profile/{uuid.uuid4()}/{n_filename}'
-
+storage_class = get_storage_class()
 
 class User(AbstractUser):
     """
@@ -202,12 +175,14 @@ class User(AbstractUser):
             )
         super(User, self).save()
     
+
 def default_expiry_date():
     """
     Sets a default expiry on every new listing of 30 days.
     """
     now = timezone.now().date()
     return now + timedelta(days=30)
+
 
 class Listing(models.Model):
     """
@@ -429,26 +404,6 @@ class Listing(models.Model):
         return self.listing_title
 
 
-def upload_user_gallery_image(instance, filename):
-    """
-    Creates a file path for images of the user's image gallery.
-    The gallery is stored in a folder specified by the user id.
-    For security purposes filenames are replaced with a unique uuid.
-    """
-    ext = filename.split('.')[-1]
-    n_filename = f'{uuid.uuid4()}.' + ext
-    return f'images/users/{instance.user.id}/gallery/{n_filename}'
-
-def upload_listing_gallery_image(instance, filename):
-    """
-    Creates a file path for images of the listing's image gallery.
-    The gallery is stored in a folder specified by the listing id.
-    For security purposes filenames are replaced with a unique uuid.
-    """
-    ext = filename.split('.')[-1]
-    n_filename = f'{uuid.uuid4()}.' + ext
-    return f'images/listings/{instance.listing.id}/gallery/{n_filename}'
-
 class Gallery(models.Model):
     """
     Model that represents a gallery for a listing or user
@@ -465,11 +420,19 @@ class Gallery(models.Model):
 
     listing = models.ForeignKey(
         Listing,
-        verbose_name=_('User'),
+        verbose_name=_('Listing'),
         on_delete=models.CASCADE,
         blank=True,
         null=True, 
-        help_text=_('Gallery belongs to associated user.'), 
+        help_text=_('Gallery belongs to associated listing.'), 
+    )
+
+    uuid = models.CharField(
+        _('UUID'),
+        max_length=36, 
+        unique=True,
+        default=uuid.uuid4,
+        help_text=_('Name of gallery is unique UUID. Generated on instance creation.'),
     )
 
     is_listing_gallery = models.BooleanField(
@@ -488,15 +451,36 @@ class Gallery(models.Model):
         _('Created At'),
         auto_now=True, 
         editable=False,
-        help_text=_('Indicates when listing instance was created.'),
+        help_text=_('Indicates when gallery instance was created.'),
     )
 
     updated_at = models.DateTimeField(
         _('Updated At'),
         auto_now=True,
         editable=True,
-        help_text=_('Indicates when listing instance was last updated.'),
+        help_text=_('Indicates when gallery instance was last updated.'),
     )
+
+    class Meta:
+        verbose_name = _('Gallery')
+        verbose_name_plural = _('Gallery')
+    
+    def __str__(self):
+        return self.uuid
+
+    def delete_gallery(self):
+        """
+        Deletes all images stored in the gallery folder and then deletes the
+        gallery folder itself (i.e. deletes the directory tree for the gallery).
+        """
+
+        dir_path = os.path.join(
+            storage_class.location,
+            self.uuid
+        )
+
+        shutil.rmtree(dir_path)
+
 
 class UserImageGallery(models.Model):
     """

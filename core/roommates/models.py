@@ -387,6 +387,13 @@ class Listing(models.Model):
     objects = models.Manager() # default manager
     listingobjects = ListingObjects() # custom manager for valid listings
 
+    class Meta:
+        verbose_name = _('Listing')
+        verbose_name_plural = _('Listings')
+
+    def __str__(self):
+        return self.listing_title
+
     def save(self, *args, **kwargs):
         """
         Before saving model instance a custom slug url is generated for the
@@ -401,9 +408,6 @@ class Listing(models.Model):
             )
             self.slug = slugify(slug_str)
         super(Listing, self).save(*args, **kwargs)
-
-    def __str__(self):
-        return self.listing_title
 
 
 class Gallery(models.Model):
@@ -465,7 +469,7 @@ class Gallery(models.Model):
 
     class Meta:
         verbose_name = _('Gallery')
-        verbose_name_plural = _('Gallery')
+        verbose_name_plural = _('Gallerys')
     
     def __str__(self):
         return self.uuid
@@ -480,7 +484,6 @@ class Gallery(models.Model):
             storage_class.location,
             self.uuid
         )
-
         shutil.rmtree(dir_path)
 
 

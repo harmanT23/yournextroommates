@@ -23,7 +23,7 @@ def validate_university(data):
     json_data = response.json()
 
     if not json_data:
-        raise serializers.ValidationError("Please enter a valid university")
+        raise serializers.ValidationError("Please enter a valid university.")
 
     # Gather each match into a list
     university_choices = []
@@ -37,7 +37,7 @@ def validate_university(data):
     )
 
     if not closest_match:
-        raise serializers.ValidationError("Please enter a valid university")
+        raise serializers.ValidationError("Please enter a valid university.")
 
     else:
         data['university'] = closest_match[0]
@@ -80,14 +80,14 @@ def validate_address(q_address):
 
 def validate_city_and_province(data):
     """
-    Performs validation on the provided city and province. Using the cities-light
-    database.
+    Performs validation on the provided city and province. Using the 
+    cities-light database.
     """
 
     # Validate province 
     province = data['province']
     if Region.objects.filter(name__iexact=province).first() is None:
-        raise serializers.ValidationError("Please enter a valid province")
+        raise serializers.ValidationError("Please enter a valid province.")
 
     province_instance = Region.objects.filter(name__iexact=province).first()
     data['province'] = province_instance.name
@@ -99,7 +99,7 @@ def validate_city_and_province(data):
         ).filter(
             name__iexact=city
         ).first() is None:
-        raise serializers.ValidationError("Please enter a valid city")
+        raise serializers.ValidationError("Please enter a valid city.")
     
     city_instance = City.objects.filter(
             region_id=province_instance.id
@@ -113,9 +113,9 @@ def validate_city_and_province(data):
 def validate_complete_address(data):
     """
     Performs validation on a complete address using a combination of the
-    cities-light database to validate city and province along with the Google
-    Geocoding API. Minor spelling errors or incorrect capitalization of letters 
-    will be  corrected by the Geocoding API provided by Google.
+    cities-light database along with the Google Geocoding API. 
+    Minor spelling errors or incorrect capitalization of letters 
+    are corrected by the Geocoding API.
     """
 
     # Validate city and province
@@ -126,7 +126,7 @@ def validate_complete_address(data):
         ', ' + data['province'] + ', ' + 'Canada'
     success, query_address = validate_address(query_address)
     if not success:
-        raise serializers.ValidationError("Please enter a valid street")
+        raise serializers.ValidationError("Please enter a valid street.")
     data['address1'] = query_address.split(',')[0]
 
     return data

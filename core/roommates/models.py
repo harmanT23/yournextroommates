@@ -1,19 +1,25 @@
 import uuid
 from io import BytesIO
 from PIL import Image
+from django.utils import timezone
+from datetime import timedelta
 from django.core.files import File
 from django.template.defaultfilters import slugify
 from django.utils.crypto import get_random_string
 from django.utils.translation import gettext_lazy as _
-from django.utils import timezone
-from datetime import timedelta
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import RegexValidator
-from django.core.exceptions import ValidationError
 from profanity.validators import validate_is_profane
 from .managers import CustomUserManager
 import core.settings as app_settings
+from .validators import (
+    validate_lease_length,
+    validate_number_bathrooms,
+    validate_number_residents,
+    validate_prices
+)
+
 
 
 def compress_resize_image(image, width, height):
@@ -71,6 +77,7 @@ class User(AbstractUser):
         validators=[validate_is_profane],
         help_text=_('Last name of user.'),
     )
+    
     email = models.EmailField(
         _('Email'),
         max_length=254, 
@@ -82,7 +89,8 @@ class User(AbstractUser):
     profile_picture = models.ImageField(
         _('Image'),
         upload_to=upload_user_profile_image, 
-        blank=True, 
+        blank=True,
+        null=True, 
         default='images/users/profile/default.jpeg',
         help_text=_('Profile picture of user. If none choses default displayed.'),
     )
@@ -105,6 +113,7 @@ class User(AbstractUser):
         _('University'),
         max_length=80, 
         blank=True,
+        null=True, 
         help_text=_('University that user goes to. Can be empty.'),
     )
 
@@ -112,6 +121,7 @@ class User(AbstractUser):
         _('University Major'),
         max_length=50, 
         blank=True,
+        null=True, 
         validators=[validate_is_profane],
         help_text=_('University major of user. Can be empty.'),
     )
@@ -120,6 +130,7 @@ class User(AbstractUser):
         _('Profession'),
         max_length=80, 
         blank=True,
+        null=True, 
         validators=[validate_is_profane],
         help_text=_('Profession of user. Can be empty.'),
     )
@@ -142,6 +153,7 @@ class User(AbstractUser):
         _('Is Lister'),
         default=False, 
         blank=True,
+        null=True, 
         help_text=_('Specifies if user has a listing. Set when listing created.'),
     )
 
@@ -187,113 +199,15 @@ class User(AbstractUser):
                 self.profile_picture,
                 app_settings.PROFILE_IMAGE_DIMENSION_WIDTH, 
                 app_settings.PROFILE_IMAGE_DIMENSION_HEIGHT,
-        )
+            )
         super(User, self).save()
     
-    
-
-def upload_user_gallery_image(instance, filename):
-    """
-    Creates a file path for images of the user's image gallery.
-    The gallery is stored in a folder specified by the user id.
-    For security purposes filenames are replaced with a unique uuid.
-    """
-    ext = filename.split('.')[-1]
-    n_filename = f'{uuid.uuid4()}.' + ext
-    return f'images/users/{instance.user.id}/gallery/{n_filename}'
-
-class UserImageGallery(models.Model):
-    """
-    Model associates a set of images to a specific user instance
-    """
-    user = models.ForeignKey(
-        User,
-        verbose_name=_('User'),
-        on_delete=models.CASCADE,
-        help_text=_('Image belongs to associated user.'), 
-    )
-
-    image = models.ImageField(
-        _('Image'), 
-        upload_to=upload_user_gallery_image,
-        default='images/users/gallery/default.jpeg',
-        help_text=_('Image instance in filesystem'),
-    )
-    
-    created_at = models.DateTimeField(
-         _('Created At'),
-        auto_now=True, 
-        editable=False,
-        help_text=_('Indicates when user image instace was created.'),
-    )
-
-    updated_at = models.DateTimeField(
-        _('Updated At'),
-        auto_now=True,
-        editable=True,
-        help_text=_('Indicates when user image instace was last updated.'),
-    )
-
-    class Meta:
-        verbose_name = _('UserImageGallery')
-        verbose_name_plural = _('UserImageGallerys')
-    
-    def __str__(self):
-        return self.image.name
-
-
 def default_expiry_date():
     """
     Sets a default expiry on every new listing of 30 days.
     """
     now = timezone.now().date()
     return now + timedelta(days=30)
-
-
-def validate_number_residents(value):
-    """
-    Checks to see if the number of current residents in the rental property
-    is a reasonable number. Current a value between 0 and 10.
-    """
-    if value < 0 or value > 10:
-        raise ValidationError(
-             'You entered %s' % value + 'The number of current residents'\
-             + 'exceeds our allowed range of [0, 10] residents.'\
-             + 'Please contact us for support.'
-        )
-
-def validate_number_bathrooms(value):
-    """
-    Checks to see if the number of bathrooms in the rental property
-    is a reasonable number. Currently a value between 1 and 5.
-    """
-    if value <= 0 or value > 5:  # Your conditions here
-        raise ValidationError(
-            'You entered %s' % value + 'The number of bathrooms exceeds our'\
-            + 'allowed range of [1, 5] bathrooms. Please contact our support'\
-            + ' team for further follow up.'
-        )
-
-def validate_lease_length(value):
-    """
-    Checks to see if the length of the lease is a reasonable number.
-    Currently a value between 1 and 24 months.
-    """
-    if value <= 0 or value > 24:
-        raise ValidationError(
-            'A lease length of %s is invalid.' % value + 'Please enter a'\
-            + 'number between 1 and 24 months'
-        )
-
-def validate_prices(value):
-    """
-    Checks to see if any value that should be a price was entered as a negative
-    number.
-    """
-    if value < 0:
-        raise ValidationError(
-            'A positive number must be entered. You entered %s' % value
-        )
 
 class Listing(models.Model):
     """
@@ -333,7 +247,7 @@ class Listing(models.Model):
         on_delete=models.CASCADE, 
         help_text=_('The associated user the listing belongs to.'),
     )
-    
+
     listing_title = models.CharField(
         _('Listing Title'),
         max_length=70, 
@@ -433,6 +347,7 @@ class Listing(models.Model):
         _('Address 2'),
         max_length=10, 
         blank=True,
+        null=True, 
         help_text=_('Unit/apt/floor number of rental property.'),
     )
 
@@ -462,7 +377,7 @@ class Listing(models.Model):
         blank=False,
         help_text=_('Canadian province of rental property.'),
     )
-    
+
     earliest_move_in_date = models.DateField(
         _('Earliest Move In Date'),
         blank=False,
@@ -506,13 +421,23 @@ class Listing(models.Model):
         """
         if not self.slug:
             slug_str = '%s %s %s' % (self.city, self.listing_title, 
-                                     get_random_string(4))
+                                        get_random_string(4))
             self.slug = slugify(slug_str)
         super(Listing, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.listing_title
 
+
+def upload_user_gallery_image(instance, filename):
+    """
+    Creates a file path for images of the user's image gallery.
+    The gallery is stored in a folder specified by the user id.
+    For security purposes filenames are replaced with a unique uuid.
+    """
+    ext = filename.split('.')[-1]
+    n_filename = f'{uuid.uuid4()}.' + ext
+    return f'images/users/{instance.user.id}/gallery/{n_filename}'
 
 def upload_listing_gallery_image(instance, filename):
     """
@@ -524,6 +449,93 @@ def upload_listing_gallery_image(instance, filename):
     n_filename = f'{uuid.uuid4()}.' + ext
     return f'images/listings/{instance.listing.id}/gallery/{n_filename}'
 
+class Gallery(models.Model):
+    """
+    Model that represents a gallery for a listing or user
+    """
+
+    user = models.ForeignKey(
+        User,
+        verbose_name=_('User'),
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True, 
+        help_text=_('Gallery belongs to associated user.'), 
+    )
+
+    listing = models.ForeignKey(
+        Listing,
+        verbose_name=_('User'),
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True, 
+        help_text=_('Gallery belongs to associated user.'), 
+    )
+
+    is_listing_gallery = models.BooleanField(
+        _('Is Listing Gallery'),
+        blank=False,
+        help_text=_('Indicates if this gallery belongs to a listing.'),
+    )
+
+    is_user_gallery = models.BooleanField(
+        _('Is User Gallery'),
+        blank=False,
+        help_text=_('Indicates if this gallery belongs to a user.'),
+    )
+
+    created_at = models.DateTimeField(
+        _('Created At'),
+        auto_now=True, 
+        editable=False,
+        help_text=_('Indicates when listing instance was created.'),
+    )
+
+    updated_at = models.DateTimeField(
+        _('Updated At'),
+        auto_now=True,
+        editable=True,
+        help_text=_('Indicates when listing instance was last updated.'),
+    )
+
+class UserImageGallery(models.Model):
+    """
+    Model associates a set of images to a specific user instance
+    """
+    user = models.ForeignKey(
+        User,
+        verbose_name=_('User'),
+        on_delete=models.CASCADE,
+        help_text=_('Image belongs to associated user.'), 
+    )
+
+    image = models.ImageField(
+        _('Image'), 
+        upload_to=upload_user_gallery_image,
+        default='images/users/gallery/default.jpeg',
+        help_text=_('Image instance in filesystem'),
+    )
+    
+    created_at = models.DateTimeField(
+         _('Created At'),
+        auto_now=True, 
+        editable=False,
+        help_text=_('Indicates when user image instace was created.'),
+    )
+
+    updated_at = models.DateTimeField(
+        _('Updated At'),
+        auto_now=True,
+        editable=True,
+        help_text=_('Indicates when user image instace was last updated.'),
+    )
+
+    class Meta:
+        verbose_name = _('UserImageGallery')
+        verbose_name_plural = _('UserImageGallerys')
+    
+    def __str__(self):
+        return self.image.name
 
 class ListingImageGallery(models.Model):
     """

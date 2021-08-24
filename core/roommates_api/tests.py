@@ -1,7 +1,9 @@
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
-from roommates.models import Listing, UserImage, ListingImage
+from roommates.models import Listing
+
+
 class UserTests(APITestCase):
     def test_read_user(self):
       url = reverse('roommates_api:detailUser', kwargs={'pk':4})

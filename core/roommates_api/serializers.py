@@ -1,9 +1,11 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from roommates.models import Listing, UserImageGallery
-from .validators import validate_city_and_province,\
-                        validate_complete_address,\
-                        validate_university
+from .validators import (
+    validate_city_and_province,
+    validate_complete_address,
+    validate_university
+)
 
 User = get_user_model()
 

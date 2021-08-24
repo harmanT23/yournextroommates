@@ -1,22 +1,25 @@
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
-from rest_framework import status, viewsets, mixins
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import status, viewsets, mixins, filters
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.permissions import AllowAny,\
-                                       IsAuthenticatedOrReadOnly
 from rest_framework_simplejwt.tokens import RefreshToken
-from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import filters
 from rest_framework.parsers import MultiPartParser, FormParser
-from roommates.models import Listing
-from .serializers import CreateListingSerializer,\
-                         ListingSerializer,\
-                         UserSerializer,\
-                         RegisterUserSerializer,\
-                         UserImageGallerySerializer
-from .permissions import IsListingOwnerOrReadOnly, IsUserOwnerOrReadOnly                         
+from rest_framework.permissions import (
+    AllowAny,
+    IsAuthenticatedOrReadOnly
+)
 from .filters import ListingFilter
+from .permissions import IsListingOwnerOrReadOnly, IsUserOwnerOrReadOnly  
+from .serializers import (
+    CreateListingSerializer,
+    ListingSerializer,
+    UserSerializer,
+    RegisterUserSerializer,
+    UserImageGallerySerializer
+)
+from roommates.models import Listing
 
 
 User = get_user_model()

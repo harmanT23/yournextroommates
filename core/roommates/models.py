@@ -7,7 +7,6 @@ from datetime import timedelta
 from django.db import models
 from django.core.files.storage import get_storage_class
 from django.template.defaultfilters import slugify
-from django.utils.crypto import get_random_string
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import RegexValidator
@@ -395,8 +394,11 @@ class Listing(models.Model):
         string to the city and listing title for the listing.
         """
         if not self.slug:
-            slug_str = '%s %s %s' % (self.city, self.listing_title, 
-                                        get_random_string(4))
+            slug_str = '%s %s %s' % (
+                self.city, 
+                self.listing_title, 
+                uuid.uuid4()
+            )
             self.slug = slugify(slug_str)
         super(Listing, self).save(*args, **kwargs)
 

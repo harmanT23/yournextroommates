@@ -44,3 +44,4 @@ def validate_prices(value):
         raise ValidationError(
             'A positive number must be entered. You entered %s' % value
         )
+        

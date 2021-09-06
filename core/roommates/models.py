@@ -556,4 +556,11 @@ class ListingImageGallery(models.Model):
         editable=True,
         help_text=_('Indicates when listing image instance was last updated.'),
     )
+
+    class Meta:
+        verbose_name = _('ListingImageGallery')
+        verbose_name_plural = _('ListingImageGallerys')
+    
+    def __str__(self):
+        return self.image.name
     

@@ -165,7 +165,7 @@ class GalleryCreateView(generics.CreateAPIView):
     """
     queryset = Gallery.objects.all()
     serializer_class = GallerySerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated,]
 
 class GalleryDetailView(APIView):
     """
@@ -175,7 +175,7 @@ class GalleryDetailView(APIView):
     - DELETE: Delete the gallery and all its images
     """
 
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated,]
 
     def get(self, request, gallery_id, format=None):
         """
@@ -201,6 +201,8 @@ class GalleryDetailView(APIView):
 
         try:
             for key, file in request.FILES.items():
+                print(request.FILES[key])
+                
                 data = {
                     'gallery': gallery.pk,
                     'image': file
@@ -241,7 +243,7 @@ class GalleryDetailView(APIView):
         ).first()
 
         if not gallery:
-            raise NotFound()
+            raise NotFound("Gallery does not exist.")
 
         return gallery
 
@@ -253,7 +255,7 @@ class ImageDetailView(APIView):
     DELETE: Delete a specific image within a specified gallery by uuid
     """
     
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated,]
 
     def get(self, request, gallery_id, image_id, format=None):
         """
@@ -262,12 +264,13 @@ class ImageDetailView(APIView):
         gallery_image = self.get_image(gallery_id, image_id)
 
         data = {
-            'image_name': gallery_image.image.name,
-            'image': gallery_image.image
+            'image_url': gallery_image.image.url,
+            'image_name': gallery_image.image_name
         }
 
         serializer = GalleryImageSerializer(data=data)
-        return Response(serializer.data)
+        serializer.is_valid()
+        return Response(serializer.initial_data)
     
     def delete(self, request, gallery_id, image_id, format=None):
         """
@@ -283,14 +286,19 @@ class ImageDetailView(APIView):
         """
         Get specified image instance if it exists 
         """
+        gallery = Gallery.objects.filter(uuid=gallery_id).first()
+
+        if not gallery:
+            raise NotFound("Gallery does not exist")
+
         image = GalleryImage.objects.filter(
-            gallery_uuid=gallery_id
+            gallery__id=gallery.id
         ).filter(
             image_name=image_id
         ).first()
 
         if not image:
-            raise NotFound()
+            raise NotFound("Image does not exist")
 
         return image
 
@@ -299,7 +307,7 @@ class BlackListTokenView(APIView):
     """
     Used to blacklist refresh tokens after a user logs out.
     """
-    permission_classes = [AllowAny]
+    permission_classes = [AllowAny,]
 
     def post(self, request):
         try:

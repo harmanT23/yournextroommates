@@ -5,7 +5,7 @@ import core.settings as app_settings
 from django.utils import timezone
 from datetime import timedelta
 from django.db import models
-from django.core.files.storage import get_storage_class
+from django.core.files.storage import FileSystemStorage
 from django.template.defaultfilters import slugify
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import AbstractUser
@@ -23,8 +23,6 @@ from .image_handlers import (
     upload_user_profile_image,
     upload_gallery_image
 )
-
-storage_class = get_storage_class()
 
 class User(AbstractUser):
     """
@@ -473,16 +471,20 @@ class Gallery(models.Model):
         Deletes all images stored in the gallery folder and then deletes the
         gallery folder itself (i.e. deletes the directory tree for the gallery).
         """
-
-        gallery_type = 'listings' if self.is_listing_or_user_gallery else 'users'
-
+        
+        gallery_type = 'listings/' if self.is_listing_or_user_gallery\
+            else 'users/'
+        
         dir_path = os.path.join(
-            storage_class.location,
+            app_settings.MEDIA_ROOT,
             app_settings.GALLERY_SUBDIRECTORY,
             gallery_type,
             self.uuid
         )
-        shutil.rmtree(dir_path)
+
+        full_path = os.path.abspath(dir_path) 
+        print(full_path)       
+        shutil.rmtree(full_path)
 
 class GalleryImage(models.Model):
     """
@@ -511,6 +513,10 @@ class GalleryImage(models.Model):
         help_text=_('Name of image'),
     )
 
+    @property
+    def image_url(self):
+        return self.image.url
+
     created_at = models.DateTimeField(
         _('Created At'),
         auto_now=True, 
@@ -536,4 +542,8 @@ class GalleryImage(models.Model):
         """
         Deletes image from directory
         """
-        storage_class.delete(self.file.name)
+        if os.path.isfile(self.image.path):
+            os.remove(self.image.path)
+        else:
+            raise Exception("Could not delete image.")
+

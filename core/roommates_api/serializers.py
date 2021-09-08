@@ -80,6 +80,7 @@ class UserSerializer(serializers.ModelSerializer):
             'province',
             'listings',
         )
+        read_only_fields = ('id',)
 
 class CreateListingSerializer(serializers.ModelSerializer):
     """
@@ -159,6 +160,7 @@ class ListingSerializer(serializers.ModelSerializer):
             'listing_expiry_date',
             'listing_visits',
         )
+        read_only_fields = ('id',)
     
     
     def to_representation(self, instance):
@@ -183,10 +185,12 @@ class GallerySerializer(serializers.ModelSerializer):
     class Meta:
         model = Gallery
         fields = (
+            'uuid',
             'user',
             'listing',
             'is_listing_or_user_gallery',
         )
+        read_only_fields = ('uuid',)
 
     def to_representation(self, instance):
         """
@@ -258,19 +262,9 @@ class GalleryImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = GalleryImage
         fields = (
-            'image_name',
-            'image',
+            'image_url',
+            'image_name'
         )
-
-    def to_representation(self, instance):
-        """
-        Return only the path of the image
-        """
-        response = super().to_representation(instance)
-        response['image'] = {
-            'path': instance.image.url,
-        }
-
 
 class GalleryImageUploadSerializer(serializers.ModelSerializer):
     """

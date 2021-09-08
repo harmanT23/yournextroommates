@@ -15,12 +15,12 @@ app_name = 'roommates_api'
 
 urlpatterns = [
     path('listings/', ListingListView.as_view()),
-    path('listings/<slug:slug>', ListingDetailView.as_view()),
+    path('listings/<slug:slug>/', ListingDetailView.as_view()),
     path('users/', UserCreateView.as_view()),
-    path('users/<int:pk>', UserDetailView.as_view()),
+    path('users/<int:pk>/', UserDetailView.as_view()),
     path('galleries/', GalleryCreateView.as_view()),
-    path('galleries/<uuid:gallery_id>', GalleryDetailView.as_view()),
-    path('galleries/<uuid:gallery_id>/<uuid:image_id>', ImageDetailView.as_view()),
+    path('galleries/<uuid:gallery_id>/', GalleryDetailView.as_view()),
+    path('galleries/<uuid:gallery_id>/<uuid:image_id>/', ImageDetailView.as_view()),
     path('logout/blacklist/', BlackListTokenView.as_view(), name='blacklistToken'),
     path('', get_schema_view(
         title="YourNextRoommates API",

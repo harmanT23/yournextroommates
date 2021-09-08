@@ -48,7 +48,7 @@ def upload_gallery_image(instance, filename):
         else 'users'
         
     return (
-        f'{app_settings.GALLERY_SUBDIRECTORY}/'
-        f'{gallery_type}/{instance.gallery.name_uuid}/{n_filename}'
+        f'{app_settings.GALLERY_SUBDIRECTORY}'
+        f'{gallery_type}/{instance.gallery.uuid}/{n_filename}'
     )
     

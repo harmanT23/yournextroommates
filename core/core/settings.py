@@ -215,7 +215,7 @@ CITIES_PLUGINS = [
 CITIES_PLUGINS_RESET_QUERIES_CHANCE = 1.0 / 1000000
 
 GEOCODE_BASE_URL = 'https://maps.googleapis.com/maps/api/geocode/json?'
-GOOGLE_API_KEY = 'AIzaSyBG3GAGModjlpT3TqXC8RjYvU6hTAlO6SA'
+GOOGLE_API_KEY = '#'
 
 UNIVERSITY_DOMAIN_BASE_URL = 'http://universities.hipolabs.com/search?'
 

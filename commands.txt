@@ -1,0 +1,13 @@
+# Grapph Models visualizations
+
+# Apps with Grouping
+./manage.py graph_models -a -g -o ynr_visualized.png
+
+# Key Models
+./manage.py graph_models -a -I User,Listing,Gallery,GalleryImage -o key_models.png
+
+# Arrow Notation all Models
+./manage.py graph_models -a --arrow-shape normal -o ynr_arrow_not.png
+
+# Arrow Notation Key Models
+./manage.py graph_models -a --arrow-shape normal -I User,Listing,Gallery,GalleryImage -o ynr_arrow_not.png

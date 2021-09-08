@@ -51,3 +51,4 @@ class CustomUserManager(BaseUserManager):
             raise ValueError(_('Superuser must have is_vendor=False'))
 
         return self.create_user(email, password, **extra_fields)
+        

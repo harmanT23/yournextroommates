@@ -5,7 +5,6 @@ import core.settings as app_settings
 from django.utils import timezone
 from datetime import timedelta
 from django.db import models
-from django.core.files.storage import FileSystemStorage
 from django.template.defaultfilters import slugify
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import AbstractUser
@@ -482,8 +481,7 @@ class Gallery(models.Model):
             self.uuid
         )
 
-        full_path = os.path.abspath(dir_path) 
-        print(full_path)       
+        full_path = os.path.abspath(dir_path)      
         shutil.rmtree(full_path)
 
 class GalleryImage(models.Model):

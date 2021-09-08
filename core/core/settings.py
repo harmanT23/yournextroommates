@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # 3rd party apps
+    'django_extensions',
     'rest_framework',
     'corsheaders',
     'rest_framework_simplejwt',
@@ -146,6 +147,8 @@ STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
+GALLERY_SUBDIRECTORY = 'galleries/'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
@@ -159,9 +162,7 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
-    'DEFAULT_SCHEMA_CLASS': 
-        'rest_framework.schemas.coreapi.AutoSchema',
-    
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
     # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     # 'PAGE_SIZE': 6,
@@ -189,9 +190,20 @@ SIMPLE_JWT = {
 # Cities Filters
 CITIES_LIGHT_TRANSLATION_LANGUAGES = ['en']
 CITIES_LIGHT_INCLUDE_COUNTRIES = ['CA']
-CITIES_LIGHT_INCLUDE_CITY_TYPES = ['PPL', 'PPLA', 'PPLA2', 'PPLA3', 'PPLA4', 
-                                   'PPLC', 'PPLF', 'PPLG', 'PPLL', 'PPLR', 
-                                   'PPLS', 'STLMT',]
+CITIES_LIGHT_INCLUDE_CITY_TYPES = [
+    'PPL', 
+    'PPLA', 
+    'PPLA2', 
+    'PPLA3', 
+    'PPLA4', 
+    'PPLC', 
+    'PPLF', 
+    'PPLG', 
+    'PPLL', 
+    'PPLR', 
+    'PPLS', 
+    'STLMT',
+]
 
 CITIES_PLUGINS = [
     # Canadian postal codes need region codes remapped to match geonames
@@ -203,10 +215,13 @@ CITIES_PLUGINS = [
 CITIES_PLUGINS_RESET_QUERIES_CHANCE = 1.0 / 1000000
 
 GEOCODE_BASE_URL = 'https://maps.googleapis.com/maps/api/geocode/json?'
-GOOGLE_API_KEY = ''
+GOOGLE_API_KEY = '#'
 
 UNIVERSITY_DOMAIN_BASE_URL = 'http://universities.hipolabs.com/search?'
 
 PROFILE_IMAGE_DIMENSION_WIDTH = 180
 PROFILE_IMAGE_DIMENSION_HEIGHT = 180
 
+GRAPH_MODELS = {
+  'app_labels': ["roommates",],
+}

@@ -63,6 +63,12 @@ class UserSerializer(serializers.ModelSerializer):
         many=False,
         read_only=True,
     )
+
+    gallery = serializers.HyperlinkedRelatedField(
+        many=False,
+        read_only=True,
+        view_name='GalleryDetailView'
+    )
     class Meta:
         model = User
         fields = (
@@ -79,6 +85,7 @@ class UserSerializer(serializers.ModelSerializer):
             'city',
             'province',
             'listings',
+            'gallery',
         )
         read_only_fields = ('id',)
 
@@ -134,6 +141,13 @@ class ListingSerializer(serializers.ModelSerializer):
     """
     Serializer handles retrieving details of a listing
     """
+
+    gallery = serializers.HyperlinkedRelatedField(
+        many=False,
+        read_only=True,
+        view_name='GalleryDetailView'
+    )
+    
     class Meta:
         model = Listing
         fields = (
@@ -159,6 +173,8 @@ class ListingSerializer(serializers.ModelSerializer):
             'earliest_move_in_date',
             'listing_expiry_date',
             'listing_visits',
+            'gallery',
+            
         )
         read_only_fields = ('id',)
     

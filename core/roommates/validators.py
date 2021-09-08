@@ -7,9 +7,9 @@ def validate_number_residents(value):
     """
     if value < 0 or value > 10:
         raise ValidationError(
-             'You entered %s' % value + 'The number of current residents'\
-             + 'exceeds our allowed range of [0, 10] residents.'\
-             + 'Please contact us for support.'
+            'You entered %s' % value + 'The number of current residents '
+            'exceeds our allowed range of [0, 10] residents. '
+            'Please contact us for support.'
         )
 
 def validate_number_bathrooms(value):
@@ -19,9 +19,9 @@ def validate_number_bathrooms(value):
     """
     if value <= 0 or value > 5:  # Your conditions here
         raise ValidationError(
-            'You entered %s' % value + 'The number of bathrooms exceeds our'\
-            + 'allowed range of [1, 5] bathrooms. Please contact our support'\
-            + ' team for further follow up.'
+            'You entered %s' % value + 'The number of bathrooms exceeds our '
+            'allowed range of [1, 5] bathrooms. Please contact our support '
+            ' team for further follow up.'
         )
 
 def validate_lease_length(value):
@@ -31,8 +31,8 @@ def validate_lease_length(value):
     """
     if value <= 0 or value > 24:
         raise ValidationError(
-            'A lease length of %s is invalid.' % value + 'Please enter a'\
-            + 'number between 1 and 24 months'
+            'A lease length of %s is invalid.' % value + 'Please enter a '
+            'number between 1 and 24 months'
         )
 
 def validate_prices(value):

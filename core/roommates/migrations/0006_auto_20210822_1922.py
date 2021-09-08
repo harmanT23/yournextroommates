@@ -21,12 +21,12 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='listingimagegallery',
             name='image',
-            field=models.ImageField(default='images/listings/default.jpg', upload_to=roommates.models.upload_listing_gallery_image, verbose_name='Image'),
+            field=models.ImageField(default='images/listings/default.jpg', upload_to=roommates.models.upload_gallery_image, verbose_name='Image'),
         ),
         migrations.AlterField(
             model_name='userimagegallery',
             name='image',
-            field=models.ImageField(default='images/users/gallery/default.jpg', upload_to=roommates.models.upload_user_gallery_image, verbose_name='Image'),
+            field=models.ImageField(default='images/users/gallery/default.jpg', upload_to=roommates.models.upload_gallery_image, verbose_name='Image'),
         ),
         migrations.AlterField(
             model_name='userprofileimage',

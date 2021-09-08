@@ -97,7 +97,7 @@ class Migration(migrations.Migration):
             name='UserImageGallery',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('image', models.ImageField(upload_to=roommates.models.upload_user_gallery_image)),
+                ('image', models.ImageField(upload_to=roommates.models.upload_gallery_image)),
                 ('created_at', models.DateTimeField(auto_now=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
@@ -107,7 +107,7 @@ class Migration(migrations.Migration):
             name='ListingImageGallery',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('image', models.ImageField(upload_to=roommates.models.upload_listing_gallery_image)),
+                ('image', models.ImageField(upload_to=roommates.models.upload_gallery_image)),
                 ('created_at', models.DateTimeField(auto_now=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('listing', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='roommates.listing')),

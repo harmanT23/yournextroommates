@@ -2,6 +2,7 @@ import uuid
 from io import BytesIO
 from PIL import Image
 from django.core.files import File
+import core.settings as app_settings
 
 def compress_resize_image(image, width, height):
     """
@@ -35,25 +36,19 @@ def upload_user_profile_image(instance, filename):
     n_filename = f'avatar.'+ ext
     return f'images/users/profile/{uuid.uuid4()}/{n_filename}'
 
-
-def upload_user_gallery_image(instance, filename):
+def upload_gallery_image(instance, filename):
     """
-    Creates a file path for images of the user's image gallery.
-    The gallery is stored in a folder specified by the user id.
+    Uploads an image for user or listing gallery.
+    The gallery is stored in a folder specified by the listing or user id.
     For security purposes filenames are replaced with a unique uuid.
     """
     ext = filename.split('.')[-1]
     n_filename = f'{uuid.uuid4()}.' + ext
-    return f'images/users/{instance.user.id}/gallery/{n_filename}'
-
-
-def upload_listing_gallery_image(instance, filename):
-    """
-    Creates a file path for images of the listing's image gallery.
-    The gallery is stored in a folder specified by the listing id.
-    For security purposes filenames are replaced with a unique uuid.
-    """
-    ext = filename.split('.')[-1]
-    n_filename = f'{uuid.uuid4()}.' + ext
-    return f'images/listings/{instance.listing.id}/gallery/{n_filename}'
+    gallery_type = 'listings' if instance.gallery.is_listing_or_user_gallery \
+        else 'users'
+        
+    return (
+        f'{app_settings.GALLERY_SUBDIRECTORY}/'
+        f'{gallery_type}/{instance.gallery.name_uuid}/{n_filename}'
+    )
     

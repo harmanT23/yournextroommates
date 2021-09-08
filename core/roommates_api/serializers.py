@@ -1,16 +1,21 @@
 from rest_framework import serializers
+from rest_framework.fields import CurrentUserDefault
 from django.contrib.auth import get_user_model
-from roommates.models import Listing, UserImageGallery
+from roommates.models import Listing, Gallery, GalleryImage 
 from .validators import (
     validate_city_and_province,
     validate_complete_address,
-    validate_university
+    validate_university,
+    validate_poster_user
 )
 
 User = get_user_model()
 
 
 class RegisterUserSerializer(serializers.ModelSerializer):
+    """
+    Serializer handles registration of a new user
+    """
     class Meta:
         model = User
         fields = (
@@ -33,10 +38,13 @@ class RegisterUserSerializer(serializers.ModelSerializer):
     
     def validate(self, data):
         """
-        Validate the city and province provided.
+        Validate creation of user profile
+        - Check validity of provided university
+        - Check validity of provided city and province
         """
         data = validate_university(data)
-        return validate_city_and_province(data) 
+        data = validate_city_and_province(data) 
+        return data
 
     def create(self, validated_data):
         password = validated_data.pop('password', None)
@@ -48,6 +56,9 @@ class RegisterUserSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
+    """
+    Serializer handles obtaining user profile information
+    """
     listings = serializers.PrimaryKeyRelatedField(
         many=False,
         read_only=True,
@@ -67,22 +78,13 @@ class UserSerializer(serializers.ModelSerializer):
             'profession',
             'city',
             'province',
-            'is_lister',
             'listings',
         )
 
-
-class UserImageGallerySerializer(serializers.ModelSerializer):
-    images = serializers.ListField(child=serializers.ImageField())
-    class Meta:
-        model = UserImageGallery
-        fields = (
-            'user',
-            'image',
-        )
-
-
 class CreateListingSerializer(serializers.ModelSerializer):
+    """
+    Serializer handles creation of a new listing
+    """
     class Meta:
         model = Listing
         fields = (
@@ -109,17 +111,28 @@ class CreateListingSerializer(serializers.ModelSerializer):
     
     def validate(self, data):
         """
-        Validate the city and province provided.
+        Validate creation of new listing
+        - Check if request user matches that of listing user
+        - Check complete address listing is valid
         """
-        
+        request = self.context.get("request")
+        validate_poster_user(request, data)
         return validate_complete_address(data) 
     
     def to_representation(self, instance):
+        """
+        Return only id of poster when creating listing
+        """
         response = super().to_representation(instance)
-        response['poster'] = { 'id': instance.poster.id, }
+        response['poster'] = { 
+            'id': instance.poster.id, 
+        }
         return response
 
 class ListingSerializer(serializers.ModelSerializer):
+    """
+    Serializer handles retrieving details of a listing
+    """
     class Meta:
         model = Listing
         fields = (
@@ -149,6 +162,9 @@ class ListingSerializer(serializers.ModelSerializer):
     
     
     def to_representation(self, instance):
+        """
+        Return key information of the poster for a detailed listing
+        """
         response = super().to_representation(instance)
         response['poster'] = {
             'id': instance.poster.id,
@@ -159,3 +175,120 @@ class ListingSerializer(serializers.ModelSerializer):
             'university_major': instance.poster.university_major,
         }
         return response
+
+class GallerySerializer(serializers.ModelSerializer):
+    """
+    Serializer for creation of Gallery
+    """
+    class Meta:
+        model = Gallery
+        fields = (
+            'user',
+            'listing',
+            'is_listing_or_user_gallery',
+        )
+
+    def to_representation(self, instance):
+        """
+        Return only the id of the user or listing for the gallery and
+        not the entire object.
+        """
+        response = super().to_representation(instance)
+        if hasattr(response, 'user'):
+            response['user'] = {
+                'id': instance.user.id,
+            }
+
+        if hasattr(response, 'listing'):
+            response['listing'] = {
+                'id': instance.listing.id,
+            }
+        
+        return response
+    
+    def validate(self, data):
+        """
+        Validate creation of gallery.
+        - Check if user exists or has listing to make gallery
+        """
+        user = CurrentUserDefault
+
+        if data['is_listing_or_user_gallery'] == True and\
+            Listing.objects.filter(
+                poster=user
+        ).first():
+            raise serializers.ValidationError(
+                "Cannot create gallery. User does not have a listing"
+        )
+
+        if data['is_listing_or_user_gallery'] == False and user is None:
+            raise serializers.ValidationError(
+                "Cannot create gallery. "
+                "User is not authenticated or does not exist"
+            )
+        
+        return data
+
+
+class GalleryDetailSerializer(serializers.ModelSerializer):
+    """
+    Serializer for handling gallery and images within it
+    """
+    gallery_images = serializers.SerializerMethodField()
+    class Meta:
+        model = Gallery
+        fields = (
+            'uuid',
+            'gallery_images'
+        )
+    
+    def get_gallery_images(self, obj):
+        """
+        Retrieve the set of gallery images associated with gallery
+        """
+        gallery_image_set = obj.galleryimage_set.all()
+        image_serializer = GalleryImageSerializer(gallery_image_set, many=True)
+        return image_serializer.data
+
+
+class GalleryImageSerializer(serializers.ModelSerializer):
+    """
+    Serializer for handling images in a gallery
+    """
+    class Meta:
+        model = GalleryImage
+        fields = (
+            'image_name',
+            'image',
+        )
+
+    def to_representation(self, instance):
+        """
+        Return only the path of the image
+        """
+        response = super().to_representation(instance)
+        response['image'] = {
+            'path': instance.image.url,
+        }
+
+
+class GalleryImageUploadSerializer(serializers.ModelSerializer):
+    """
+    Serializer handles uploading images
+    """
+    class Meta:
+        model = GalleryImage
+        fields = (
+            'gallery',
+            'image',
+        )
+
+    def to_representation(self, instance):
+        """
+        Return only the path of the image
+        """
+        response = super().to_representation(instance)
+        response['image'] = {
+            'path': instance.image.url,
+        }
+            

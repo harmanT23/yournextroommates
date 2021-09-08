@@ -21,8 +21,7 @@ from .validators import (
 from .image_handlers import (
     compress_resize_image,
     upload_user_profile_image,
-    upload_user_gallery_image,
-    upload_listing_gallery_image
+    upload_gallery_image
 )
 
 storage_class = get_storage_class()
@@ -412,8 +411,17 @@ class Listing(models.Model):
 
 class Gallery(models.Model):
     """
-    Model that represents a gallery for a listing or user
+    Model that represents a gallery of images for a listing or user.
+    Provides helper functions to manage gallery (i.e. delete gallery folder)
     """
+
+    uuid = models.CharField(
+        _('UUID'),
+        max_length=36, 
+        unique=True,
+        default=uuid.uuid4,
+        help_text=_('Name of gallery is its UUID. Generated on instance creation.'),
+    )
 
     user = models.ForeignKey(
         User,
@@ -433,24 +441,10 @@ class Gallery(models.Model):
         help_text=_('Gallery belongs to associated listing.'), 
     )
 
-    uuid = models.CharField(
-        _('UUID'),
-        max_length=36, 
-        unique=True,
-        default=uuid.uuid4,
-        help_text=_('Name of gallery is unique UUID. Generated on instance creation.'),
-    )
-
-    is_listing_gallery = models.BooleanField(
+    is_listing_or_user_gallery = models.BooleanField(
         _('Is Listing Gallery'),
         blank=False,
-        help_text=_('Indicates if this gallery belongs to a listing.'),
-    )
-
-    is_user_gallery = models.BooleanField(
-        _('Is User Gallery'),
-        blank=False,
-        help_text=_('Indicates if this gallery belongs to a user.'),
+        help_text=_('Gallery belongs to Listing if true, else for User'),
     )
 
     created_at = models.DateTimeField(
@@ -469,7 +463,7 @@ class Gallery(models.Model):
 
     class Meta:
         verbose_name = _('Gallery')
-        verbose_name_plural = _('Gallerys')
+        verbose_name_plural = _('Galleries')
     
     def __str__(self):
         return self.uuid
@@ -480,87 +474,66 @@ class Gallery(models.Model):
         gallery folder itself (i.e. deletes the directory tree for the gallery).
         """
 
+        gallery_type = 'listings' if self.is_listing_or_user_gallery else 'users'
+
         dir_path = os.path.join(
             storage_class.location,
+            app_settings.GALLERY_SUBDIRECTORY,
+            gallery_type,
             self.uuid
         )
         shutil.rmtree(dir_path)
 
+class GalleryImage(models.Model):
+    """
+    Model for an image belonging to a user or listing gallery.
+    """
 
-class UserImageGallery(models.Model):
-    """
-    Model associates a set of images to a specific user instance
-    """
-    user = models.ForeignKey(
-        User,
-        verbose_name=_('User'),
-        on_delete=models.CASCADE,
-        help_text=_('Image belongs to associated user.'), 
+    gallery = models.ForeignKey(
+        Gallery,
+        verbose_name=_('Gallery'),
+        on_delete=models.CASCADE, 
+        help_text=_('Image belongs to associated Gallery.'), 
     )
 
     image = models.ImageField(
-        _('Image'), 
-        upload_to=upload_user_gallery_image,
-        default='images/users/gallery/default.jpeg',
-        help_text=_('Image instance in filesystem'),
-    )
-    
-    created_at = models.DateTimeField(
-         _('Created At'),
-        auto_now=True, 
-        editable=False,
-        help_text=_('Indicates when user image instace was created.'),
+        _('Image'),
+        upload_to=upload_gallery_image, 
+        help_text=_('Image file within the associated gallery'),
     )
 
-    updated_at = models.DateTimeField(
-        _('Updated At'),
-        auto_now=True,
-        editable=True,
-        help_text=_('Indicates when user image instace was last updated.'),
+    image_name = models.CharField(
+        _('Path'),
+        max_length=36,
+        blank=True,
+        null=True,
+        unique=True,
+        help_text=_('Name of image'),
     )
 
-    class Meta:
-        verbose_name = _('UserImageGallery')
-        verbose_name_plural = _('UserImageGallerys')
-    
-    def __str__(self):
-        return self.image.name
-
-class ListingImageGallery(models.Model):
-    """
-    Model associates a set of images to a specific listing instance
-    """
-    listing = models.ForeignKey(
-        Listing,
-        verbose_name= _('Listing'),
-        on_delete=models.CASCADE,
-        help_text=_('Image belongs to associated listing'),
-    )
-
-    image = models.ImageField(
-        _('Image'), 
-        upload_to=upload_listing_gallery_image,
-        default='images/listings/default.jpeg'
-    )
-    
     created_at = models.DateTimeField(
         _('Created At'),
         auto_now=True, 
         editable=False,
-        help_text=_('Indicates when listing image instance was created.'),
+        help_text=_('Indicates when image instance was created.'),
     )
 
     updated_at = models.DateTimeField(
         _('Updated At'),
         auto_now=True,
         editable=True,
-        help_text=_('Indicates when listing image instance was last updated.'),
+        help_text=_('Indicates when image instance was last updated.'),
     )
 
     class Meta:
-        verbose_name = _('ListingImageGallery')
-        verbose_name_plural = _('ListingImageGallerys')
+        verbose_name = _('Gallery Image')
+        verbose_name_plural = _('Gallery Images')
     
     def __str__(self):
-        return self.image.name
-    
+        return self.image_name
+
+    def delete_image(self):
+        """
+        Deletes image from directory
+        """
+        storage_class.delete(self.file.name)

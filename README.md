@@ -88,6 +88,6 @@ A complete API schema is provided in the following links that offers details abo
 5. Create a new Pull Request
 
 ## Authors
-[Harman Tatla](https://www.linkedin.com/in/harmantatla/)
-MS Computer Science - UIUC
-Software Engineer
+[Harman Tatla](https://www.linkedin.com/in/harmantatla/) <br />
+MS Computer Science - UIUC <br />
+Software Engineer <br />

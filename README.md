@@ -14,7 +14,7 @@ YNR was designed with students in mind from the start, it takes into considerati
 During its development, YNR was further expanded to consider professionals who might be looking to room with people in the same profession or entirely different ones. Effectively, YNR gives a user the option to live with someone in a field they're interested in learning more about, or working with, etc.
 
 #### Transparency in mind
-YNR is designed to ensure a listing is as clear and as honest as possible. For example, a listing must include how many tenants currently live there, extra expenses a new roommate can expect along with lease duration.
+YNR is designed to ensure a listing is as clear and as honest as possible. For example, a listing must include how many tenants currently live there, extra expenses a new roommate can expect and the lease duration a new tenant will be legally obligated to.
 
 ## Current Status
 As of now the back-end has been completed and is usable. I will be working on getting the front-end finished as time permits. 

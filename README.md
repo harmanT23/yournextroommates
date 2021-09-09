@@ -12,7 +12,7 @@ As of now the back-end has been completed and is usable. I will be working on ge
 
 ## Model Overview
 <img src="https://github.com/harmanT23/yournextroommates/blob/main/Documentation_Images/ynr_arrow_not.png" height="500">
-<figcaption>Fig.1 - Major models within the design of YNR.</figcaption>
+<figcaption>Database models invovled in YNR.</figcaption>
 
 ## Built With
 - [React](https://reactjs.org/) - Framework for developing front-end UI

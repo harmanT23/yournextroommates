@@ -7,13 +7,13 @@ list your rental property in a practical and efficient manner. Another unique pe
 roommates can provide a profile picture, a description of themselves along with a photo gallery that expresses who they are as an individual.
 This way, two parties looking to consider living together get a good idea of one another and can make an informed decision on wether they are good fit.
 
-### For Students
+#### For Students
 YNR was designed with students in mind from the start, it takes into consideration that some students are very budget constrained or looking for fellow peers. Accordingly, YNR provides an extensive set of room type options such as living room, shared-living room, den, sunroom and more. As mentioned above, users can also query listings made by posters from any university. 
 
-### For Professionals
+#### For Professionals
 During its development, YNR was further expanded to consider professionals who might be looking to room with people in the same profession or entirely different ones. Effectively, YNR gives a user the option to live with someone in a field they're interested in learning more about, or working with, etc.
 
-### Transparency in mind
+#### Transparency in mind
 YNR is designed to ensure a listing is as clear and as honest as possible. For example, a listing must include how many tenants currently live there, extra expenses a new roommate can expect along with lease duration.
 
 ## Current Status

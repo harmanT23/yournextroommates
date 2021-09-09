@@ -96,5 +96,5 @@ A complete API schema is provided in the following links that offers details abo
 
 ## Authors
 [Harman Tatla](https://www.linkedin.com/in/harmantatla/) <br />
-MS Computer Science - UIUC <br />
+MS Computer Science, University of Illinois @ Urbana-Champaign  <br />
 Software Engineer <br />

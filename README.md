@@ -7,6 +7,9 @@ list your pad to possible roommates easy and detailed. Another unique perspectiv
 roommates can provide a profile picture, a description of themselves along with a photo gallery that expresses who they are as a individual.
 This way, two parties looking to consider living together get a good idea if they'll mesh well and have similar interests.
 
+## Current Status
+As of now the back-end has been completed and is usable. I will be working on getting the front-end finished as time permits. 
+
 ## Model Overview
 The overall database design of YNR.
 <br />

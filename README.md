@@ -4,7 +4,7 @@ Over traditional applications in this domain, YNR goes further and provides user
 Users can filter listings by university, major or profession of the associated poster. Furthermore, users can find the exact listing they'd need in terms of earliest move-in
 date, lease duration, monthly rent and expected recurring expenses. YNR is meant to make finding your next roommates easy and its also made to
 list your rental property in a practical and efficient manner. Another unique perspective YNR focuses on is social interaction via user profiles, where users making a listing or looking for
-roommates can provide a profile picture, a description of themselves along with a photo gallery that expresses who they are as an individual.
+roommates can provide contact details, a profile picture, description of themselves and personal photo gallery, all of which expresses who they are as an individual.
 This way, two parties looking to consider living together get a good idea of one another and can make an informed decision on wether they are good fit.
 
 #### For Students

@@ -63,8 +63,8 @@ Navigate to http://127.0.0.1:8000/
 YourNextRoommates provides an extensive API for performing a number of operations ranging from the creation of users, listings, galleries and even the blacklisting of authentication tokens after a user is logged out.
 
 A complete API schema is provided in the following links that offers details about parameters, filters and more:
-- OpenAPI Schema - http://127.0.0.1:8000/docs/
-- CoreAPI Schema - http://127.0.0.1:8000/api/
+- OpenAPI Schema (covers Listing, User and Gallery endpoints only) - http://127.0.0.1:8000/docs/
+- CoreAPI Schema (covers all endpoints) - http://127.0.0.1:8000/api/
 
 ### Authentication Endpoints
 - ```POST /api-auth/login``` - sign-in using username + password to an existing account

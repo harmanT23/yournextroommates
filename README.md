@@ -5,7 +5,7 @@ Users can filter listings by university, major or profession of the associated p
 date, lease duration, monthly rent and expected recurring expenses. YNR is meant to make finding your next roommates easy and its also made to
 list your rental property in a practical and efficient manner. Another unique perspective YNR focuses on is social interaction via user profiles, where users making a listing or looking for
 roommates can provide a profile picture, a description of themselves along with a photo gallery that expresses who they are as an individual.
-This way, two parties looking to consider living together get a good idea of one another and can make an informed decision on wether to room together.
+This way, two parties looking to consider living together get a good idea of one another and can make an informed decision on wether they are good fit.
 
 ## Current Status
 As of now the back-end has been completed and is usable. I will be working on getting the front-end finished as time permits. 

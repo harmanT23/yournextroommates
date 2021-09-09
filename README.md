@@ -11,8 +11,6 @@ This way, two parties looking to consider living together get a good idea if the
 As of now the back-end has been completed and is usable. I will be working on getting the front-end finished as time permits. 
 
 ## Model Overview
-The overall database design of YNR.
-<br />
 <img src="https://github.com/harmanT23/yournextroommates/blob/main/Documentation_Images/ynr_arrow_not.png" height="500">
 <figcaption>Fig.1 - Major models within the design of YNR.</figcaption>
 

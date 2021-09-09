@@ -80,7 +80,7 @@ A complete API schema is provided in the following links that offers details abo
 - ```DELETE /api/listings/{slug}/``` - Delete a specific listing
 
 ### Gallery Endpoints
-- ```POST /api/galleries/``` - Create a gallery for either an existing user or listing, must specify for which entity gallery is being made via ```is_listing_or_user_gallery flag```
+- ```POST /api/galleries/``` - Create a gallery for either an existing user or listing, must specify for which entity gallery is being made via <em>is_listing_or_user_gallery flag</em>
 - ```GET /api/galleries/{gallery_id}/``` - Get a list of image URLS for a specific gallery
 - ```POST /api/galleries/{gallery_id}/``` - Upload one or more images to the specified listing
 - ```DELETE /api/galleries/{gallery_id}/``` - Delete gallery and all images within it

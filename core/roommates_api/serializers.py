@@ -29,10 +29,10 @@ class GallerySerializer(serializers.ModelSerializer):
         read_only_fields = ('uuid', 'req_user')
     
     def __init__(self, *args, **kwargs):
-        user = kwargs['context']['request'].user
-
-        super(GallerySerializer, self).__init__(*args, **kwargs)
-        self.fields['req_user'].default = user
+        if hasattr(kwargs['context']['request'], 'user'):
+            user = kwargs['context']['request'].user
+            super(GallerySerializer, self).__init__(*args, **kwargs)
+            self.fields['req_user'].default = user
 
     def to_representation(self, instance):
         """

@@ -48,7 +48,7 @@ python manage.py runserver
 
 #### Optional
 YNR uses the Google Geocoding API for verifying the address posted in a listing. In order to have this portion work, you will need
-to acquire a an [API key](https://developers.google.com/maps/documentation/geocoding/get-api-key) and assign that to ```GOOGLE_API_KEY``` within the project settings located at ```.../yournextroommates/core/core/settings.py```
+to acquire an [API key](https://developers.google.com/maps/documentation/geocoding/get-api-key) and assign that to ```GOOGLE_API_KEY``` within the project settings located at ```.../yournextroommates/core/core/settings.py```
 
 Navigate to http://127.0.0.1:8000/
 

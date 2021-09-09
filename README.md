@@ -31,7 +31,7 @@ cd yournextroommates
 cd core
 ```
 
-Create and activate a virtual environment to install dependencies. i.e.
+Create and activate a python virtual environment to install dependencies. i.e.
 ```
 source venv/bin/activate
 pip install -r requirements.txt
@@ -45,4 +45,49 @@ python manage.py runserver
 
 Navigate to http://127.0.0.1:8000/
 
+## Acessing the API
+YourNextRoommates provides an extensive API for performing a number of operations ranging from the creation of users, listings, galleries and even the blacklisting of authentication tokens after a user is logged out.
 
+A complete API schema is provided in the following links that offers details about parameters, filters and more:
+- http://127.0.0.1:8000/docs/
+- http://127.0.0.1:8000/api/
+
+### Authentication Endpoints
+- ```POST /api-auth/login``` - sign-in using username + password to an existing account
+- ```GET /api-auth/logout``` - sign-out of the currently authenticated user
+- ```POST /api/token/``` - Takes a set of user credentials and returns an access and refresh JSON web token pair to prove the authentication of those credentials.
+- ```POST /api/token/refresh/``` - Takes a refresh type JSON web token and returns an access type JSON web token if the refresh token is valid.
+- ```POST /api/logout/blacklist/``` - Used to blacklist refresh tokens after a user logs out.
+
+### User Endpoints
+- ```POST /api/users/``` - Register a new user with username, password, first and last name, date of birth, city, province and a short 'about me' description.
+- ```GET /api/users/{id}/``` - Get details about a specific user
+- ```PUT/PATCH /api/users/{id}/``` - Update a specific user's details
+- ```DELETE /api/users/{id}/``` - Delete a specific user's details 
+
+### Listing Endpoints
+- ```GET /api/listings/``` - Get a list of listings, can be made more relevant by specifying filters (see API Schema mentioned above)
+- ```POST /api/listings/``` - Create a new listing linked to the currently authenticated user, required details such as listing title, room desc, etc.
+- ```GET /api/listings/{slug}/``` - Get a specific listing
+- ```PUT/PATCH /api/listings/{slug}/``` - Update a specific listing
+- ```DELETE /api/listings/{slug}/``` - Delete a specific listing
+
+### Gallery Endpoints
+- ```POST /api/galleries/``` - Create a gallery for either an existing user or listing, must specify for which entity gallery is being made via ```is_listing_or_user_gallery flag```
+- ```GET /api/galleries/{gallery_id}/``` - Get a list of image URLS for a specific gallery
+- ```POST /api/galleries/{gallery_id}/``` - Upload one or more images to the specified listing
+- ```DELETE /api/galleries/{gallery_id}/``` - Delete gallery and all images within it
+- ```GET /api/galleries/{gallery_id}/{image_id}/``` - Get a specific image with in a specified gallery
+- ```DELETE /api/galleries/{gallery_id}/{image_id}/``` - Delete a specific image with in a specified gallery
+
+## Contributing
+1. [Fork it](https://github.com/harmanT23/yournextroommates/fork)
+2. Create your feature branch i.e. ```git checkout -b feature/foo```
+3. Commit your changes i.e. ```git commit -am 'Add some foo'```
+4. Push to branch i.e. ```git push origin feature/foo```
+5. Create a new Pull Request
+
+## Authors
+[Harman Tatla](https://www.linkedin.com/in/harmantatla/)
+MS Computer Science - UIUC
+Software Engineer

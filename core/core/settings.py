@@ -40,12 +40,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # 3rd party apps
+    'drf_api_logger',
     'django_extensions',
-    'rest_framework',
+    'django_filters',
     'corsheaders',
+    'rest_framework',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
-    'django_filters',
     'cities_light',
     'profanity',
     # local apps
@@ -164,13 +165,11 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
-    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    # 'PAGE_SIZE': 6,
 }
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=3),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=10),
     'ROTATE_REFRESH_TOKENS': True,
     'BLACKLIST_AFTER_ROTATION': True,
     'UPDATE_LAST_LOGIN': False,
@@ -215,7 +214,7 @@ CITIES_PLUGINS = [
 CITIES_PLUGINS_RESET_QUERIES_CHANCE = 1.0 / 1000000
 
 GEOCODE_BASE_URL = 'https://maps.googleapis.com/maps/api/geocode/json?'
-GOOGLE_API_KEY = '#'
+GOOGLE_API_KEY = 'AIzaSyCdrG0pNq4vbLFeVo8JibvGltJlt9Exavs'
 
 UNIVERSITY_DOMAIN_BASE_URL = 'http://universities.hipolabs.com/search?'
 
@@ -225,3 +224,6 @@ PROFILE_IMAGE_DIMENSION_HEIGHT = 180
 GRAPH_MODELS = {
   'app_labels': ["roommates",],
 }
+
+# Enable logging of API calls. Accessible through admin.
+DRF_API_LOGGER_DATABASE = True

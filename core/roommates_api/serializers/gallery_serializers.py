@@ -10,10 +10,12 @@ User = get_user_model()
 
 class GallerySerializer(serializers.ModelSerializer):
     """
-    Serializer for creation of Gallery
+    Serializer to create galleries
     """
 
-    req_user = serializers.HiddenField(default=serializers.CurrentUserDefault())
+    auth_user = serializers.HiddenField(
+        default=serializers.CurrentUserDefault()
+    )
     class Meta:
         model = Gallery
         fields = (
@@ -21,15 +23,15 @@ class GallerySerializer(serializers.ModelSerializer):
             'user',
             'listing',
             'is_listing_or_user_gallery',
-            'req_user',
+            'auth_user',
         )
-        read_only_fields = ('uuid', 'req_user')
+        read_only_fields = ('uuid', 'auth_user')
     
     def __init__(self, *args, **kwargs):
         if hasattr(kwargs['context']['request'], 'user'):
             user = kwargs['context']['request'].user
             super(GallerySerializer, self).__init__(*args, **kwargs)
-            self.fields['req_user'].default = user
+            self.fields['auth_user'].default = user
 
     def to_representation(self, instance):
         """
@@ -56,31 +58,31 @@ class GallerySerializer(serializers.ModelSerializer):
         - Check if boolean set to true but no listing
         """
 
-        if not app_settings.DEBUG:
-            req_user = data['req_user']
+        if hasattr(data, 'auth_user'):
+            auth_user = data['auth_user']
+            del data['auth_user']
 
             if data['is_listing_or_user_gallery'] == True and\
                 Listing.objects.filter(
-                    poster=req_user.id
+                    poster=auth_user.id
                 ).first() is None:
                 raise serializers.ValidationError(
-                    "Cannot create gallery. User does not have a listing"
+                    'Cannot create gallery. User does not have a listing'
                 )
 
-            if data['is_listing_or_user_gallery'] == False and\
-                req_user is None:
+        else:
+            if data['is_listing_or_user_gallery'] == False:
                 raise serializers.ValidationError(
-                    "Cannot create gallery. "
-                    "User is not authenticated or does not exist"
+                    'Cannot create gallery. '
+                    'User is not authenticated or does not exist'
                 )
-            
-        del data['req_user']
+
         return data
 
 
 class GalleryDetailSerializer(serializers.ModelSerializer):
     """
-    Serializer for handling gallery and images within it
+    Serializer for handling gallery and the images within it
     """
     gallery_images = serializers.SerializerMethodField()
     class Meta:

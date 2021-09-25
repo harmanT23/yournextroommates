@@ -83,4 +83,4 @@ class UserSerializer(serializers.ModelSerializer):
             'listings',
             'gallery_set',
         )
-        read_only_fields = ('id', 'gallery_set')
+        read_only_fields = ('id', 'listings', 'gallery_set')

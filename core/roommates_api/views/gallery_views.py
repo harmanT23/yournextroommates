@@ -55,9 +55,7 @@ class GalleryDetailView(APIView):
             return Response({}, status=status.HTTP_400_BAD_REQUEST)
 
         try:
-            for key, file in request.FILES.items():
-                print(request.FILES[key])
-                
+            for key, file in request.FILES.items():                
                 data = {
                     'gallery': gallery.pk,
                     'image': file

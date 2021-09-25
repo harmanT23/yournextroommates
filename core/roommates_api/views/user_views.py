@@ -29,7 +29,7 @@ class UserDetailView(generics.RetrieveUpdateDestroyAPIView):
     User Detail Endpoint
     - GET: Get a user by id
     - PUT/PATCH: Update a user by id
-    - DELETE: Delete a user
+    - DELETE: Delete a user by id
     """
     queryset = User.objects.all()
     serializer_class = UserSerializer

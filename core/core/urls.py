@@ -24,7 +24,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('docs/', include_docs_urls(title='YourNextRoommates API')),
     path('api/', include('roommates_api.urls'), name='roommates_api'),
-    path('api-auth/', include('rest_framework.urls'), name='rest_framework'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

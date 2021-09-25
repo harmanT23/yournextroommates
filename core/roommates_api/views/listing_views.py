@@ -49,18 +49,15 @@ class ListingListView(generics.ListCreateAPIView):
             )
         else:
             return ListingSerializer
-    
-    def get_object(self, queryset=None, **kwargs):
-        slug_ = self.kwargs.get('slug')
-        return get_object_or_404(Listing, slug=slug_)
+
 
 
 class ListingDetailView(generics.RetrieveUpdateDestroyAPIView):
     """
     Listing Detail Endpoint
     - GET: Get a listing by slug
-    - PUT/PATCH: Update a listing by slug
-    - DELETE: Delete a listing
+    - PUT or PATCH: Update a listing by slug
+    - DELETE: Delete a listing by slug
     """
     queryset = Listing.objects.all()
     serializer_class = ListingSerializer

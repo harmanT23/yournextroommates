@@ -76,8 +76,7 @@ class Gallery(models.Model):
         gallery folder itself (i.e. deletes the directory tree for the gallery).
         """
         
-        gallery_type = 'listings/' if self.is_listing_or_user_gallery\
-            else 'users/'
+        gallery_type = 'listings' if self.is_listing_or_user_gallery else 'users'
         
         dir_path = os.path.join(
             app_settings.MEDIA_ROOT,

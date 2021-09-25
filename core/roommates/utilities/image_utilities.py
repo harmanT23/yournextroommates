@@ -1,3 +1,4 @@
+import os 
 import uuid
 from io import BytesIO
 from PIL import Image
@@ -35,7 +36,13 @@ def upload_user_profile_image(instance, filename):
     """
     ext = filename.split('.')[-1]
     n_filename = f'avatar.'+ ext
-    return f'images/users/profile/{uuid.uuid4()}/{n_filename}'
+    return os.path.join(
+        'images',
+        'users',
+        'profile',
+        str(uuid.uuid4()),
+        n_filename
+    )
 
 
 def upload_gallery_image(instance, filename):
@@ -49,8 +56,10 @@ def upload_gallery_image(instance, filename):
     gallery_type = 'listings' if instance.gallery.is_listing_or_user_gallery \
         else 'users'
         
-    return (
-        f'{app_settings.GALLERY_SUBDIRECTORY}'
-        f'{gallery_type}/{instance.gallery.uuid}/{n_filename}'
+    return os.path.join(
+        app_settings.GALLERY_SUBDIRECTORY,
+        gallery_type,
+        str(instance.gallery.uuid),
+        n_filename
     )
     

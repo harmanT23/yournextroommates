@@ -13,6 +13,9 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import os
 from pathlib import Path
 from datetime import timedelta
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -148,7 +151,7 @@ STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-GALLERY_SUBDIRECTORY = 'galleries/'
+GALLERY_SUBDIRECTORY = 'galleries'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -214,7 +217,7 @@ CITIES_PLUGINS = [
 CITIES_PLUGINS_RESET_QUERIES_CHANCE = 1.0 / 1000000
 
 GEOCODE_BASE_URL = 'https://maps.googleapis.com/maps/api/geocode/json?'
-GOOGLE_API_KEY = 'AIzaSyCdrG0pNq4vbLFeVo8JibvGltJlt9Exavs'
+GOOGLE_API_KEY = os.getenv('GOOGLE_API_KEY')
 
 UNIVERSITY_DOMAIN_BASE_URL = 'http://universities.hipolabs.com/search?'
 

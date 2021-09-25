@@ -10,6 +10,7 @@ from ..utilities import (
     compress_resize_image,
     upload_user_profile_image,
 )
+from ..validators import validate_user_age
 
 class User(AbstractUser):
     """
@@ -62,6 +63,7 @@ class User(AbstractUser):
     date_of_birth = models.DateField(
         _('Date Of Birth'),
         blank=False,
+        validators=[validate_user_age],
         help_text=_('Date of birth of user. Must be 18 years old or older'),
     )
 

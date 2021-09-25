@@ -36,10 +36,13 @@ class RegisterUserSerializer(serializers.ModelSerializer):
     def validate(self, data):
         """
         Validate creation of user profile
-        - Check validity of provided university
+        - Check validity of provided university if present
         - Check validity of provided city and province
         """
-        data = validate_university(data)
+
+        if hasattr(data, 'university'):
+            data = validate_university(data)
+
         data = validate_city_and_province(data) 
         return data
 

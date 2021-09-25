@@ -4,3 +4,4 @@ from .listing_validators import (
     validate_number_residents,
     validate_prices,
 )
+from .user_validators import validate_user_age

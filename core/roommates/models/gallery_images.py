@@ -64,8 +64,10 @@ class GalleryImage(models.Model):
         verbose_name = _('Gallery Image')
         verbose_name_plural = _('Gallery Images')
     
+    
     def __str__(self):
         return self.image_name
+
 
     def delete_image(self):
         """

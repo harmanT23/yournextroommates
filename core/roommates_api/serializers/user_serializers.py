@@ -33,6 +33,7 @@ class RegisterUserSerializer(serializers.ModelSerializer):
         )
         extra_kwargs = {'password' : {'write_only': True}}
     
+
     def validate(self, data):
         """
         Validate creation of user profile
@@ -45,6 +46,7 @@ class RegisterUserSerializer(serializers.ModelSerializer):
 
         data = validate_city_and_province(data) 
         return data
+
 
     def create(self, validated_data):
         password = validated_data.pop('password', None)

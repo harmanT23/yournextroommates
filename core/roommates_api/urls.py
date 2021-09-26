@@ -9,6 +9,7 @@ from .views import (
     ListingListView,
     ListingDetailView, 
     UserCreateView,
+    UserMeView,
     UserDetailView,
     GalleryCreateView,
     GalleryDetailView,
@@ -26,7 +27,11 @@ urlpatterns = [
         name='user_create'
     ),
     path(
-        'users/<int:pk>/', 
+        'users/me/', 
+        UserMeView.as_view(), 
+        name='user_me'),
+    path(
+        'users/<uuid:pk>/', 
         UserDetailView.as_view(), 
         name='user_detail'
     ),

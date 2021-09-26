@@ -1,6 +1,7 @@
 from .user_views import (
     UserCreateView,
     UserDetailView,
+    UserMeView,
 )
 from .listing_views import (
     ListingListView,

@@ -34,3 +34,21 @@ class UserDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = [IsUserOwnerOrReadOnly,]
+
+
+class UserMeView(generics.RetrieveUpdateDestroyAPIView):
+    """
+    Me View Endpoint
+    - GET: Get the authenticated user's profile details
+    - PATCH: Update the authenticated user's profile
+    - DELETE: Delete the authenticated user's profile
+    """
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [IsUserOwnerOrReadOnly,]
+
+    def get_object(self, queryset=None, **kwargs):
+        """
+        Get the user object of the authenticated user
+        """
+        return self.request.user

@@ -1,5 +1,6 @@
 from django.core.exceptions import ValidationError
 
+
 def validate_number_residents(value):
     """
     Checks to see if the number of current residents in the rental property
@@ -11,6 +12,7 @@ def validate_number_residents(value):
             'exceeds our allowed range of [0, 10] residents. '
             'Please contact us for support.'
         )
+
 
 def validate_number_bathrooms(value):
     """
@@ -24,6 +26,7 @@ def validate_number_bathrooms(value):
             ' team for further follow up.'
         )
 
+
 def validate_lease_length(value):
     """
     Checks to see if the length of the lease is a reasonable number.
@@ -34,6 +37,7 @@ def validate_lease_length(value):
             'A lease length of %s is invalid.' % value + 'Please enter a '
             'number between 1 and 24 months'
         )
+
 
 def validate_prices(value):
     """

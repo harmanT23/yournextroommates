@@ -1,6 +1,7 @@
 import datetime
 from django.core.exceptions import ValidationError
 
+
 def validate_user_age(date):
     """
     Checks to see if the user's age is >= 18 years.

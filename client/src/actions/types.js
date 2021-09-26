@@ -1,0 +1,10 @@
+export const REGISTER = 'register';
+export const LOGIN = 'login';
+export const LOGOUT = 'logout';
+export const FETCH_AUTH_USER = 'fetch_auth_user';
+export const FETCH_USER = 'fetch_user';
+export const FETCH_LISTING_LIST = 'fetch_listing_list';
+export const FETCH_LISTING = 'fetch_listing';
+export const UPLOAD_GALLERY = 'upload_gallery';
+export const FETCH_GALLERY = 'fetch_gallery';
+export const FETCH_IMAGE = 'fetch_image';

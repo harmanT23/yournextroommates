@@ -19,7 +19,7 @@ export const fetchListingList = () => async (dispatch) => {
 }
 
 export const fetchListing = (listingSlug) => async (dispatch) => {
-  /* Fetches user by ID
+  /* Fetches listing by ID
    */
   const res = await axiosInstance.get('/listings/' + String(listingSlug) + '/')
   .catch(() => {

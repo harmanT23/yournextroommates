@@ -8,36 +8,26 @@ function valuetext(value) {
 }
 
 const formField = {
-  province__iexact: '',                 // Assign province name
-  city__iexact: '',                     // Assign city name
-  rent_per_month__lte: '',              // Assign max rent
-  rent_per_month__gte: '',              // Assign min rent
-  extra_expenses_per_month__lte: '',     // Assign max extra expenses
-  extra_expenses_per_month__gte: '',     // Assign min extra expenses
-  earliest_move_in_date__iexact: '',    // Assign a date
-  length_of_lease__lte: '',             // Assign max length
-  length_of_lease__gte: '',             // Assign min length
-  room_type: '',                        // Assign roomy type
-  is_furnished: '',                     // Assign furnished checkbox value
-  is_laundry_ensuite: '',               // Assign ensuite laundry checkbox value
-  is_air_conditioned: '',               // Assign air conditioned checkbox value
-  poster__university__iexact: '',       // Assign poster's univeristy value
-  poster__university_major__iexact: '', // Assign poster's university major value
-  poster__profession__iexact: '',       // Assign poster's profession value
-  rent_per_month_sort: '',              // If user selects ascending assign rent_per_month as value if descending -rent_per_month
-  length_of_lease_sort: '',             // If user selects ascending assign rent_per_month as value if descending -length_of_lease_sort
-  earliest_move_in_date_sort: '',       // If user selects ascending assign rent_per_month as value if descending -earliest_move_in_date_sort
+  province__iexact: '',                
+  city__iexact: '',                   
+  rent_per_month__lte: '',             
+  rent_per_month__gte: '',           
+  extra_expenses_per_month__lte: '',    
+  extra_expenses_per_month__gte: '',    
+  earliest_move_in_date__iexact: '',    
+  length_of_lease__lte: '',            
+  length_of_lease__gte: '',        
+  room_type: '',                        
+  is_furnished: '',                 
+  is_laundry_ensuite: '',             
+  is_air_conditioned: '',             
+  poster__university__iexact: '',       
+  poster__university_major__iexact: '', 
+  poster__profession__iexact: '',      
+  rent_per_month_sort: '',             
+  length_of_lease_sort: '',             
+  earliest_move_in_date_sort: '',
 }
-
-//Note if ordering selected at all. We should only allow the user to order by one of the three sort properties
-//?ordering=rent_per_month
-// ?ordering=-rent_per_month
-
-//Here is an example of what the url should look like if I just queried province as Ontario
-// api/listings/?province__iexact=Ontario&city__iexact=&rent_per_month__lte=&rent_per_month__gte=&extra_expenses_per_month__lte=&extra_expenses_per_month__gte=&earliest_move_in_date__iexact=&length_of_lease__lte=&length_of_lease__gte=&room_type=&is_furnished=&is_air_conditioned=&is_laundry_ensuite=&poster__university__iexact=&poster__university_major__iexact=&poster__profession__iexact=
-
-// Here is an example of what the url should look like if I queried province as Ontario and set ordering for rent per month as ascending
-//api/listings/?city__iexact=&earliest_move_in_date__iexact=&extra_expenses_per_month__gte=&extra_expenses_per_month__lte=&is_air_conditioned=&is_furnished=&is_laundry_ensuite=&length_of_lease__gte=&length_of_lease__lte=&ordering=rent_per_month&poster__profession__iexact=&poster__university__iexact=&poster__university_major__iexact=&province__iexact=Ontario&rent_per_month__gte=&rent_per_month__lte=&room_type=
 
 const Form = () => {
   // const classes = useStyles();
@@ -90,7 +80,49 @@ const Form = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    setInputValues(formField)
+    let {
+      province__iexact,             
+      city__iexact,                 
+      earliest_move_in_date__iexact,  
+      room_type,                     
+      is_furnished,                 
+      is_laundry_ensuite,        
+      is_air_conditioned,            
+      poster__university__iexact,    
+      poster__university_major__iexact,
+      poster__profession__iexact,     
+    } = inputValues;
+
+    /*  Todo
+     * rent_per_month_sort,            
+     * length_of_lease_sort,            
+     * earliest_move_in_date_sort,
+     */
+
+    let url = new URLSearchParams(
+     `city__iexact=${city__iexact}
+      &province__iexact=${province__iexact}
+      &rent_per_month__lte=${RentSlider[0]}
+      &rent_per_month__gte=${RentSlider[1]}
+      &extra_expenses_per_month__lte=${ExtraExpensesSlider[0]}
+      &extra_expenses_per_month__gte=${ExtraExpensesSlider[1]}
+      &earliest_move_in_date__iexact=${earliest_move_in_date__iexact}
+      &length_of_lease__lte=${LengthLeaseSlider[0]}
+      &length_of_lease__gte=${LengthLeaseSlider[1]}
+      &room_type=${room_type}
+      &is_furnished=${is_furnished}
+      &is_laundry_ensuite=${is_laundry_ensuite}
+      &is_air_conditioned=${is_air_conditioned}
+      &poster__university__iexact=${poster__university__iexact}
+      &poster__university_major__iexact=${poster__university_major__iexact}
+      &poster__profession__iexact=${poster__profession__iexact}`
+    );
+
+    history.push({
+      pathname: "api/listings/",
+      search: `${url}`,
+    });
+    setInputValues(formField);
   }
 
   return (
@@ -100,8 +132,7 @@ const Form = () => {
           <h2>Field Filters</h2>
         </div>
         <form
-          // onSubmit={handleSubmit}
-          action="http://localhost:3002/formData"
+          onSubmit={handleSubmit}
           className="filter_form"
         >
           <div className="inputs">
@@ -347,8 +378,8 @@ const Form = () => {
                 required
               >
                 <option value="">Choose Ascending/Descending</option>
-                <option value="ascending">Ascending &#8593; </option>
-                <option value="descending">Descending &#8595; </option>
+                <option value="">Ascending &#8593; </option>
+                <option value="-">Descending &#8595; </option>
               </select>
             </label>
           </div>
@@ -363,8 +394,8 @@ const Form = () => {
                 required
               >
                 <option value="">Choose Ascending/Descending</option>
-                <option value="ascending">Ascending &#8593; </option>
-                <option value="descending">Descending &#8595; </option>
+                <option value="">Ascending &#8593; </option>
+                <option value="-">Descending &#8595; </option>
               </select>
             </label>
           </div>
@@ -379,8 +410,8 @@ const Form = () => {
                 required
               >
                 <option value="">Choose Ascending/Descending</option>
-                <option value="ascending">Ascending &#8593; </option>
-                <option value="descending">Descending &#8595; </option>
+                <option value="">Ascending &#8593; </option>
+                <option value="-">Descending &#8595; </option>
               </select>
             </label>
           </div>

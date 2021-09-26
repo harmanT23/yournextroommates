@@ -22,7 +22,7 @@ export const uploadGallery = (galleryData) => async (dispatch) => {
 
 
 export const fetchGallery = (galleryID) => async (dispatch) => {
-  /* Fetches user by ID
+  /* Fetches gallery by ID
    */
   const res = await axiosInstance.get('/galleries/' + String(galleryID) + '/')
   .catch(() => {

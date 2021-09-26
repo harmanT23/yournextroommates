@@ -4,7 +4,7 @@ import { FETCH_IMAGE } from './types';
 
 
 export const fetchImage = (imageData) => async (dispatch) => {
-  /* Fetches user by ID
+  /* Fetches image by ID
    */
   const res = await axiosInstance.get(
     '/galleries/' + String(imageData.galleryID) + '/' + String(imageData.imageID) + '/'

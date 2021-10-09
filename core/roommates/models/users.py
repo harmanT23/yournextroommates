@@ -42,7 +42,7 @@ class User(AbstractUser):
         validators=[validate_is_profane],
         help_text=_('Last name of user.'),
     )
-    
+
     email = models.EmailField(
         _('Email'),
         max_length=254, 
@@ -59,7 +59,7 @@ class User(AbstractUser):
         default='images/users/profile/default.jpeg',
         help_text=_('Profile picture of user. If none choses default displayed.'),
     )
-    
+
     date_of_birth = models.DateField(
         _('Date Of Birth'),
         blank=False,
@@ -69,12 +69,13 @@ class User(AbstractUser):
 
     about_me = models.CharField(
         _('About Me'),
-        max_length=500, 
-        blank=False,
+        max_length=1024, 
+        blank=True,
+        null=True, 
         validators=[validate_is_profane],
         help_text=_('Short description about the user.'),
     )
-    
+
     university = models.CharField(
         _('University'),
         max_length=80, 
@@ -100,7 +101,7 @@ class User(AbstractUser):
         validators=[validate_is_profane],
         help_text=_('Profession of user. Can be empty.'),
     )
-    
+
     city = models.CharField(
         _('City'),
         max_length=32, 
@@ -141,12 +142,11 @@ class User(AbstractUser):
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = [
-            'first_name', 
-            'last_name', 
-            'date_of_birth'
-            'about_me',
-            'current_city',
-            'current_province',
+        'first_name',
+        'last_name',
+        'date_of_birth',
+        'city',
+        'province',
     ]
 
     class Meta:

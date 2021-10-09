@@ -4,7 +4,7 @@ from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.permissions import AllowAny
 from django.contrib.auth import get_user_model
 
-from ..permissions import IsUserOwnerOrReadOnly  
+from ..permissions import IsUserOwnerOrReadOnly
 from ..serializers import (
     RegisterUserSerializer,
     UserSerializer,
@@ -20,7 +20,6 @@ class UserCreateView(generics.CreateAPIView):
     """
     queryset = User.objects.all()
     serializer_class = RegisterUserSerializer
-    parser_classes = [MultiPartParser, FormParser]
     permission_classes = [AllowAny,]
 
 

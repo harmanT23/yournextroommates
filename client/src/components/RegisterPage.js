@@ -11,7 +11,6 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import FormControl from '@material-ui/core/FormControl';
 import Grid from '@material-ui/core/Grid';
 import InputLabel from '@material-ui/core/InputLabel';
-import IconButton from '@material-ui/core/InputLabel';
 import { Link } from 'react-router-dom';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -56,8 +55,8 @@ class RegisterPage extends Component {
     first_name: '',
     last_name: '',
     date_of_birth: '',
-    current_city: '',
-    current_province: '',
+    city: '',
+    province: '',
     profile_picture: '',
     error: ''
   };
@@ -72,7 +71,6 @@ class RegisterPage extends Component {
     });
 
     ValidatorForm.addValidationRule('isLegalAge', (value) => {
-
       var today = new Date();
       var birthDate = new Date(value);
       var age = today.getFullYear() - birthDate.getFullYear();
@@ -107,15 +105,28 @@ class RegisterPage extends Component {
     })
   };
 
+  handleInput = async (e) => {
+    const selectedFile = e.target.files[0];
+    this.state.profile_picture = selectedFile;
+  };
+
   handleSubmit = () => {
     //Register then login the user.
-    this.props.registerUser({
-      username: this.state.username,
-      password: this.state.password
-    }).then((result) => {
+    const formData = new FormData();
+    formData.append('email', this.state.email);
+    formData.append('password', this.state.password);
+    formData.append('first_name', this.state.first_name);
+    formData.append('last_name', this.state.last_name);
+    formData.append('date_of_birth', this.state.date_of_birth);
+    formData.append('city', this.state.city);
+    formData.append('province', this.state.province);
+    formData.append('profile_picture', this.state.profile_picture);
+
+    this.props.registerUser(formData).then((result) => {
+      console.log(result)
       if (result) {
         this.props.loginUser({
-          username: this.state.username,
+          email: this.state.email,
           password: this.state.password
         }).then((loginResult) => {
           if (loginResult) {
@@ -130,7 +141,7 @@ class RegisterPage extends Component {
         });
       } 
     }).catch((err) => {
-      alert('This username is already taken.');
+      alert('This email is already taken.');
     });
   };
 
@@ -151,8 +162,8 @@ class RegisterPage extends Component {
             <LockOutlinedIcon />
           </Avatar>
           <Typography 
-              component="h1" 
-              variant="h5"
+              component='h1' 
+              variant='h5'
           >
               Register
           </Typography>
@@ -168,24 +179,18 @@ class RegisterPage extends Component {
                 item
                 xs={12}
               >
-                <input
-                accept='image/*'
-                onChange={this.handleChange}
-                id='contained-button-file'
-                multiple
-                type='file'
-                />
-                <label htmlFor='contained-button-file'>
-                  <IconButton>
-                    <Avatar 
-                      src='https://source.unsplash.com/random/180x180/?person' 
-                      style={{
-                        margin: '10px',
-                        width: '60px',
-                        height: '60px',
-                      }} 
-                    />
-                  </IconButton>
+                <label>
+                  <Typography
+                    component='div' 
+                    variant='body1'
+                  >
+                    Upload Profile Image
+                  </Typography>
+                  <input
+                    accept='image/*'
+                    type='file'
+                    onChange={this.handleInput}                  
+                  />
                 </label>
               </ Grid>
               <Grid 
@@ -285,6 +290,7 @@ class RegisterPage extends Component {
                   id='date_of_birth'
                   label='Date of Birth'
                   name='date_of_birth'
+                  InputLabelProps={{ shrink: true }}
                   type={'date'}
                   value={this.state.date_of_birth}
                   onChange={this.handleChange}
@@ -304,11 +310,11 @@ class RegisterPage extends Component {
                   validators={['required']}
                   variant='outlined'
                   fullWidth
-                  id='current_city'
-                  label='Current City'
-                  name='current_city'
-                  autoComplete='your-current-city'
-                  value={this.state.current_city}
+                  id='city'
+                  label='City'
+                  name='city'
+                  autoComplete='your-city'
+                  value={this.state.city}
                   onChange={this.handleChange}
                   errorMessages={[
                     'Please enter a city',
@@ -323,18 +329,19 @@ class RegisterPage extends Component {
               >
                 <FormControl className={classes.formControl}>
                   <InputLabel 
-                    id="current_province"
+                    id='province'
+                    shrink={true}
                   >
                     Province
                   </InputLabel>
                   <Select
-                    labelId="current_province"
-                    id="current_province"
-                    name="current_province"
+                    labelId='province'
+                    id='province'
+                    name='province'
                     onChange={this.handleChange}
-                    defaultValue="" 
+                    defaultValue=''
                   >
-                    <MenuItem value=""></MenuItem>
+                    <MenuItem value=''></MenuItem>
                     <MenuItem value={'Newfoundland and Labrador'}>NL</MenuItem>
                     <MenuItem value={'Prince Edward Island'}>PE</MenuItem>
                     <MenuItem value={'Nova Scotia'}>NS</MenuItem>
@@ -366,8 +373,8 @@ class RegisterPage extends Component {
               variant='body2'
             >
               <Typography 
-                component="h1" 
-                variant="h5"
+                component='h1' 
+                variant='h5'
               >
                 Already have an account? Login
               </Typography>

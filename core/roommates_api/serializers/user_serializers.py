@@ -19,8 +19,8 @@ class RegisterUserSerializer(serializers.ModelSerializer):
         fields = (
             'id',
             'email',
-            'password', 
-            'first_name', 
+            'password',
+            'first_name',
             'last_name',
             'profile_picture',
             'date_of_birth',
@@ -32,7 +32,7 @@ class RegisterUserSerializer(serializers.ModelSerializer):
             'province',
         )
         extra_kwargs = {'password' : {'write_only': True}}
-    
+
 
     def validate(self, data):
         """

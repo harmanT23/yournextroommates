@@ -1,3 +1,1 @@
-from .user_managers import (
-    CustomUserManager,
-)
+from .user_managers import CustomUserManager

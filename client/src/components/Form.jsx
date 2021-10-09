@@ -29,7 +29,7 @@ const formField = {
   earliest_move_in_date_sort: '',
 }
 
-const Form = () => {
+const Form = React.forwardRef(() => {
   // const classes = useStyles();
   const history = useHistory()
   const { search } = useLocation()
@@ -417,6 +417,6 @@ const Form = () => {
       </div>
     </div>
   )
-}
+})
 
 export default Form

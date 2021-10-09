@@ -68,7 +68,7 @@ class LoginPage extends Component {
 
   handleSubmit = () => {
     this.props.loginUser({
-      username: this.state.username,
+      email: this.state.email,
       password: this.state.password
     }).then((result) => {
       if(result) {

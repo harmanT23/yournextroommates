@@ -31,7 +31,6 @@ class ListingGrid extends Component {
 
   getlistings() {
     const listings = this.props.listingData;
-    console.log(this)
 
     if (checkEmpty(listings)) {
       return (
@@ -39,8 +38,6 @@ class ListingGrid extends Component {
           <p style={{ fontSize: '25px' }}>
             Finding listings... <CircularProgress />
           </p>
-
-          
         </React.Fragment>
       );
     } else {

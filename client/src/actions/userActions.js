@@ -10,8 +10,15 @@ import {
 
 
 export const registerUser = (userData) => async (dispatch) => {
-  /* Register new user where userData consists of username and 
-   * password
+  /* Register new user where userData consists of the following
+   * - Email 
+   * - Password
+   * - First Name
+   * - Last Name
+   * - Date of Birth: yyyy-mm-dd
+   * - City 
+   * - Province
+   * - Profile Image
    */
   const res = await axiosInstance.post('/users/', userData)
 
@@ -25,11 +32,11 @@ export const registerUser = (userData) => async (dispatch) => {
 
 export const loginUser = (userData) => async (dispatch) => {
   /* Login and obtain refresh/access token where userData
-   * consists of username and password
+   * consists of email and password
    */
 
   const res = await axiosInstance.post('/token/', {
-      username: userData.username,
+      email: userData.email,
       password: userData.password,
     });
 

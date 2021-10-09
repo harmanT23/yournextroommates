@@ -91,6 +91,7 @@ class GalleryDetailSerializer(serializers.ModelSerializer):
             'uuid',
             'gallery_images'
         )
+        read_only_fields = ('uuid')
     
     def get_gallery_images(self, obj):
         """

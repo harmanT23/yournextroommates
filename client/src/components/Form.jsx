@@ -99,6 +99,9 @@ const Form = () => {
      * earliest_move_in_date_sort,
      */
 
+    console.log(e)
+    setInputValues(formField);
+
     let url = new URLSearchParams(
      `city__iexact=${city__iexact}
       &province__iexact=${province__iexact}
@@ -122,7 +125,7 @@ const Form = () => {
       pathname: "api/listings/",
       search: `${url}`,
     });
-    setInputValues(formField);
+
   }
 
   return (
@@ -235,7 +238,6 @@ const Form = () => {
                 type="date"
                 name="earliest_move_in_date"
                 id="earliest_move_in_date"
-                required
                 onChange={handleInputSelect}
               />
             </label>
@@ -277,7 +279,6 @@ const Form = () => {
               <br />
               <select
                 name="room_type"
-                required
                 id="room_type"
                 onChange={handleInputSelect}
               >
@@ -336,7 +337,6 @@ const Form = () => {
                 type="text"
                 name="poster_uni"
                 id="poster_uni"
-                required
                 onChange={handleInputSelect}
               />
             </label>
@@ -349,7 +349,6 @@ const Form = () => {
                 type="text"
                 name="poster_uni_major"
                 id="poster_uni_major"
-                required
                 onChange={handleInputSelect}
               />
             </label>
@@ -362,7 +361,6 @@ const Form = () => {
                 type="text"
                 name="poster_profession"
                 id="poster_profession"
-                required
                 onChange={handleInputSelect}
               />
             </label>
@@ -375,7 +373,6 @@ const Form = () => {
                 name="rent_per_month_sort"
                 id="rent_per_month_sort"
                 onChange={handleInputSelect}
-                required
               >
                 <option value="">Choose Ascending/Descending</option>
                 <option value="">Ascending &#8593; </option>
@@ -391,7 +388,6 @@ const Form = () => {
                 name="length_of_lease_sort"
                 id="length_of_lease_sort"
                 onChange={handleInputSelect}
-                required
               >
                 <option value="">Choose Ascending/Descending</option>
                 <option value="">Ascending &#8593; </option>
@@ -407,7 +403,6 @@ const Form = () => {
                 name="earliest_move_in_date_sort"
                 id="earliest_move_in_date_sort"
                 onChange={handleInputSelect}
-                required
               >
                 <option value="">Choose Ascending/Descending</option>
                 <option value="">Ascending &#8593; </option>

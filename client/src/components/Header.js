@@ -1,146 +1,315 @@
-import React, { useState } from "react";
-// Material UI
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import { makeStyles } from "@material-ui/core/styles";
-import { NavLink } from "react-router-dom";
-import Link from "@material-ui/core/Link";
-import Button from "@material-ui/core/Button";
-import SearchBar from "material-ui-search-bar";
-import Menu from "@material-ui/core/Menu";
-import { useHistory } from "react-router-dom";
-import Form from "./Form";
+import React, { Fragment, Component } from 'react';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { withRouter, Link } from 'react-router-dom';
+import axiosInstance from '../api/axiosInstance';
+import SizeMe from 'react-sizeme'
 
-const useStyles = makeStyles((theme) => ({
-  appBar: {
-    borderBottom: `1px solid ${theme.palette.divider}`,
+import AccountBoxIcon from '@material-ui/icons/AccountBox';
+import AppBar from '@material-ui/core/AppBar'
+import Button from '@material-ui/core/Button';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import SearchBar from './SearchBar'
+import Toolbar from '@material-ui/core/Toolbar';
+import Tooltip from '@material-ui/core/Tooltip';
+import Typography from '@material-ui/core/Typography';
+import { withStyles } from '@material-ui/core/styles';
+
+import * as actions from '../actions';
+import { checkEmpty }  from '../utilities/checkEmptyObj';
+import Form from './Form';
+
+const useStyles = (theme) => ({
+  root: {
+     flexGrow: 1,
   },
-  link: {
-    margin: theme.spacing(1, 1.5),
+  mainButton: {
+     textDecoration: 'none',
+     color: '#00ADB5',
   },
-  toolbarTitle: {
-    flexGrow: 1,
+  appBarRoot: {
+    backgroundColor: '#393E46'
+  },
+  title: {
+     flexGrow: 1,
+     color: '#FFFFFF',
+  },
+  rightSideButtons: {
+     textDecoration: 'none',
+     color: '#FFFFFF',
+  },
+  leftAligned: {
+     marginLeft: 'auto',
+  },
+  sellButton: {
+    '&:hover': {
+      backgroundColor: '#00ADB5',
+      color: '#FFFFFF',
+   },
+  },
+  dropdown: {
+     '&:focus': {
+        backgroundColor: theme.palette.primary.main,
+        '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
+           color: theme.palette.common.white,
+        },
+     },
   },
   filterBtn: {
-    marginLeft: "10px",
-    marginRight: "10px",
+    marginLeft: '10px',
+    marginRight: '10px',
     border: `1px solid `,
   },
-}));
+});
 
-function Header() {
-  const classes = useStyles();
-  let history = useHistory();
-  const [data, setData] = useState({ search: "" });
+class Header extends Component {
+  state = {
+    dropDownMenuElement: null,
+    search: '',
+    anchorEl: null,
+  };
 
-  const doSearch = (e) => {
-    history.push({
-      pathname: "search",
-      search: "?search=" + data.search,
+  handleAnchorClick = (e) => {
+    this.setState({ anchorEl: e.currentTarget });
+  };
+
+  handleAnchorClose = () => {
+    this.setState({ anchorEl: null });
+  };
+
+
+  doSearch = (e) => {
+    this.props.history.push({
+      pathname: 'search',
+      search: '?search=' + this.state.search,
     });
     window.location.reload();
   };
 
-  //   filter dropdown
-  const [anchorEl, setAnchorEl] = React.useState(null);
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
+  handleClick = (e) => {
+    this.setState({ dropDownMenuElement: e.currentTarget });
   };
 
-  const handleClose = () => {
-    setAnchorEl(null);
+  handleClose = () => {
+    this.setState({ dropDownMenuElement: null });
   };
 
-  return (
-    <React.Fragment>
-      <CssBaseline />
-      <AppBar
-        position="static"
-        color="default"
+  handleLogout = () => {
+    this.handleClose();
+    this.props.logoutUser().then(() =>{
+      localStorage.removeItem('access_token');
+      localStorage.removeItem('refresh_token');
+      axiosInstance.defaults.headers['Authorization'] = null;
+    });
+
+    this.props.history.push({
+      pathname: '/',
+    });
+  };
+
+  menuDropdown = () => {
+    if (this.state.dropDownMenuElement) {
+      return (
+      <Menu
+        id='account-dropdown'
+        anchorEl={this.state.dropDownMenuElement}
+        getContentAnchorEl={null}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'right',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
         elevation={0}
-        className={classes.appBar}
+        keepMounted
+        open={Boolean(this.state.dropDownMenuElement)}
+        onClose={this.handleClose}
+        border='1px solid #d3d4d5'
+        visible={this.state.dropDownMenuElement}
       >
-        <Toolbar className={classes.toolbar}>
+        <MenuItem className='dropdown' component={Link} to='/myprofile'>
+          View Profile
+        </MenuItem>
+        <MenuItem className='dropdown' component={Link} to='/listing/new'>
+          Post Listing
+        </MenuItem>
+        <MenuItem className='dropdown' onClick={this.handleLogout}>
+          Logout
+        </MenuItem>
+      </Menu>
+      );
+  } else {
+      return;
+  }
+  };
+
+  getMenuItems(userData, classes, width) {
+    if(!checkEmpty(userData)) {
+      return (
+        <Fragment>
+          <Button
+            aria-controls='account-dropdown'
+            aria-haspopup='true'
+            onClick={this.handleClick}
+            className={classes.rightSideButtons}
+          >
+            <AccountBoxIcon 
+              style={{ marginRight: '6px' }}
+              color='inherit'
+            />
+            {width >= 500 && (
+              <Typography
+                variant='h6'
+                className={classes.title}
+              >
+                {`${userData.first_name}`}
+              </Typography>
+            )}
+          </Button>
+          {this.menuDropdown()}
+        </Fragment>
+      );
+    } else {
+      return;
+    }
+  }
+
+  getLoginButton(userData, classes) {
+    if (checkEmpty(userData)) {
+      return (
+        <Link 
+          to='/login' 
+          className={classes.rightSideButtons}
+        >
+          <Button
+            color='inherit'
+          >
+            <AccountBoxIcon 
+              style={{ marginRight: '6px' }}
+              color='inherit'
+            />
+            <Typography 
+              variant='h5'
+              className={classes.title}
+            >
+              Login
+            </Typography>
+          </Button>
+        </Link>
+      );
+    } else {
+      return;
+    }
+  }
+
+  getLabelOrBoth(width, classes) {
+    return (
+      <Fragment>
+        {width >= 500 && (
           <Typography
-            variant="h6"
-            color="inherit"
-            noWrap
-            className={classes.toolbarTitle}
+            style={{ marginLeft: '6px' }}
+            variant='h5'
+            className={classes.title}
           >
-            <Link
-              component={NavLink}
-              to="/"
-              underline="none"
-              color="textPrimary"
-            >
-              YourNextRoomates
-            </Link>
+            YourNextRoommates
           </Typography>
-          <SearchBar
-            placeholder={"Enter a City"}
-            value={data.search}
-            onChange={(newValue) => setData({ search: newValue })}
-            onRequestSearch={() => doSearch(data.search)}
-          />
-          <div>
-            <Button
-              aria-controls="simple-menu"
-              aria-haspopup="true"
-              onClick={handleClick}
-              className={classes.filterBtn}
-              variant="outlined"
-              color="primary"
-            >
-              Advanced Search
-            </Button>
-            <Menu
-              id="simple-menu"
-              anchorEl={anchorEl}
-              keepMounted
-              open={Boolean(anchorEl)}
-              onClose={handleClose}
-            >
-              <Form />
-            </Menu>
-          </div>
-          <nav>
+        )}
+      </Fragment>
+    );
+  }
+
+  getAdvancedSearch(classes) {
+    return (
+      <Fragment>
+        <Button
+          aria-controls='simple-menu'
+          aria-haspopup='true'
+          onClick={this.handleAnchorClick}
+          className={classes.filterBtn}
+          color='inherit'
+        >
+          Advanced Search
+        </Button>
+        <Menu
+          id='simple-menu'
+          anchorEl={this.state.anchorEl}
+          keepMounted
+          open={Boolean(this.state.anchorEl)}
+          onClose={this.handleAnchorClose}
+        >
+          <Form />
+        </Menu>
+      </ Fragment>
+    );
+  }
+
+  // getSearchButton() {
+  //   return (
+  //     <Tooltip 
+  //       title='Enter a Canadian city to find listings in.'
+  //       aria-label='add'
+  //     >
+  //       <SearchBar
+  //         placeholder={'Enter a City'}
+  //         value={this.state.search}
+  //         onChange={(query) => this.setState({ search: query })}
+  //         onRequestSearch={() => this.doSearch(this.state.search)}
+  //       />
+  //     </ Tooltip>
+  //   );
+  // }
+
+  render() {
+    const {
+      size: {width},
+      classes
+    } = this.props 
+
+    return (
+      <div
+        className={classes.root}
+      >
+        <CssBaseline />
+        <AppBar
+          position='static'
+          className={classes.appBarRoot}
+        >
+          <Toolbar>
             <Link
-              color="textPrimary"
-              href="#"
-              className={classes.link}
-              component={NavLink}
-              to="/register"
+              to='/'
+              className={classes.mainButton}
             >
-              Register
+              <Button
+                color='inherit'
+              >
+                {this.getLabelOrBoth(width, classes)}
+              </Button>
             </Link>
-          </nav>
-          <Button
-            href="#"
-            color="primary"
-            variant="outlined"
-            className={classes.link}
-            component={NavLink}
-            to="/login"
-          >
-            Login
-          </Button>
-          <Button
-            href="#"
-            color="primary"
-            variant="outlined"
-            className={classes.link}
-            component={NavLink}
-            to="/logout"
-          >
-            Logout
-          </Button>
-        </Toolbar>
-      </AppBar>
-    </React.Fragment>
-  );
+            <div
+              className={classes.leftAligned}
+            >
+              {this.getAdvancedSearch(classes)}
+              {this.getMenuItems(this.props.userData, classes, width)}
+              {this.getLoginButton(this.props.userData, classes)}
+            </div>
+          </Toolbar>
+        </AppBar>
+      </div>
+    );
+  }
 }
 
-export default Header;
+function mapStateToProps({ userData }) {
+  return { userData };
+}
+
+export default compose(
+  SizeMe(), 
+  withStyles(useStyles),
+  withRouter,  
+  connect(mapStateToProps, actions)
+)(Header);

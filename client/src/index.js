@@ -1,33 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import {
-  Route,
-  BrowserRouter as Router,
-  Switch
-} from 'react-router-dom';
-import App from './App';
-import Header from './components/Header';
-import Footer from './components/Footer';
-import Register from './components/Register';
-import Login from './components/Login';
-import Logout from './components/Logout';
-import Search from './components/Search';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware, compose } from 'redux';
+import reduxThunk from 'redux-thunk';
 
-const routing = (
-    <Router>
-      <React.StrictMode>
-        <Header />
-        <Switch>
-          <Route exact path="/" component={App} />
-          <Route path="/register" component={Register} />
-          <Route path="/login" component={Login} />
-          <Route path="/logout" component={Logout} />
-          <Route path="/search" component={Search} />
-        </Switch>
-        <Footer />
-      </React.StrictMode>
-    </Router>
+import App from './components/App';
+import reducers from './reducers';
+
+const composeEnhancers = (
+  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+);
+const store = createStore(
+  reducers, 
+  {}, 
+  composeEnhancers(applyMiddleware(reduxThunk))
 );
 
-ReactDOM.render(routing, document.getElementById('root'));
+ReactDOM.render(
+  <Provider store={store}>
+     <App />
+  </Provider>,
+  document.querySelector('#root')
+);

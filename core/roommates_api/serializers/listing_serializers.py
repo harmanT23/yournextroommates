@@ -36,6 +36,7 @@ class CreateListingSerializer(serializers.ModelSerializer):
             'earliest_move_in_date',
         )
     
+
     def validate(self, data):
         """
         Validate creation of new listing
@@ -45,6 +46,7 @@ class CreateListingSerializer(serializers.ModelSerializer):
         data['poster'] = request.user
 
         return validate_complete_address(data) 
+    
     
     def to_representation(self, instance):
         """

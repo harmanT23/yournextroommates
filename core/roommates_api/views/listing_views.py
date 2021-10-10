@@ -42,6 +42,7 @@ class ListingListView(generics.ListCreateAPIView):
         'earliest_move_in_date'
     ]    
 
+
     def get_serializer_class(self):
         if hasattr(self, 'request') and hasattr(self.request, 'method'):
             return self.serializers.get(

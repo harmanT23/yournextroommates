@@ -96,7 +96,8 @@ class ListingGrid extends Component {
                 >
                   { 
                     (listing.address2 ? listing.address2 + ' - ':'') + 
-                      listing.address1 
+                      listing.address1 + ', ' + listing.city + ', ' + 
+                      listing.province 
                   }
                 </Typography>
                 <Typography
@@ -118,7 +119,7 @@ class ListingGrid extends Component {
                   variant='body2' 
                   align='left'
                  >
-                  Earliest move-in date 
+                  Earliest move-in date: 
                   <strong> {listing.earliest_move_in_date} </strong>
                  </Typography>
                  <Typography 
@@ -126,7 +127,7 @@ class ListingGrid extends Component {
                     variant='body2' 
                     align='left'
                   >
-                    Lease duration 
+                    Lease duration: 
                     <strong> {listing.length_of_lease} months </strong> 
                   </Typography>
                 <Typography 

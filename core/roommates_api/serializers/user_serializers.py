@@ -94,6 +94,7 @@ class UserSerializer(serializers.ModelSerializer):
             'gallery_set'
         )
 
+
         def __init__(self, *args, **kwargs):
             super().__init__(*args, **kwargs)
-            self.fields['gallery_set'].context.update(self.context)  
+            self.fields['gallery_set'].context.update(self.context)

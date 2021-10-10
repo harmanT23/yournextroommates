@@ -46,6 +46,7 @@ class UserMeView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = UserSerializer
     permission_classes = [IsUserOwnerOrReadOnly,]
 
+
     def get_object(self, queryset=None, **kwargs):
         """
         Get the user object of the authenticated user

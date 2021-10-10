@@ -23,6 +23,7 @@ class GallerySerializer(serializers.ModelSerializer):
         )
         read_only_fields = ('uuid',)
     
+    
     def to_representation(self, instance):
         """
         Return only the id of the user or listing for the gallery and
@@ -41,6 +42,7 @@ class GallerySerializer(serializers.ModelSerializer):
         
         return response
     
+
     def validate(self, data):
         """
         Validate creation of gallery.
@@ -53,8 +55,8 @@ class GallerySerializer(serializers.ModelSerializer):
         if data['is_listing_or_user_gallery'] == True and\
             not hasattr(data['listing']):
             raise serializers.ValidationError(
-                'Cannot create gallery. '
-                'User is not authenticated or does not exist'
+                'Cannot create gallery for listing. '
+                'Listing is not specified'
                 )
 
         return data
@@ -73,6 +75,7 @@ class GalleryDetailSerializer(serializers.ModelSerializer):
         )
         read_only_fields = ('uuid',)
     
+
     def get_gallery_images(self, obj):
         """
         Retrieve the set of gallery images associated with gallery

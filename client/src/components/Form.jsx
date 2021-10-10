@@ -1,7 +1,7 @@
 import React from 'react'
 import Typography from '@material-ui/core/Typography'
 import Slider from '@material-ui/core/Slider'
-import { useHistory, useLocation } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 
 function valuetext(value) {
   return `${value}$`
@@ -32,14 +32,13 @@ const formField = {
 const Form = React.forwardRef(() => {
   // const classes = useStyles();
   const history = useHistory()
-  const { search } = useLocation()
 
   // Slider states
   const [RentSlider, setRentSlider] = React.useState([600, 1250])
   const [ExtraExpensesSlider, setExtraExpensesSlider] = React.useState([20, 60])
   const [LengthLeaseSlider, setLengthLeaseSlider] = React.useState([4, 12])
   
-  // rent range slider function
+  // Rent Sliders
   const handleRentSlider = (event, newValue) => {
     setRentSlider(newValue)
   }
@@ -50,7 +49,7 @@ const Form = React.forwardRef(() => {
     setRentSlider([RentSlider[0], e.target.value])
   }
 
-  // expenses slider function
+  // Expenses Sliders
   const handleExtraExpensesSlider = (event, newValue) => {
     setExtraExpensesSlider(newValue)
   }
@@ -80,6 +79,7 @@ const Form = React.forwardRef(() => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+
     let {
       province__iexact,             
       city__iexact,                 
@@ -93,30 +93,78 @@ const Form = React.forwardRef(() => {
       poster__profession__iexact,     
     } = inputValues;
 
-    /*  Todo
-     * rent_per_month_sort,            
-     * length_of_lease_sort,            
-     * earliest_move_in_date_sort,
+    /* Todo
+     * - rent_per_month_sort,            
+     * - length_of_lease_sort,            
+     * - earliest_move_in_date_sort,
      */
 
-    let url = new URLSearchParams(
-     `city__iexact=${city__iexact}
-      &province__iexact=${province__iexact}
-      &rent_per_month__lte=${RentSlider[0]}
-      &rent_per_month__gte=${RentSlider[1]}
-      &extra_expenses_per_month__lte=${ExtraExpensesSlider[0]}
-      &extra_expenses_per_month__gte=${ExtraExpensesSlider[1]}
-      &earliest_move_in_date__iexact=${earliest_move_in_date__iexact}
-      &length_of_lease__lte=${LengthLeaseSlider[0]}
-      &length_of_lease__gte=${LengthLeaseSlider[1]}
-      &room_type=${room_type}
-      &is_furnished=${is_furnished}
-      &is_laundry_ensuite=${is_laundry_ensuite}
-      &is_air_conditioned=${is_air_conditioned}
-      &poster__university__iexact=${poster__university__iexact}
-      &poster__university_major__iexact=${poster__university_major__iexact}
-      &poster__profession__iexact=${poster__profession__iexact}`
-    );
+    var minRent = 600;
+    var maxRent = 1250;
+    var minExpense = 20;
+    var maxExpense = 60;
+    var minLease = 4;
+    var maxLease = 12;
+
+    if (RentSlider[0] === 600) {
+      minRent = '';
+    } else {
+      minRent = RentSlider[0];
+    }
+
+    if (RentSlider[1] === 1250) {
+      maxRent = '';
+    } else {
+      maxRent = RentSlider[1];
+    }
+
+    if (ExtraExpensesSlider[0] === 20) {
+      minExpense = '';
+    } else {
+      minExpense = ExtraExpensesSlider[0];
+    }
+
+    if (ExtraExpensesSlider[1] === 60) {
+      maxExpense = '';
+    } else {
+      maxExpense = ExtraExpensesSlider[1];
+    }
+
+    if (LengthLeaseSlider[0] === 4) {
+      minLease = '';
+    } else {
+      minLease = LengthLeaseSlider[0];
+    }
+
+    if (LengthLeaseSlider[1] === 12) {
+      maxLease = '';
+    } else {
+      maxLease = LengthLeaseSlider[1];
+    }
+
+    let url = new URLSearchParams([
+      ['province__iexact', province__iexact],
+      ['city__iexact', city__iexact],
+      ['rent_per_month__lte', maxRent],
+      ['rent_per_month__gte', minRent],
+      ['extra_expenses_per_month__lte', maxExpense],
+      ['extra_expenses_per_month__gte', minExpense],
+      ['earliest_move_in_date__iexact', earliest_move_in_date__iexact],
+      ['length_of_lease__lte', maxLease],
+      ['length_of_lease__gte', minLease],
+      ['room_type', room_type],
+      ['is_furnished', is_furnished],
+      ['is_laundry_ensuite', is_laundry_ensuite],
+      ['is_air_conditioned', is_air_conditioned],
+      ['poster__university__iexact', poster__university__iexact],
+      ['poster__university_major__iexact', poster__university_major__iexact],
+      ['poster__profession__iexact', poster__profession__iexact],
+    ]); 
+
+    var entries = url.entries();
+    for(const pair of entries) { 
+      console.log(pair[0], pair[1]); 
+    }
 
     history.push({
       pathname: 'api/listings/',
@@ -124,14 +172,18 @@ const Form = React.forwardRef(() => {
     });
 
     setInputValues(formField);
-
   }
 
   return (
-    <div className='form_container'
+    <div 
+      className='form_container'
     >
-      <div className='form_md'>
-        <div className='head'>
+      <div 
+        className='form_md'
+      >
+        <div 
+          className='head'
+        >
           <h2>Search Filters</h2>
         </div>
         <form
@@ -230,13 +282,13 @@ const Form = React.forwardRef(() => {
             />
           </div>
           <div className='inputs'>
-            <label htmlFor='extra_expenses_per_month_gte'>
+            <label htmlFor='extra_expenses_per_month'>
               Earliest Move-in Date
               <br />
               <input
                 type='date'
-                name='earliest_move_in_date'
-                id='earliest_move_in_date'
+                name='earliest_move_in_date__iexact'
+                id='earliest_move_in_date__iexact'
                 onChange={handleInputSelect}
               />
             </label>
@@ -299,6 +351,7 @@ const Form = React.forwardRef(() => {
                 type='checkbox'
                 name='is_furnished'
                 id='is_furnished'
+                value='true'
                 onChange={handleInputSelect}
               />
               Furnished
@@ -311,6 +364,7 @@ const Form = React.forwardRef(() => {
                 type='checkbox'
                 name='is_air_conditioned'
                 id='is_air_conditioned'
+                value='true'
                 onChange={handleInputSelect}
               />
               Air Conditioned
@@ -323,6 +377,7 @@ const Form = React.forwardRef(() => {
                 type='checkbox'
                 name='is_laundry_ensuite'
                 id='is_laundry_ensuite'
+                value='true'
                 onChange={handleInputSelect}
               />
               Ensuite Laundry
@@ -330,36 +385,36 @@ const Form = React.forwardRef(() => {
           </div>
           <div className='inputs'>
             <label htmlFor='poster_uni'>
-              Poster's University
+              Roommate's University
               <br />
               <input
                 type='text'
-                name='poster_uni'
-                id='poster_uni'
+                name='poster__university__iexact'
+                id='poster__university__iexact'
                 onChange={handleInputSelect}
               />
             </label>
           </div>
           <div className='inputs'>
             <label htmlFor='poster_uni_major'>
-              Poster's University Major
+              Roommates's University Major
               <br />
               <input
                 type='text'
-                name='poster_uni_major'
-                id='poster_uni_major'
+                name='poster__university_major__iexact'
+                id='poster__university_major__iexact'
                 onChange={handleInputSelect}
               />
             </label>
           </div>
           <div className='inputs'>
             <label htmlFor='poster_profession'>
-              Poster's Profession
+              Roommate's Profession
               <br />
               <input
                 type='text'
-                name='poster_profession'
-                id='poster_profession'
+                name='poster__profession__iexact'
+                id='poster__profession__iexact'
                 onChange={handleInputSelect}
               />
             </label>
@@ -380,7 +435,7 @@ const Form = React.forwardRef(() => {
             </label>
           </div>
           <div className='inputs'>
-            <label htmlFor='rent_per_month_sort'>
+            <label htmlFor='length_of_lease_sort'>
               Length of Lease Ascending/Descending
               <br />
               <select
@@ -395,7 +450,7 @@ const Form = React.forwardRef(() => {
             </label>
           </div>
           <div className='inputs'>
-            <label htmlFor='rent_per_month_sort'>
+            <label htmlFor='earliest_move_in_date_sort'>
               Earliest Move-in Date Ascending/Descending
               <br />
               <select

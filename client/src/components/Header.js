@@ -129,10 +129,16 @@ class Header extends Component {
         border='1px solid #d3d4d5'
         visible={this.state.dropDownMenuElement}
       >
-        <MenuItem className='dropdown' component={Link} to='/myprofile'>
+        <MenuItem className='dropdown' component={Link} to={{
+          pathname:'/user/',
+          state: { 
+            userID: this.props.userData.id 
+          }
+        }}
+        >
           View Profile
         </MenuItem>
-        <MenuItem className='dropdown' component={Link} to='/listing/new'>
+        <MenuItem className='dropdown' component={Link} to='/'>
           Post Listing
         </MenuItem>
         <MenuItem className='dropdown' onClick={this.handleLogout}>

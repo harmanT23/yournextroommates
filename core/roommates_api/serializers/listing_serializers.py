@@ -41,7 +41,7 @@ class CreateListingSerializer(serializers.ModelSerializer):
         Validate creation of new listing
         - Check complete address listing is valid
         """
-        request = self.context.get("request")
+        request = self.context.get('request')
         data['poster'] = request.user
 
         return validate_complete_address(data) 
@@ -117,6 +117,7 @@ class ListingSerializer(serializers.ModelSerializer):
         user_data = UserSerializer(instance.poster, context=self.context).data
         response['poster'] = {
             'id': user_data['id'],
+            'email': user_data['email'],
             'profile_picture': user_data['profile_picture'],
             'first_name': user_data['first_name'],
             'last_name': user_data['last_name'],

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
+import { withRouter, Link } from 'react-router-dom';
 import SizeMe from 'react-sizeme';
 import StackGrid from 'react-stack-grid';
 import Avatar from '@material-ui/core/Avatar';
@@ -13,7 +14,6 @@ import Checkbox from '@material-ui/core/Checkbox';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import IconButton from '@material-ui/core/IconButton';
-import Link from '@material-ui/core/Link';
 import { red } from '@material-ui/core/colors';
 import ShareIcon from '@material-ui/icons/Share';
 import Typography from '@material-ui/core/Typography';
@@ -45,7 +45,7 @@ class ListingGrid extends Component {
   }
 
   getlistings() {
-    const listings = this.props.listingData;
+    const listings = Array.from(this.props.listingData);
     if (!checkEmpty(listings))  {
       return listings.map((listing, idx) => (
         <div 
@@ -55,31 +55,26 @@ class ListingGrid extends Component {
            style = {{ margin: 10 }}
          >
            <Card>
-            <Link
-              color='textPrimary'
-              href={'listings/' + listing.slug}
-            >
-              <CardHeader
-                title={listing.listing_title}
-                titleTypographyProps={{
-                  variant:'h6', 
-                  fontSize:'fontSize', 
-                  fontWeight:'fontWeightLight',
-                }}
-                style={{ textAlign: 'center' }}
-                subheader= {'Listed by ' + listing.poster.first_name}
-                avatar={
-                  <Avatar 
-                    alt={
-                      listing.poster.first_name + ' ' + listing.poster.last_name
-                    }
-                    src={listing.poster.profile_picture}
-                    style={{ backgroundColor: red[500] }}
-                  >
-                  </Avatar>
-                }
-              />
-            </Link>
+            <CardHeader
+              title={listing.listing_title}
+              titleTypographyProps={{
+                variant:'h6', 
+                fontSize:'fontSize', 
+                fontWeight:'fontWeightLight',
+              }}
+              style={{ textAlign: 'center' }}
+              subheader= {'Listed by ' + listing.poster.first_name}
+              avatar={
+                <Avatar 
+                  alt={
+                    listing.poster.first_name + ' ' + listing.poster.last_name
+                  }
+                  src={listing.poster.profile_picture}
+                  style={{ backgroundColor: red[500] }}
+                >
+                </Avatar>
+              }
+            />
              <img 
                onContextMenu={(e) => {
                  e.preventDefault();
@@ -153,12 +148,20 @@ class ListingGrid extends Component {
               <CardActions 
                 disableSpacing
               >
-                <Button 
-                  size='small' 
-                  color='primary'
+                <Link
+                  color='textPrimary'
+                  to= {{
+                    pathname:'/listing/' + listing.slug,
+                  }}
                 >
-                  View
-                </Button>
+                  <Button 
+                    size='medium'
+                    color='secondary'
+                    style={{ marginLeft: 'auto' }}
+                  >
+                    View
+                  </Button>
+                </Link>
                 <IconButton 
                   aria-label='share'
                 >
@@ -205,5 +208,6 @@ function mapStateToProps({ listingData }) {
 
 export default compose(
   SizeMe(),
+  withRouter,  
   connect(mapStateToProps, actions)
 )(ListingGrid);

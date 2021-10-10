@@ -19,9 +19,9 @@ export const fetchListingList = () => async (dispatch) => {
 }
 
 export const fetchListing = (listingSlug) => async (dispatch) => {
-  /* Fetches listing by ID
+  /* Fetches listing by slug
    */
-  const res = await axiosInstance.get('/listings/' + String(listingSlug) + '/')
+  const res = await axiosInstance.get('/listings/' + String(listingSlug))
   .catch(() => {
     return false;
   });

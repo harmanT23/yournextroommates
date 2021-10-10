@@ -40,7 +40,7 @@ const Form = React.forwardRef(() => {
   const [LengthLeaseSlider, setLengthLeaseSlider] = React.useState([4, 12])
   
   // rent range slider function
-  const handleChange = (event, newValue) => {
+  const handleRentSlider = (event, newValue) => {
     setRentSlider(newValue)
   }
   const handleMinRent = (e) => {
@@ -99,9 +99,6 @@ const Form = React.forwardRef(() => {
      * earliest_move_in_date_sort,
      */
 
-    console.log(e)
-    setInputValues(formField);
-
     let url = new URLSearchParams(
      `city__iexact=${city__iexact}
       &province__iexact=${province__iexact}
@@ -122,66 +119,68 @@ const Form = React.forwardRef(() => {
     );
 
     history.push({
-      pathname: "api/listings/",
+      pathname: 'api/listings/',
       search: `${url}`,
     });
+
+    setInputValues(formField);
 
   }
 
   return (
-    <div className="form_container">
-      <div className="form_md">
-        <div className="head">
-          <h2>Field Filters</h2>
+    <div className='form_container'
+    >
+      <div className='form_md'>
+        <div className='head'>
+          <h2>Search Filters</h2>
         </div>
         <form
           onSubmit={handleSubmit}
-          className="filter_form"
+          className='filter_form'
         >
-          <div className="inputs">
-            <label htmlFor="province">
+          <div className='inputs'>
+            <label htmlFor='province'>
               Province
               <br />
               <input
-                type="text"
-                name="province"
-                id="province"
-                placeholder="Province"
+                type='text'
+                name='province__iexact'
+                id='province__iexact'
+                placeholder='Province'
                 required
-                value={inputValues.province}
                 onChange={handleInputSelect}
               />
             </label>
           </div>
-          <div className="inputs">
-            <label htmlFor="city">
+          <div className='inputs'>
+            <label htmlFor='city'>
               City
               <br />
               <input
-                type="text"
-                name="city"
-                id="city"
-                placeholder="City"
+                type='text'
+                name='city__iexact'
+                id='city__iexact'
+                placeholder='City'
                 required
                 onChange={handleInputSelect}
               />
             </label>
           </div>
-          <div className="inputs">
-            <Typography id="range-slider" gutterBottom>
+          <div className='inputs'>
+            <Typography id='range-slider' gutterBottom>
               Rent per Month
             </Typography>
-            <div className="range_boxes">
-              <label htmlFor="">
+            <div className='range_boxes'>
+              <label htmlFor=''>
                 <input
-                  type="text"
+                  type='text'
                   value={`${RentSlider[0]}`}
                   onChange={handleMinRent}
                 />
               </label>
-              <label htmlFor="">
+              <label htmlFor=''>
                 <input
-                  type="text"
+                  type='text'
                   value={`${RentSlider[1]}`}
                   onChange={handleMaxRent}
                 />
@@ -189,31 +188,31 @@ const Form = React.forwardRef(() => {
             </div>
             <Slider
               value={RentSlider}
-              onChange={handleChange}
-              name="rent_per_month_range"
-              valueLabelDisplay="auto"
-              aria-labelledby="range-slider"
+              onChange={handleRentSlider}
+              name='rent_per_month_range'
+              valueLabelDisplay='auto'
+              aria-labelledby='range-slider'
               getAriaValueText={valuetext}
               min={0}
               max={5000}
             />
           </div>
 
-          <div className="inputs">
-            <Typography id="range-slider" gutterBottom>
+          <div className='inputs'>
+            <Typography id='range-slider' gutterBottom>
               Additional Expenses per Month
             </Typography>
-            <div className="range_boxes">
-              <label htmlFor="">
+            <div className='range_boxes'>
+              <label htmlFor=''>
                 <input
-                  type="text"
+                  type='text'
                   value={`${ExtraExpensesSlider[0]}`}
                   onChange={handleMinExpenses}
                 />
               </label>
-              <label htmlFor="">
+              <label htmlFor=''>
                 <input
-                  type="text"
+                  type='text'
                   value={`${ExtraExpensesSlider[1]}`}
                   onChange={handleMaxExpenses}
                 />
@@ -222,42 +221,42 @@ const Form = React.forwardRef(() => {
             <Slider
               value={ExtraExpensesSlider}
               onChange={handleExtraExpensesSlider}
-              name="extra_expenses_per_month"
-              valueLabelDisplay="auto"
-              aria-labelledby="range-slider"
+              name='extra_expenses_per_month'
+              valueLabelDisplay='auto'
+              aria-labelledby='range-slider'
               getAriaValueText={valuetext}
               min={0}
               max={500}
             />
           </div>
-          <div className="inputs">
-            <label htmlFor="extra_expenses_per_month_gte">
+          <div className='inputs'>
+            <label htmlFor='extra_expenses_per_month_gte'>
               Earliest Move-in Date
               <br />
               <input
-                type="date"
-                name="earliest_move_in_date"
-                id="earliest_move_in_date"
+                type='date'
+                name='earliest_move_in_date'
+                id='earliest_move_in_date'
                 onChange={handleInputSelect}
               />
             </label>
           </div>
 
-          <div className="inputs">
-            <Typography id="range-slider" gutterBottom>
+          <div className='inputs'>
+            <Typography id='range-slider' gutterBottom>
               Length of Lease
             </Typography>
-            <div className="range_boxes">
-              <label htmlFor="">
+            <div className='range_boxes'>
+              <label htmlFor=''>
                 <input
-                  type="text"
+                  type='text'
                   value={`${LengthLeaseSlider[0]}`}
                   onChange={handleMinlease}
                 />
               </label>
-              <label htmlFor="">
+              <label htmlFor=''>
                 <input
-                  type="text"
+                  type='text'
                   value={`${LengthLeaseSlider[1]}`}
                   onChange={handleMaxlease}
                 />
@@ -266,151 +265,151 @@ const Form = React.forwardRef(() => {
             <Slider
               value={LengthLeaseSlider}
               onChange={handleLengthLeaseSlider}
-              valueLabelDisplay="auto"
-              aria-labelledby="range-slider"
+              valueLabelDisplay='auto'
+              aria-labelledby='range-slider'
               getAriaValueText={valuetext}
               min={0}
               max={12}
             />
           </div>
-          <div className="inputs">
-            <label htmlFor="room_type">
+          <div className='inputs'>
+            <label htmlFor='room_type'>
               Room type
               <br />
               <select
-                name="room_type"
-                id="room_type"
+                name='room_type'
+                id='room_type'
                 onChange={handleInputSelect}
               >
-                <option value="unknow">Choose a room type</option>
-                <option value="Bedroom">Bedroom</option>
-                <option value="Shared Bedroom">Shared Bedroom</option>
-                <option value="Den">Den</option>
-                <option value="Living Room">Living Room</option>
-                <option value="Shared Living Room">Shared Living Room</option>
-                <option value="Sunroom">Sunroom</option>
-                <option value="Closet">Closet</option>
+                <option value='unknow'>Choose a room type</option>
+                <option value='Bedroom'>Bedroom</option>
+                <option value='Shared Bedroom'>Shared Bedroom</option>
+                <option value='Den'>Den</option>
+                <option value='Living Room'>Living Room</option>
+                <option value='Shared Living Room'>Shared Living Room</option>
+                <option value='Sunroom'>Sunroom</option>
+                <option value='Closet'>Closet</option>
               </select>
             </label>
           </div>
-          <div className="inputs">
-            <label htmlFor="is_furnished">
+          <div className='inputs'>
+            <label htmlFor='is_furnished'>
               <input
-                className="inp_check"
-                type="checkbox"
-                name="is_furnished"
-                id="is_furnished"
+                className='inp_check'
+                type='checkbox'
+                name='is_furnished'
+                id='is_furnished'
                 onChange={handleInputSelect}
               />
               Furnished
             </label>
           </div>
-          <div className="inputs">
-            <label htmlFor="is_air_conditioned">
+          <div className='inputs'>
+            <label htmlFor='is_air_conditioned'>
               <input
-                className="inp_check"
-                type="checkbox"
-                name="is_air_conditioned"
-                id="is_air_conditioned"
+                className='inp_check'
+                type='checkbox'
+                name='is_air_conditioned'
+                id='is_air_conditioned'
                 onChange={handleInputSelect}
               />
               Air Conditioned
             </label>
           </div>
-          <div className="inputs">
-            <label htmlFor="is_laundry_ensuite">
+          <div className='inputs'>
+            <label htmlFor='is_laundry_ensuite'>
               <input
-                className="inp_check"
-                type="checkbox"
-                name="is_laundry_ensuite"
-                id="is_laundry_ensuite"
+                className='inp_check'
+                type='checkbox'
+                name='is_laundry_ensuite'
+                id='is_laundry_ensuite'
                 onChange={handleInputSelect}
               />
               Ensuite Laundry
             </label>
           </div>
-          <div className="inputs">
-            <label htmlFor="poster_uni">
+          <div className='inputs'>
+            <label htmlFor='poster_uni'>
               Poster's University
               <br />
               <input
-                type="text"
-                name="poster_uni"
-                id="poster_uni"
+                type='text'
+                name='poster_uni'
+                id='poster_uni'
                 onChange={handleInputSelect}
               />
             </label>
           </div>
-          <div className="inputs">
-            <label htmlFor="poster_uni_major">
+          <div className='inputs'>
+            <label htmlFor='poster_uni_major'>
               Poster's University Major
               <br />
               <input
-                type="text"
-                name="poster_uni_major"
-                id="poster_uni_major"
+                type='text'
+                name='poster_uni_major'
+                id='poster_uni_major'
                 onChange={handleInputSelect}
               />
             </label>
           </div>
-          <div className="inputs">
-            <label htmlFor="poster_profession">
+          <div className='inputs'>
+            <label htmlFor='poster_profession'>
               Poster's Profession
               <br />
               <input
-                type="text"
-                name="poster_profession"
-                id="poster_profession"
+                type='text'
+                name='poster_profession'
+                id='poster_profession'
                 onChange={handleInputSelect}
               />
             </label>
           </div>
-          <div className="inputs">
-            <label htmlFor="rent_per_month_sort">
+          <div className='inputs'>
+            <label htmlFor='rent_per_month_sort'>
               Rent per Month Ascending/Descending
               <br />
               <select
-                name="rent_per_month_sort"
-                id="rent_per_month_sort"
+                name='rent_per_month_sort'
+                id='rent_per_month_sort'
                 onChange={handleInputSelect}
               >
-                <option value="">Choose Ascending/Descending</option>
-                <option value="">Ascending &#8593; </option>
-                <option value="-">Descending &#8595; </option>
+                <option value=''>Choose Ascending/Descending</option>
+                <option value=''>Ascending &#8593; </option>
+                <option value='-'>Descending &#8595; </option>
               </select>
             </label>
           </div>
-          <div className="inputs">
-            <label htmlFor="rent_per_month_sort">
+          <div className='inputs'>
+            <label htmlFor='rent_per_month_sort'>
               Length of Lease Ascending/Descending
               <br />
               <select
-                name="length_of_lease_sort"
-                id="length_of_lease_sort"
+                name='length_of_lease_sort'
+                id='length_of_lease_sort'
                 onChange={handleInputSelect}
               >
-                <option value="">Choose Ascending/Descending</option>
-                <option value="">Ascending &#8593; </option>
-                <option value="-">Descending &#8595; </option>
+                <option value=''>Choose Ascending/Descending</option>
+                <option value=''>Ascending &#8593; </option>
+                <option value='-'>Descending &#8595; </option>
               </select>
             </label>
           </div>
-          <div className="inputs">
-            <label htmlFor="rent_per_month_sort">
+          <div className='inputs'>
+            <label htmlFor='rent_per_month_sort'>
               Earliest Move-in Date Ascending/Descending
               <br />
               <select
-                name="earliest_move_in_date_sort"
-                id="earliest_move_in_date_sort"
+                name='earliest_move_in_date_sort'
+                id='earliest_move_in_date_sort'
                 onChange={handleInputSelect}
               >
-                <option value="">Choose Ascending/Descending</option>
-                <option value="">Ascending &#8593; </option>
-                <option value="-">Descending &#8595; </option>
+                <option value=''>Choose Ascending/Descending</option>
+                <option value=''>Ascending &#8593; </option>
+                <option value='-'>Descending &#8595; </option>
               </select>
             </label>
           </div>
-          <button type="submit" className="submit_btn">
+          <button type='submit' className='submit_btn'>
             Submit
           </button>
         </form>

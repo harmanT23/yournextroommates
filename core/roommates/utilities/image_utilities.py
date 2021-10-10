@@ -35,7 +35,7 @@ def upload_user_profile_image(instance, filename):
     as avatar.
     """
     ext = filename.split('.')[-1]
-    n_filename = f'avatar.'+ ext
+    n_filename = 'avatar.'+ ext
     return os.path.join(
         'images',
         'users',

@@ -25,6 +25,7 @@ class ListingListView(generics.ListCreateAPIView):
         'POST': CreateListingSerializer,
         'default': ListingSerializer,
     }
+
     permission_classes = [IsAuthenticatedOrReadOnly,]
 
     filter_backends = [

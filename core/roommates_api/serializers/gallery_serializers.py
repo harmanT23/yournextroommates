@@ -91,13 +91,13 @@ class GalleryDetailSerializer(serializers.ModelSerializer):
             'uuid',
             'gallery_images'
         )
-        read_only_fields = ('uuid')
+        read_only_fields = ('uuid',)
     
     def get_gallery_images(self, obj):
         """
         Retrieve the set of gallery images associated with gallery
         """
         gallery_image_set = obj.galleryimage_set.all()
-        image_serializer = GalleryImageSerializer(gallery_image_set, many=True)
+        image_serializer = GalleryImageSerializer(gallery_image_set, many=True, context=self.context)
         return image_serializer.data
         

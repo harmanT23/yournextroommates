@@ -22,10 +22,10 @@ class ImageDetailView(APIView):
         """
         Return specified image within the gallery
         """
-        gallery_image = self.get_image(gallery_id, image_id)
+        gallery_image = self._get_image(gallery_id, image_id)
 
         data = {
-            'image_url': gallery_image.image.url,
+            'image': gallery_image.image,
             'image_name': gallery_image.image_name
         }
 
@@ -38,13 +38,13 @@ class ImageDetailView(APIView):
         """
         Delete specified image instance
         """
-        gallery_image = self.get_image(gallery_id, image_id)
+        gallery_image = self._get_image(gallery_id, image_id)
 
         gallery_image.delete()
         return Response(None, status=status.HTTP_200_OK)
 
 
-    def get_image(self, gallery_id, image_id):
+    def _get_image(self, gallery_id, image_id):
         """
         Get specified image instance if it exists 
         """

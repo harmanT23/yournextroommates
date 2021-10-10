@@ -29,22 +29,18 @@ class GalleryImage(models.Model):
 
     image = models.ImageField(
         _('Image'),
+        blank=False,
         upload_to=upload_gallery_image, 
         help_text=_('Image file within the associated gallery'),
     )
 
     image_name = models.CharField(
-        _('Path'),
+        _('Image Name'),
         max_length=36,
         blank=True,
         null=True,
-        unique=True,
         help_text=_('Name of image'),
     )
-
-    @property
-    def image_url(self):
-        return self.image.url
 
     created_at = models.DateTimeField(
         _('Created At'),

@@ -89,16 +89,3 @@ def validate_complete_address(data):
     data['address1'] = query_address.split(',')[0]
 
     return data
-
-
-def validate_poster_user(request, data):
-    """
-    Checks if user making the request matches user used in posting
-    """
-
-    if request.user != data['poster']:
-        raise serializers.ValidationError(
-            "Authenticated user must match the poster of the listing."
-        )
-    
-    return data

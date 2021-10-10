@@ -21,7 +21,7 @@ class App extends Component {
             <Route path= '/' exact component={ListingGrid} />
             <Route path= '/register' exact component={RegisterPage} />
             <Route path='/login' exact component={LoginPage} />
-            <Route path='/listing' exact component={ListingPage} />
+            <Route path='/listing/:slug' component={ListingPage} />
             <Route path='/user' exact component={UserPage} />
           </Switch>
         </div>

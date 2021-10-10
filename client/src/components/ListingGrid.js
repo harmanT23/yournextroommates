@@ -9,7 +9,6 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
-import CardMedia from '@material-ui/core/CardMedia';
 import Checkbox from '@material-ui/core/Checkbox';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -29,18 +28,25 @@ class ListingGrid extends Component {
     this.props.fetchListingList();
   }
 
-  getlistings() {
+  getLoadingDisplay() {
     const listings = this.props.listingData;
-
     if (checkEmpty(listings)) {
       return (
         <React.Fragment>
-          <p style={{ fontSize: '25px' }}>
+          <Typography
+            variant='h5'
+            component='div'
+          >
             Finding listings... <CircularProgress />
-          </p>
+          </Typography>
         </React.Fragment>
       );
-    } else {
+    } else return;
+  }
+
+  getlistings() {
+    const listings = this.props.listingData;
+    if (!checkEmpty(listings))  {
       return listings.map((listing, idx) => (
         <div 
          key={idx}
@@ -74,11 +80,14 @@ class ListingGrid extends Component {
                 }
               />
             </Link>
-            <CardMedia
-              style={{ width: '100%', height: 'auto', margin: 'auto' }}
-              image={listing.gallery_set[0].image_url}
-              title='Image title'
-            />
+             <img 
+               onContextMenu={(e) => {
+                 e.preventDefault();
+               }}
+               style={{ width: '100%', height: 'auto', margin: 'auto' }}
+               src={listing.gallery_set[0].gallery_images[0].image}
+               alt={'None'}
+             />{' '}
             <div
               style={{ padding: '5px' }}
             >
@@ -182,6 +191,7 @@ class ListingGrid extends Component {
           monitorImagesLoaded={true}
           columnWidth={colWidth}
         >
+          {this.getLoadingDisplay()}
           {this.getlistings()}
         </StackGrid>
       </div>

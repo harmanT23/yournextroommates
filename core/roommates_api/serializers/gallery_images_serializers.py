@@ -12,7 +12,7 @@ class GalleryImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = GalleryImage
         fields = (
-            'image_url',
+            'image',
             'image_name'
         )
 
@@ -24,15 +24,5 @@ class GalleryImageUploadSerializer(serializers.ModelSerializer):
         model = GalleryImage
         fields = (
             'gallery',
-            'image',
+            'image',   
         )
-
-    def to_representation(self, instance):
-        """
-        Return only the path of the image
-        """
-        response = super().to_representation(instance)
-        response['image'] = {
-            'path': instance.image.url,
-        }
-        

@@ -88,4 +88,12 @@ class UserSerializer(serializers.ModelSerializer):
             'listings',
             'gallery_set',
         )
-        read_only_fields = ('id', 'listings', 'gallery_set')
+        read_only_fields = (
+            'id', 
+            'listings', 
+            'gallery_set'
+        )
+
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+            self.fields['gallery_set'].context.update(self.context)  

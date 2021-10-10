@@ -60,19 +60,19 @@ class GalleryDetailView(APIView):
                     'gallery': gallery.pk,
                     'image': file
                 }
-                serializer = GalleryImageUploadSerializer(data=data)
+                serializer = GalleryImageUploadSerializer(data=data, context={'request': request})
 
                 if serializer.is_valid():
-                    output = serializer.save()
+                    serializer.save()
                     imgs_upload_status['uploaded'].append({
-                        'url': output.image.url,
+                        'image': serializer.data['image'],
                     })
             
-            else:
-                imgs_upload_status['errors'].append({
-                    'filename': file.name,
-                    'error': serializer.errors
-                })
+                else:
+                    imgs_upload_status['errors'].append({
+                        'filename': file.name,
+                        'error': serializer.errors
+                    })
         
             return Response(imgs_upload_status, status=status.HTTP_200_OK)
 

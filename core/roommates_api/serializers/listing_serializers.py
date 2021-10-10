@@ -3,10 +3,8 @@ from django.contrib.auth import get_user_model
 
 from roommates.models import Listing
 from .gallery_serializers import GalleryDetailSerializer
-from ..api_validators import (
-    validate_complete_address,
-    validate_poster_user
-)
+from .user_serializers import UserSerializer
+from ..api_validators import validate_complete_address
 
 User = get_user_model()
 
@@ -19,7 +17,6 @@ class CreateListingSerializer(serializers.ModelSerializer):
         model = Listing
         fields = (
             'id',
-            'poster',
             'listing_title',
             'room_type',
             'room_desc',
@@ -42,11 +39,11 @@ class CreateListingSerializer(serializers.ModelSerializer):
     def validate(self, data):
         """
         Validate creation of new listing
-        - Check if request user matches that of listing user
         - Check complete address listing is valid
         """
         request = self.context.get("request")
-        validate_poster_user(request, data)
+        data['poster'] = request.user
+
         return validate_complete_address(data) 
     
     def to_representation(self, instance):
@@ -69,7 +66,7 @@ class ListingSerializer(serializers.ModelSerializer):
         many=True,
         read_only=True,
     )
-    
+
     class Meta:
         model = Listing
         fields = (
@@ -106,19 +103,26 @@ class ListingSerializer(serializers.ModelSerializer):
             'listing_visits', 
             'gallery_set',
         )
-    
-    
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['gallery_set'].context.update(self.context)   
+
+
     def to_representation(self, instance):
         """
         Return key information of the poster for a detailed listing
         """
         response = super().to_representation(instance)
+        user_data = UserSerializer(instance.poster, context=self.context).data
         response['poster'] = {
-            'id': instance.poster.id,
-            'first_name': instance.poster.first_name,
-            'last_name': instance.poster.last_name,
-            'profession': instance.poster.profession,
-            'university': instance.poster.university,
-            'university_major': instance.poster.university_major,
+            'id': user_data['id'],
+            'profile_picture': user_data['profile_picture'],
+            'first_name': user_data['first_name'],
+            'last_name': user_data['last_name'],
+            'profession': user_data['profession'],
+            'university': user_data['university'],
+            'university_major': user_data['university_major'],
         }
+
         return response

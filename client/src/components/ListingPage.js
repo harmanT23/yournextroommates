@@ -386,7 +386,7 @@ class ListingPage extends Component {
             color='textPrimary'
             gutterBottom
           >
-            Poster
+            Roommate
           </Typography>
           <Divider />
           {

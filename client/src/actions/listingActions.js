@@ -7,8 +7,9 @@ import {
 
 
 export const fetchListingList = () => async (dispatch) => {
-  /* Fetches a list of listings
+  /* Fetches a list of listings and takes in any optional search params
    */
+
   const res = await axiosInstance.get('/listings/')
   if (!res || res.status !== statusCodes.OK) {
     return false;

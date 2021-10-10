@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics, filters
+from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 from roommates.models import Listing
@@ -10,6 +11,7 @@ from ..serializers import (
 )
 from ..filters import ListingFilter
 from ..permissions import IsListingOwnerOrReadOnly
+from ..services import update_viewcount
 
 
 class ListingListView(generics.ListCreateAPIView):
@@ -74,4 +76,14 @@ class ListingDetailView(generics.RetrieveUpdateDestroyAPIView):
     def get_object(self, queryset=None, **kwargs):
         slug_ = self.kwargs.get('slug')
         return get_object_or_404(Listing, slug=slug_)
+
+    def get(self, request, *args, **kwargs):
+        """
+        Get listing by slug id and increment view count by 1
+        """
+        update_viewcount(self.get_object())
+        instance = self.get_object()
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data)
+
     

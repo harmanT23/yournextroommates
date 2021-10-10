@@ -14,6 +14,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import IconButton from '@material-ui/core/IconButton';
+import VisibilityIcon from '@material-ui/icons/Visibility';
 import { red } from '@material-ui/core/colors';
 import ShareIcon from '@material-ui/icons/Share';
 import Typography from '@material-ui/core/Typography';
@@ -144,6 +145,18 @@ class ListingGrid extends Component {
                   <Checkbox
                     checked = {listing.is_furnished}
                   />
+                </Typography>
+                <Typography 
+                  component='' 
+                  variant='body2' 
+                  align='left'
+                  style = {{ 
+                    display: 'flex',
+                    alignItems: 'center',
+                    flexWrap: 'wrap'
+                  }}
+                >
+                  <VisibilityIcon /> &nbsp; <span>{listing.listing_visits}</span>
                 </Typography>
               </CardContent>
               <CardActions 

@@ -9,6 +9,7 @@ import RegisterPage from './RegisterPage'
 import LoginPage from './LoginPage';
 import ListingGrid from './ListingGrid';
 import ListingPage from './ListingPage'
+import Search from './Search';
 import UserPage from './UserPage';
 
 class App extends Component {  
@@ -19,6 +20,7 @@ class App extends Component {
         <div>
           <Switch>
             <Route path= '/' exact component={ListingGrid} />
+            <Route path="/search" component={Search} />
             <Route path= '/register' exact component={RegisterPage} />
             <Route path='/login' exact component={LoginPage} />
             <Route path='/listing/:slug' component={ListingPage} />

@@ -77,7 +77,7 @@ const Form = React.forwardRef(() => {
     setInputValues({ ...inputValues, [event.target.name]: event.target.value })
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
 
     let {
@@ -161,17 +161,20 @@ const Form = React.forwardRef(() => {
       ['poster__profession__iexact', poster__profession__iexact],
     ]); 
 
+    setInputValues(formField);
+
     var entries = url.entries();
     for(const pair of entries) { 
       console.log(pair[0], pair[1]); 
     }
 
-    history.push({
-      pathname: 'api/listings/',
-      search: `${url}`,
-    });
+    var query = url.toString();
 
-    setInputValues(formField);
+    history.push({
+      pathname: 'search',
+      search: '?' + query,
+    });
+    window.location.reload();    
   }
 
   return (

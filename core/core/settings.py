@@ -224,9 +224,6 @@ UNIVERSITY_DOMAIN_BASE_URL = 'http://universities.hipolabs.com/search?'
 PROFILE_IMAGE_DIMENSION_WIDTH = 180
 PROFILE_IMAGE_DIMENSION_HEIGHT = 180
 
-GRAPH_MODELS = {
-  'app_labels': ["roommates",],
-}
 
 # Enable logging of API calls. Accessible through admin.
 DRF_API_LOGGER_DATABASE = True

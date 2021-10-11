@@ -395,7 +395,7 @@ const Form = React.forwardRef(() => {
           </div>
           <div className='inputs'>
             <label htmlFor='poster_uni_major'>
-              Roommates's University Major
+              Roommate's University Major
               <br />
               <input
                 type='text'

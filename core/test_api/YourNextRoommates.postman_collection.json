@@ -1,0 +1,2806 @@
+{
+	"info": {
+		"_postman_id": "d28316bb-e9c5-4948-aa27-cc7a4d48e1b3",
+		"name": "YourNextRoommates",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Create User - Harry",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "he@example.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "testPassXVC2",
+									"type": "text"
+								},
+								{
+									"key": "first_name",
+									"value": "Harry",
+									"type": "text"
+								},
+								{
+									"key": "last_name",
+									"value": "Erling",
+									"type": "text"
+								},
+								{
+									"key": "profile_picture",
+									"type": "file",
+									"src": "/Users/htatla/Desktop/Users/U1/sebastien-goldberg-BKLHxgbYFDI-unsplash.jpg"
+								},
+								{
+									"key": "date_of_birth",
+									"value": "1994-01-05",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "Toronto",
+									"type": "text"
+								},
+								{
+									"key": "province",
+									"value": "Ontario",
+									"type": "text"
+								},
+								{
+									"key": "university",
+									"value": "University of Toronto",
+									"type": "text"
+								},
+								{
+									"key": "university_major",
+									"value": "Computer Science",
+									"type": "text"
+								},
+								{
+									"key": "profession",
+									"value": "Software Engineer",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/users/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login User - Harry",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "he@example.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "testPassXVC2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/token/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"token",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create User - Mitchell",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "mp@example.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "testPassXVC2",
+									"type": "text"
+								},
+								{
+									"key": "first_name",
+									"value": "Mitchell",
+									"type": "text"
+								},
+								{
+									"key": "last_name",
+									"value": "Paul",
+									"type": "text"
+								},
+								{
+									"key": "profile_picture",
+									"type": "file",
+									"src": "/Users/htatla/Desktop/Users/ProfilePics/mp.jpg"
+								},
+								{
+									"key": "date_of_birth",
+									"value": "1994-01-05",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "Winnipeg",
+									"type": "text"
+								},
+								{
+									"key": "province",
+									"value": "Manitoba",
+									"type": "text"
+								},
+								{
+									"key": "university",
+									"value": "University of Manitoba",
+									"type": "text"
+								},
+								{
+									"key": "university_major",
+									"value": "Human Resources",
+									"type": "text"
+								},
+								{
+									"key": "profession",
+									"value": "student",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/users/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login User - Mitchell",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "mp@example.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "testPassXVC2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/token/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"token",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Me - Mitchell",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Login_Mitchell}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/users/me",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"users",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create User - Jordan",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "je@example.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "testPassXVC2",
+									"type": "text"
+								},
+								{
+									"key": "first_name",
+									"value": "Jordan",
+									"type": "text"
+								},
+								{
+									"key": "last_name",
+									"value": "Emric",
+									"type": "text"
+								},
+								{
+									"key": "profile_picture",
+									"type": "file",
+									"src": "/Users/htatla/Desktop/Users/ProfilePics/JE.jpg"
+								},
+								{
+									"key": "date_of_birth",
+									"value": "1990-05-07",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "Toronto",
+									"type": "text"
+								},
+								{
+									"key": "province",
+									"value": "Ontario",
+									"type": "text"
+								},
+								{
+									"key": "profession",
+									"value": "Carpenter",
+									"type": "text"
+								},
+								{
+									"key": "university",
+									"value": "University of Toronto",
+									"type": "text"
+								},
+								{
+									"key": "university_major",
+									"value": "Forestry",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/users/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"users",
+								""
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "gary@example.com",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "eag235RT",
+									"disabled": true
+								},
+								{
+									"key": "first_name",
+									"value": "Gary",
+									"disabled": true
+								},
+								{
+									"key": "last_name",
+									"value": "Neil",
+									"disabled": true
+								},
+								{
+									"key": "profile_picture",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login User - Jordan",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "je@example.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "testPassXVC2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/token/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"token",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create User - Emily",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "eb@example.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "testPassXVC2",
+									"type": "text"
+								},
+								{
+									"key": "first_name",
+									"value": "Emily",
+									"type": "text"
+								},
+								{
+									"key": "last_name",
+									"value": "Balfour",
+									"type": "text"
+								},
+								{
+									"key": "profile_picture",
+									"type": "file",
+									"src": "/Users/htatla/Desktop/Users/ProfilePics/EB.jpg"
+								},
+								{
+									"key": "date_of_birth",
+									"value": "1992-07-07",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "Montréal",
+									"type": "text"
+								},
+								{
+									"key": "province",
+									"value": "Quebec",
+									"type": "text"
+								},
+								{
+									"key": "profession",
+									"value": "Consultant",
+									"type": "text"
+								},
+								{
+									"key": "university",
+									"value": "Mcgill University",
+									"type": "text"
+								},
+								{
+									"key": "university_major",
+									"value": "Business Administration",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/users/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"users",
+								""
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "gary@example.com",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "eag235RT",
+									"disabled": true
+								},
+								{
+									"key": "first_name",
+									"value": "Gary",
+									"disabled": true
+								},
+								{
+									"key": "last_name",
+									"value": "Neil",
+									"disabled": true
+								},
+								{
+									"key": "profile_picture",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login User - Emily",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "eb@example.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "testPassXVC2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/token/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"token",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create User - Victoria",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "vn@example.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "testPassXVC2",
+									"type": "text"
+								},
+								{
+									"key": "first_name",
+									"value": "Victoria",
+									"type": "text"
+								},
+								{
+									"key": "last_name",
+									"value": "Ngô",
+									"type": "text"
+								},
+								{
+									"key": "profile_picture",
+									"type": "file",
+									"src": "/Users/htatla/Desktop/Users/ProfilePics/VN.jpg"
+								},
+								{
+									"key": "date_of_birth",
+									"value": "1994-01-16",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "Vancouver",
+									"type": "text"
+								},
+								{
+									"key": "province",
+									"value": "British Columbia",
+									"type": "text"
+								},
+								{
+									"key": "profession",
+									"value": "Registered Nurse",
+									"type": "text"
+								},
+								{
+									"key": "university",
+									"value": "University of British Columbia",
+									"type": "text"
+								},
+								{
+									"key": "university_major",
+									"value": "Nursing",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/users/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"users",
+								""
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "gary@example.com",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "eag235RT",
+									"disabled": true
+								},
+								{
+									"key": "first_name",
+									"value": "Gary",
+									"disabled": true
+								},
+								{
+									"key": "last_name",
+									"value": "Neil",
+									"disabled": true
+								},
+								{
+									"key": "profile_picture",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login User - Victoria",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "vn@example.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "testPassXVC2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/token/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"token",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create User - Test",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "test@example.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "testPassXVC2",
+									"type": "text"
+								},
+								{
+									"key": "first_name",
+									"value": "Test",
+									"type": "text"
+								},
+								{
+									"key": "last_name",
+									"value": "Test",
+									"type": "text"
+								},
+								{
+									"key": "profile_picture",
+									"type": "file",
+									"src": "/Users/htatla/Desktop/Users/U1/tim-mossholder-UYQP_yjpp5Q-unsplash.jpg"
+								},
+								{
+									"key": "date_of_birth",
+									"value": "1994-10-07",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "Winnipeg",
+									"type": "text"
+								},
+								{
+									"key": "province",
+									"value": "Manitoba",
+									"type": "text"
+								},
+								{
+									"key": "profession",
+									"value": "Test",
+									"type": "text"
+								},
+								{
+									"key": "university",
+									"value": "University of Toronto",
+									"type": "text"
+								},
+								{
+									"key": "university_major",
+									"value": "Computer Engineering",
+									"type": "text"
+								},
+								{
+									"key": "about_me",
+									"value": "Test",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/users/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"users",
+								""
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "gary@example.com",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "eag235RT",
+									"disabled": true
+								},
+								{
+									"key": "first_name",
+									"value": "Gary",
+									"disabled": true
+								},
+								{
+									"key": "last_name",
+									"value": "Neil",
+									"disabled": true
+								},
+								{
+									"key": "profile_picture",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login User - Test",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "test@example.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "testPassXVC2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/token/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"token",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh User Token - Test",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "refresh",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTYzNDg0OTMzOCwianRpIjoiMmIxNGMxYTZlM2JhNGE1YmI0MTZmMGEwNjZiNTVhZDQiLCJ1c2VyX2lkIjoiZjJlYjdmZjItMTYwZC00YzJlLTk0ODQtMWQ0YTczYzQzYzdlIn0.rcdze3Tn6f7i5TLRnw_J2TkyDRG_EbSoNMlPehOxPSY",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/token/refresh/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"token",
+								"refresh",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout User - Test",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "refresh_token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTYzNDg0OTQzOSwianRpIjoiOWEwY2RhNzNlOTg0NGM1ZmFhYTJkZTZiOWIwNTZiYzQiLCJ1c2VyX2lkIjoiZjJlYjdmZjItMTYwZC00YzJlLTk0ODQtMWQ0YTczYzQzYzdlIn0.GuEeyBldMW_UVxmdvUxJcRc2AsBIuMlhgT5iv06HPR8",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/token/blacklist/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"token",
+								"blacklist",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Test User by ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Login_Test}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/users/f2eb7ff2-160d-4c2e-9484-1d4a73c43c7e/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"users",
+								"f2eb7ff2-160d-4c2e-9484-1d4a73c43c7e",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User - Test",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Login_Test}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/users/a706bb27-10ad-4885-a4f9-b5cf64bda903/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"users",
+								"a706bb27-10ad-4885-a4f9-b5cf64bda903",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Listings",
+			"item": [
+				{
+					"name": "Listing Winnipeg 1 - Mitchell",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Login_Mitchell}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "listing_title",
+									"value": "Bedroom near UofM",
+									"type": "text"
+								},
+								{
+									"key": "room_desc",
+									"value": "I have a full bedroom available near the University of Manitoba for  anyone looking for a place to stay for the next year.",
+									"type": "text"
+								},
+								{
+									"key": "is_furnished",
+									"value": "True",
+									"type": "text"
+								},
+								{
+									"key": "is_air_conditioned",
+									"value": "True",
+									"type": "text"
+								},
+								{
+									"key": "is_laundry_ensuite",
+									"value": "True",
+									"type": "text"
+								},
+								{
+									"key": "number_of_residents",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "number_of_bathrooms",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "length_of_lease",
+									"value": "12",
+									"type": "text"
+								},
+								{
+									"key": "rent_per_month",
+									"value": "950",
+									"type": "text"
+								},
+								{
+									"key": "extra_expenses_per_month",
+									"value": "30",
+									"type": "text"
+								},
+								{
+									"key": "address1",
+									"value": "230 Roslyn Road",
+									"type": "text"
+								},
+								{
+									"key": "postal_code",
+									"value": "R3L0H1",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "Winnipeg",
+									"type": "text"
+								},
+								{
+									"key": "province",
+									"value": "Manitoba",
+									"type": "text"
+								},
+								{
+									"key": "earliest_move_in_date",
+									"value": "2021-12-01",
+									"type": "text"
+								},
+								{
+									"key": "address2",
+									"value": "106",
+									"type": "text"
+								},
+								{
+									"key": "room_type",
+									"value": "Bedroom",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/listings/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"listings",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listing Toronto 1 - Harry",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Login_Harry}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "listing_title",
+									"value": "Luxury 1 Bedroom @ 85 Wood St",
+									"type": "text"
+								},
+								{
+									"key": "room_desc",
+									"value": "Luxury 1 bedroom available in Downtown Toronto.",
+									"type": "text"
+								},
+								{
+									"key": "is_furnished",
+									"value": "True",
+									"type": "text"
+								},
+								{
+									"key": "is_air_conditioned",
+									"value": "True",
+									"type": "text"
+								},
+								{
+									"key": "is_laundry_ensuite",
+									"value": "True",
+									"type": "text"
+								},
+								{
+									"key": "number_of_residents",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "number_of_bathrooms",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "length_of_lease",
+									"value": "12",
+									"type": "text"
+								},
+								{
+									"key": "rent_per_month",
+									"value": "1500",
+									"type": "text"
+								},
+								{
+									"key": "extra_expenses_per_month",
+									"value": "60",
+									"type": "text"
+								},
+								{
+									"key": "address1",
+									"value": "85 Wood St",
+									"type": "text"
+								},
+								{
+									"key": "postal_code",
+									"value": "M4Y2C2",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "Toronto",
+									"type": "text"
+								},
+								{
+									"key": "province",
+									"value": "Ontario",
+									"type": "text"
+								},
+								{
+									"key": "earliest_move_in_date",
+									"value": "2021-12-01",
+									"type": "text"
+								},
+								{
+									"key": "address2",
+									"value": "2202",
+									"type": "text"
+								},
+								{
+									"key": "room_type",
+									"value": "Bedroom",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/listings/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"listings",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listing Toronto 2- Jordan",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Login_Jordan}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "listing_title",
+									"value": "Luxury Bedroom in Downtown Toronto",
+									"type": "text"
+								},
+								{
+									"key": "room_desc",
+									"value": "Luxury 1 bedroom available in Downtown Toronto available for move in for December.",
+									"type": "text"
+								},
+								{
+									"key": "is_furnished",
+									"value": "True",
+									"type": "text"
+								},
+								{
+									"key": "is_air_conditioned",
+									"value": "True",
+									"type": "text"
+								},
+								{
+									"key": "is_laundry_ensuite",
+									"value": "True",
+									"type": "text"
+								},
+								{
+									"key": "number_of_residents",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "number_of_bathrooms",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "length_of_lease",
+									"value": "12",
+									"type": "text"
+								},
+								{
+									"key": "rent_per_month",
+									"value": "1700",
+									"type": "text"
+								},
+								{
+									"key": "extra_expenses_per_month",
+									"value": "55",
+									"type": "text"
+								},
+								{
+									"key": "address1",
+									"value": "763 Bay St",
+									"type": "text"
+								},
+								{
+									"key": "postal_code",
+									"value": "M5G2R3",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "Toronto",
+									"type": "text"
+								},
+								{
+									"key": "province",
+									"value": "Ontario",
+									"type": "text"
+								},
+								{
+									"key": "earliest_move_in_date",
+									"value": "2021-12-01",
+									"type": "text"
+								},
+								{
+									"key": "room_type",
+									"value": "Bedroom",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/listings/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"listings",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listing Montréal 1 - Emily",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Login_Emily}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "listing_title",
+									"value": "Living Room Available in  Downtown Montréal",
+									"type": "text"
+								},
+								{
+									"key": "room_desc",
+									"value": "Large and spacious living room available immediately in Downtown Montréal",
+									"type": "text"
+								},
+								{
+									"key": "is_furnished",
+									"value": "False",
+									"type": "text"
+								},
+								{
+									"key": "is_air_conditioned",
+									"value": "True",
+									"type": "text"
+								},
+								{
+									"key": "is_laundry_ensuite",
+									"value": "True",
+									"type": "text"
+								},
+								{
+									"key": "number_of_residents",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "number_of_bathrooms",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "length_of_lease",
+									"value": "12",
+									"type": "text"
+								},
+								{
+									"key": "rent_per_month",
+									"value": "800",
+									"type": "text"
+								},
+								{
+									"key": "extra_expenses_per_month",
+									"value": "20",
+									"type": "text"
+								},
+								{
+									"key": "address1",
+									"value": "445 Avenue Viger Ouest",
+									"type": "text"
+								},
+								{
+									"key": "postal_code",
+									"value": "H2Z1G6",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "Montréal",
+									"type": "text"
+								},
+								{
+									"key": "province",
+									"value": "Quebec",
+									"type": "text"
+								},
+								{
+									"key": "earliest_move_in_date",
+									"value": "2021-12-01",
+									"type": "text"
+								},
+								{
+									"key": "address2",
+									"value": "903",
+									"type": "text"
+								},
+								{
+									"key": "room_type",
+									"value": "Living Room",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/listings/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"listings",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listing Vancouver 1 - Victoria",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Login_Victoria}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "listing_title",
+									"value": "Sunroom in Vancouver :)",
+									"type": "text"
+								},
+								{
+									"key": "room_desc",
+									"value": "A small sunroom available in Vancouver near Point Grey. Ideal for students attending UBC!",
+									"type": "text"
+								},
+								{
+									"key": "is_furnished",
+									"value": "False",
+									"type": "text"
+								},
+								{
+									"key": "is_air_conditioned",
+									"value": "True",
+									"type": "text"
+								},
+								{
+									"key": "is_laundry_ensuite",
+									"value": "True",
+									"type": "text"
+								},
+								{
+									"key": "number_of_residents",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "number_of_bathrooms",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "length_of_lease",
+									"value": "6",
+									"type": "text"
+								},
+								{
+									"key": "rent_per_month",
+									"value": "400",
+									"type": "text"
+								},
+								{
+									"key": "extra_expenses_per_month",
+									"value": "10",
+									"type": "text"
+								},
+								{
+									"key": "address1",
+									"value": "1331 Alberni Street",
+									"type": "text"
+								},
+								{
+									"key": "postal_code",
+									"value": "V6E4S1",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "Vancouver",
+									"type": "text"
+								},
+								{
+									"key": "province",
+									"value": "British Columbia",
+									"type": "text"
+								},
+								{
+									"key": "earliest_move_in_date",
+									"value": "2021-12-01",
+									"type": "text"
+								},
+								{
+									"key": "address2",
+									"value": "3202",
+									"type": "text"
+								},
+								{
+									"key": "room_type",
+									"value": "Sunroom",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/listings/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"listings",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listing Regina 1 - Test",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Login_Test}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "listing_title",
+									"value": "Test",
+									"type": "text"
+								},
+								{
+									"key": "room_desc",
+									"value": "Test",
+									"type": "text"
+								},
+								{
+									"key": "is_furnished",
+									"value": "True",
+									"type": "text"
+								},
+								{
+									"key": "is_air_conditioned",
+									"value": "True",
+									"type": "text"
+								},
+								{
+									"key": "is_laundry_ensuite",
+									"value": "True",
+									"type": "text"
+								},
+								{
+									"key": "number_of_residents",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "number_of_bathrooms",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "length_of_lease",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "rent_per_month",
+									"value": "100",
+									"type": "text"
+								},
+								{
+									"key": "extra_expenses_per_month",
+									"value": "10",
+									"type": "text"
+								},
+								{
+									"key": "address1",
+									"value": "2400 TELL PL",
+									"type": "text"
+								},
+								{
+									"key": "postal_code",
+									"value": "S4V3E3",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "Regina",
+									"type": "text"
+								},
+								{
+									"key": "province",
+									"value": "Saskatchewan",
+									"type": "text"
+								},
+								{
+									"key": "earliest_move_in_date",
+									"value": "2021-12-01",
+									"type": "text"
+								},
+								{
+									"key": "address2",
+									"value": "46",
+									"type": "text"
+								},
+								{
+									"key": "room_type",
+									"value": "Sunroom",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/listings/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"listings",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Listings",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/listings/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"listings",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Toronto 1 Listing by Slug",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/listings/toronto-bedroom-in-the-heart-of-downtown-toronto-31157237-7283-4485-bbd0-8a11a8995239/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"listings",
+								"toronto-bedroom-in-the-heart-of-downtown-toronto-31157237-7283-4485-bbd0-8a11a8995239",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Toronto 1 Listing",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Login_Harry}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "address2",
+									"value": "2203",
+									"type": "text"
+								},
+								{
+									"key": "rent_per_month",
+									"value": "1800",
+									"type": "text"
+								},
+								{
+									"key": "extra_expenses_per_month",
+									"value": "75",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/listings/toronto-bedroom-in-the-heart-of-downtown-toronto-31157237-7283-4485-bbd0-8a11a8995239/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"listings",
+								"toronto-bedroom-in-the-heart-of-downtown-toronto-31157237-7283-4485-bbd0-8a11a8995239",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Listing Regina",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Login_Test}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/listings/regina-test-7c554d38-31de-4cb2-8407-abb84fc5435b/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"listings",
+								"regina-test-7c554d38-31de-4cb2-8407-abb84fc5435b",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Galleries",
+			"item": [
+				{
+					"name": "Images Listing Winnipeg 1 - Mitchell",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Login_Mitchell}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image1",
+									"type": "file",
+									"src": "/Users/htatla/Desktop/Users/Winnipeg_1/intro.jpg"
+								},
+								{
+									"key": "image2",
+									"type": "file",
+									"src": "/Users/htatla/Desktop/Users/Winnipeg_1/bedroom.jpg"
+								},
+								{
+									"key": "image3",
+									"type": "file",
+									"src": "/Users/htatla/Desktop/Users/Winnipeg_1/kitchen.jpg"
+								},
+								{
+									"key": "image4",
+									"type": "file",
+									"src": "/Users/htatla/Desktop/Users/Winnipeg_1/bath.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/galleries/d4eb1de3-1093-4a13-bc6d-887eaf467e95/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"galleries",
+								"d4eb1de3-1093-4a13-bc6d-887eaf467e95",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all images for Winnipeg 1 Gallery",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Login_Mitchell}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/galleries/d4eb1de3-1093-4a13-bc6d-887eaf467e95/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"galleries",
+								"d4eb1de3-1093-4a13-bc6d-887eaf467e95",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post Images for User - Mitchell",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Login_Mitchell}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image1",
+									"type": "file",
+									"src": "/Users/htatla/Desktop/Users/MP/nathan-lemon-mgY0BTD7OSs-unsplash.jpg"
+								},
+								{
+									"key": "image2",
+									"type": "file",
+									"src": "/Users/htatla/Desktop/Users/MP/capstone-events-1W159Mdzi6M-unsplash.jpg"
+								},
+								{
+									"key": "image3",
+									"type": "file",
+									"src": "/Users/htatla/Desktop/Users/MP/tyler-nix-FmLGMw7moSU-unsplash.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/galleries/5f2c4fdc-f953-4b19-9e9b-5073ec47429a/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"galleries",
+								"5f2c4fdc-f953-4b19-9e9b-5073ec47429a",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Images Listing Toronto 1 - Harry",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Login_Harry}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image1",
+									"type": "file",
+									"src": "/Users/htatla/Desktop/Users/Toronto_1/intro.jpg"
+								},
+								{
+									"key": "image2",
+									"type": "file",
+									"src": "/Users/htatla/Desktop/Users/Toronto_1/bedroom.jpg"
+								},
+								{
+									"key": "image3",
+									"type": "file",
+									"src": "/Users/htatla/Desktop/Users/Toronto_1/kitchen.jpg"
+								},
+								{
+									"key": "image4",
+									"type": "file",
+									"src": "/Users/htatla/Desktop/Users/Toronto_1/bathroom.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/galleries/4bf42edc-6f54-48aa-84c0-9bee484174f5/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"galleries",
+								"4bf42edc-6f54-48aa-84c0-9bee484174f5",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post Images for User - Harry",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Login_Harry}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image1",
+									"type": "file",
+									"src": "/Users/htatla/Desktop/Users/HE/ashley-knedler-Pf5Pj7A5ddA-unsplash.jpg"
+								},
+								{
+									"key": "image2",
+									"type": "file",
+									"src": "/Users/htatla/Desktop/Users/HE/toomas-tartes-Yizrl9N_eDA-unsplash.jpg"
+								},
+								{
+									"key": "image3",
+									"type": "file",
+									"src": "/Users/htatla/Desktop/Users/HE/lucas-favre-7EtzgOxT9B4-unsplash.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/galleries/002d76c1-1232-4c16-8ffb-35e710353973/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"galleries",
+								"002d76c1-1232-4c16-8ffb-35e710353973",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Images Listing Toronto 2 - Jordan",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Login_Jordan}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image1",
+									"type": "file",
+									"src": "/Users/htatla/Desktop/Users/Toronto_2/Intro.jpg"
+								},
+								{
+									"key": "image2",
+									"type": "file",
+									"src": "/Users/htatla/Desktop/Users/Toronto_2/bedroom.jpg"
+								},
+								{
+									"key": "image3",
+									"type": "file",
+									"src": "/Users/htatla/Desktop/Users/Toronto_2/kitchen.jpg"
+								},
+								{
+									"key": "image4",
+									"type": "file",
+									"src": "/Users/htatla/Desktop/Users/Toronto_2/bathroom.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/galleries/2f305ebe-9cd0-4210-9340-da8f9429e9a2/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"galleries",
+								"2f305ebe-9cd0-4210-9340-da8f9429e9a2",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post Images for User - Jordan",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Login_Jordan}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image1",
+									"type": "file",
+									"src": "/Users/htatla/Desktop/Users/JE/austin-ramsey-nmXi-HCD_F8-unsplash.jpg"
+								},
+								{
+									"key": "image2",
+									"type": "file",
+									"src": "/Users/htatla/Desktop/Users/JE/austin-ramsey-IvzvlKQwjk8-unsplash.jpg"
+								},
+								{
+									"key": "image3",
+									"type": "file",
+									"src": "/Users/htatla/Desktop/Users/JE/maria-teneva-ftloE4xFjVQ-unsplash (1).jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/galleries/349dda50-11af-451b-93cf-6ad6c29ec309/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"galleries",
+								"349dda50-11af-451b-93cf-6ad6c29ec309",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Images Listing Montréal 1 - Emily",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Login_Emily}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image1",
+									"type": "file",
+									"src": "/Users/htatla/Desktop/Users/Montreal_1/Intro.jpg"
+								},
+								{
+									"key": "image2",
+									"type": "file",
+									"src": "/Users/htatla/Desktop/Users/Montreal_1/bedroom.jpg"
+								},
+								{
+									"key": "image3",
+									"type": "file",
+									"src": "/Users/htatla/Desktop/Users/Montreal_1/kitchen.jpg"
+								},
+								{
+									"key": "image4",
+									"type": "file",
+									"src": "/Users/htatla/Desktop/Users/Montreal_1/bathroom.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/galleries/e783190b-106b-4502-8aec-db962955f4bb/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"galleries",
+								"e783190b-106b-4502-8aec-db962955f4bb",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post Images for User - Emily",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Login_Emily}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image1",
+									"type": "file",
+									"src": "/Users/htatla/Desktop/Users/EB/cathryn-lavery-fMD_Cru6OTk-unsplash (1).jpg"
+								},
+								{
+									"key": "image2",
+									"type": "file",
+									"src": "/Users/htatla/Desktop/Users/EB/rich-soul-juNVAj8-3ZA-unsplash.jpg"
+								},
+								{
+									"key": "image3",
+									"type": "file",
+									"src": "/Users/htatla/Desktop/Users/EB/jordan-scott-sqHf4oQP5A8-unsplash.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/galleries/3c9da88c-8093-4f90-8035-49ef5e609b9a/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"galleries",
+								"3c9da88c-8093-4f90-8035-49ef5e609b9a",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Images Listing Vancouver 1 - Victoria",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Login_Victoria}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image1",
+									"type": "file",
+									"src": "/Users/htatla/Desktop/Users/Vancouver_1/intro.jpg"
+								},
+								{
+									"key": "image2",
+									"type": "file",
+									"src": "/Users/htatla/Desktop/Users/Vancouver_1/bedroom.jpg"
+								},
+								{
+									"key": "image3",
+									"type": "file",
+									"src": "/Users/htatla/Desktop/Users/Vancouver_1/kitchen.jpg"
+								},
+								{
+									"key": "image4",
+									"type": "file",
+									"src": "/Users/htatla/Desktop/Users/Vancouver_1/bathroom.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/galleries/8d665d67-dcc8-4613-b506-7edeac7b4984/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"galleries",
+								"8d665d67-dcc8-4613-b506-7edeac7b4984",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post Images for User - Victoria",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Login_Victoria}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image1",
+									"type": "file",
+									"src": "/Users/htatla/Desktop/Users/VN/brooke-cagle-xcgh5_-QIXc-unsplash.jpg"
+								},
+								{
+									"key": "image2",
+									"type": "file",
+									"src": "/Users/htatla/Desktop/Users/VN/green-chameleon-s9CC2SKySJM-unsplash.jpg"
+								},
+								{
+									"key": "image3",
+									"type": "file",
+									"src": "/Users/htatla/Desktop/Users/VN/brooke-cagle-g1Kr4Ozfoac-unsplash.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/galleries/7cf64f2b-58d4-45fa-933e-d170d3ff16bc/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"galleries",
+								"7cf64f2b-58d4-45fa-933e-d170d3ff16bc",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Images Listing Regina 1 - Test",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Login_Test}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image1",
+									"type": "file",
+									"src": "/Users/htatla/Desktop/Users/U1/sebastien-goldberg-BKLHxgbYFDI-unsplash.jpg"
+								},
+								{
+									"key": "image2",
+									"type": "file",
+									"src": "/Users/htatla/Desktop/Users/U1/tim-mossholder-UYQP_yjpp5Q-unsplash.jpg"
+								},
+								{
+									"key": "image3",
+									"type": "file",
+									"src": "/Users/htatla/Desktop/Users/U1/harsh-gupta-nVDB1IGq64s-unsplash.jpg"
+								},
+								{
+									"key": "image4",
+									"type": "file",
+									"src": "/Users/htatla/Desktop/Users/U1/tim-mossholder-UYQP_yjpp5Q-unsplash.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/galleries/a2f7f62f-6636-41f7-884c-3e0bfeb5f9c6/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"galleries",
+								"a2f7f62f-6636-41f7-884c-3e0bfeb5f9c6",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Image Regina 1 - Test",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Login_Test}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/galleries/a2f7f62f-6636-41f7-884c-3e0bfeb5f9c6/07f454b7-1ef4-4701-a284-415e12567fe7/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"galleries",
+								"a2f7f62f-6636-41f7-884c-3e0bfeb5f9c6",
+								"07f454b7-1ef4-4701-a284-415e12567fe7",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Image Regina 1 - Test",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Login_Test}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/galleries/a2f7f62f-6636-41f7-884c-3e0bfeb5f9c6/07f454b7-1ef4-4701-a284-415e12567fe7/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"galleries",
+								"a2f7f62f-6636-41f7-884c-3e0bfeb5f9c6",
+								"07f454b7-1ef4-4701-a284-415e12567fe7",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Gallery Regina 1 - Test",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Login_Test}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/galleries/a2f7f62f-6636-41f7-884c-3e0bfeb5f9c6/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"galleries",
+								"a2f7f62f-6636-41f7-884c-3e0bfeb5f9c6",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create New User Gallery - Test",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Login_Test}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "user",
+									"value": "a706bb27-10ad-4885-a4f9-b5cf64bda903",
+									"type": "text"
+								},
+								{
+									"key": "is_listing_or_user_gallery",
+									"value": "False",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/galleries/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"galleries",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "Login_Harry",
+			"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjM0MDgxOTY2LCJqdGkiOiI0NjcxYmQzZDQwM2E0NmJmOTRlNzQ0Yzc4MzUyMTMzMCIsInVzZXJfaWQiOiJlNjEyNmQ0ZC0wZmNiLTQ5MjUtOGJmMy01ZDRlOTNkNDM5YjYifQ.bW9Bv7DFpT7OJ2vJEuUtIX0bSvJAX9LqLO2aEUbN76Q"
+		},
+		{
+			"key": "Login_Jordan",
+			"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjM0MTY3Nzk2LCJqdGkiOiJmZGEzYjI2NzFjNDg0ZTc0OWJjNDE5M2JlMzBkYzNlMSIsInVzZXJfaWQiOiI5YWYyMjljYy0zNDdjLTRlYzUtOGVmNS1hNGU0OTY5NzMzYjEifQ.n51CPPqOzCn8nZq43iJWuHmfzRaeCRtdu_VS4bec8b4"
+		},
+		{
+			"key": "Login_Emily",
+			"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjM0MTY3ODI4LCJqdGkiOiIzZTdjYjYzZGI3OTA0YzI0ODcwYTIzY2RmNjVhMGEwYiIsInVzZXJfaWQiOiI2N2Q4YzQ2My02N2IwLTRjN2ItODA5Mi0zZThiODljNmMwZWEifQ.QphK7PnqRnbKNoEln1P-d-tTxmSy8PNVa8Hh7NTOYWw"
+		},
+		{
+			"key": "Login_Victoria",
+			"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjM0MTY3ODQ3LCJqdGkiOiIyZTIzZDE2YzBmOWE0YTVlOTFlMjU2ZTJmMWQ4OWY5NCIsInVzZXJfaWQiOiI2YmE3OWMyMC0zMWU2LTQzMDMtYWVlNy00ZjgzZDUzYTNlZTcifQ.mUyjFkUQ4Jf5vViIWrg4JWTezcmOUteykO-qillL0n4"
+		},
+		{
+			"key": "Login_Mitchell",
+			"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjM0MTY3NzcyLCJqdGkiOiI1NjNiMzJhODNhY2E0OTI2OGI1OGE2OTU4OWFlM2Y3ZiIsInVzZXJfaWQiOiIxMTk1ZDNkNS1lYWU0LTQwOGMtOGI4NS1mYWY4NGEzZDY2MTAifQ.d8xdD4j9Bv1rk8cMH2o2r2LMKQOUG96BDNUYkuBsNZs"
+		},
+		{
+			"key": "test_refresh_token",
+			"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTYzNDg0OTMzOCwianRpIjoiMmIxNGMxYTZlM2JhNGE1YmI0MTZmMGEwNjZiNTVhZDQiLCJ1c2VyX2lkIjoiZjJlYjdmZjItMTYwZC00YzJlLTk0ODQtMWQ0YTczYzQzYzdlIn0.rcdze3Tn6f7i5TLRnw_J2TkyDRG_EbSoNMlPehOxPSY"
+		},
+		{
+			"key": "Login_Test",
+			"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjM0MjQ0NjM5LCJqdGkiOiJjMTllMjFhYTQxZWI0OGU2OGFkMDg1Y2VhMmMxOWRiZiIsInVzZXJfaWQiOiJmMmViN2ZmMi0xNjBkLTRjMmUtOTQ4NC0xZDRhNzNjNDNjN2UifQ.T0P1VkCQlTSYq4M5I6HulUOJhDkLjVjNb_iCkcvJ5YE"
+		}
+	]
+}

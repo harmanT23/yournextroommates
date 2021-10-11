@@ -88,6 +88,12 @@ below:
 - Install dependencies: ```npm install```
 - Start frontend: ```npm start```
 
+### Testing
+
+To run a suite of Postman tests, download the .json file from inside the `/core/test_api` directory and import into your Postman client 
+
+❗ Currently only Postman testing is complete for all API routes. These are being moved to unit tests.
+
 ## YourNextRoommates API
 The application provides an API for authentication, user accounts, listings,
 galleries and images.

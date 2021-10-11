@@ -4,6 +4,11 @@ YourNextRoommates is a web application intended to connect people looking for ro
 Over traditional applications in this domain, YNR goes further and provides users the ability to look for exactly the roommates they'd mesh well with.
 Users can filter listings by university, major or profession of the associated poster. Furthermore, users can find the exact listing they'd need in terms of earliest move-in date, lease duration, monthly rent and expected recurring expenses. YNR is meant to make finding your next roommates easy and its also made to list your rental property in a practical and efficient manner. Another unique perspective YNR focuses on is social interaction via user profiles, where users can provide contact details, profile picture, a description of themselves and personal photo gallery.
 
+This project is currently hosted at https://yournextroommates.herokuapp.com/
+   > Note: Sometimes it may take a few minutes for the frontend to display
+     content. This happens when a new backend instance has to be spun up
+     following a period of dormancy. 
+
 ## Screenshots 
 ![Register](https://imgur.com/1wY2qgK.jpeg)
 ![Homepage](https://imgur.com/kcqVkC9.jpeg)

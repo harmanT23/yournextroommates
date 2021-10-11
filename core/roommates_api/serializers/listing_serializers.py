@@ -13,11 +13,18 @@ class CreateListingSerializer(serializers.ModelSerializer):
     """
     Serializer handles creation of a new listing
     """
+
+    gallery_set = GalleryDetailSerializer(
+        many=True,
+        read_only=True,
+    )
+
     class Meta:
         model = Listing
         fields = (
             'id',
             'listing_title',
+            'slug',
             'room_type',
             'room_desc',
             'is_furnished',
@@ -34,6 +41,16 @@ class CreateListingSerializer(serializers.ModelSerializer):
             'city',
             'province',
             'earliest_move_in_date',
+            'gallery_set',
+        )
+        
+        read_only_fields = (
+            'id', 
+            'poster', 
+            'slug',
+            'listing_expiry_date',
+            'listing_visits', 
+            'gallery_set',
         )
     
 

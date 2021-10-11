@@ -14,6 +14,11 @@ class RegisterUserSerializer(serializers.ModelSerializer):
     """
     Serializer handles registration of a new user
     """
+
+    gallery_set = GalleryDetailSerializer(
+        many=True,
+        read_only=True,
+    )
     class Meta:
         model = User
         fields = (
@@ -30,7 +35,13 @@ class RegisterUserSerializer(serializers.ModelSerializer):
             'profession',
             'city',
             'province',
+            'gallery_set',
         )
+        read_only_fields = (
+            'id',
+            'gallery_set',
+        )
+
         extra_kwargs = {'password' : {'write_only': True}}
 
 

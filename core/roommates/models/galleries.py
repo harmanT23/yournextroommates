@@ -85,5 +85,7 @@ class Gallery(models.Model):
             self.uuid
         )
 
-        full_path = os.path.abspath(dir_path)    
-        shutil.rmtree(full_path)
+        full_path = os.path.abspath(dir_path)
+        
+        if os.path.isdir(full_path):    
+            shutil.rmtree(full_path)

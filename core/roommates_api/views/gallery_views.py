@@ -35,7 +35,7 @@ class GalleryDetailView(APIView):
         """
         Return all images within the gallery
         """
-        gallery = self.get_gallery(gallery_id)
+        gallery = self._get_gallery(gallery_id)
         serializer = GalleryDetailSerializer(gallery)
         return Response(serializer.data)
     
@@ -44,7 +44,7 @@ class GalleryDetailView(APIView):
         """
         Upload one or more images to the gallery
         """
-        gallery = self.get_gallery(gallery_id)
+        gallery = self._get_gallery(gallery_id)
 
         imgs_upload_status = {
             'uploaded': [],
@@ -66,6 +66,7 @@ class GalleryDetailView(APIView):
                     serializer.save()
                     imgs_upload_status['uploaded'].append({
                         'image': serializer.data['image'],
+                        'image_id': serializer.data['image_name'], 
                     })
             
                 else:
@@ -84,12 +85,12 @@ class GalleryDetailView(APIView):
         """
         Delete gallery and all the images within it
         """
-        gallery = self.get_gallery(gallery_id)
+        gallery = self._get_gallery(gallery_id)
         gallery.delete()
-        return Response(None, status=status.HTTP_200_OK)
+        return Response(None, status=status.HTTP_204_NO_CONTENT)
         
         
-    def get_gallery(self, gallery_id):
+    def _get_gallery(self, gallery_id):
         """
         Get specified gallery instance if it exists 
         """

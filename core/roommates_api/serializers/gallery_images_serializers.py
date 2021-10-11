@@ -24,5 +24,6 @@ class GalleryImageUploadSerializer(serializers.ModelSerializer):
         model = GalleryImage
         fields = (
             'gallery',
-            'image',   
+            'image',
+            'image_name',   
         )

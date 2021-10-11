@@ -104,7 +104,7 @@ after a user logs out.
 - ```GET /api/users/me/``` - Get details about the currently authenticated user.
 - ```GET /api/users/{uuid}/``` - Get details about a specific user 
 - ```PUT/PATCH /api/users/{uuid}/``` - Update a specific user's details
-- ```DELETE /api/users/{uuid}/``` - Delete a specific user's details 
+- ```DELETE /api/users/{uuid}/``` - Delete a specific user
 
 ### Listing Endpoints
 - ```GET /api/listings/``` - Get all the listings in the database, filters

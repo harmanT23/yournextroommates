@@ -29,9 +29,13 @@ class ImageDetailView(APIView):
             'image_name': gallery_image.image_name
         }
 
-        serializer = GalleryImageSerializer(data=data)
-        serializer.is_valid()
-        return Response(serializer.initial_data)
+        image_res = GalleryImageSerializer(
+            data=data, 
+            context={'request': request}
+        )
+
+        image_res.is_valid()
+        return Response(image_res.data)
     
 
     def delete(self, request, gallery_id, image_id, format=None):
@@ -41,7 +45,7 @@ class ImageDetailView(APIView):
         gallery_image = self._get_image(gallery_id, image_id)
 
         gallery_image.delete()
-        return Response(None, status=status.HTTP_200_OK)
+        return Response(None, status=status.HTTP_204_NO_CONTENT)
 
 
     def _get_image(self, gallery_id, image_id):

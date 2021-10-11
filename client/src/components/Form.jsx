@@ -163,11 +163,6 @@ const Form = React.forwardRef(() => {
 
     setInputValues(formField);
 
-    var entries = url.entries();
-    for(const pair of entries) { 
-      console.log(pair[0], pair[1]); 
-    }
-
     var query = url.toString();
 
     history.push({

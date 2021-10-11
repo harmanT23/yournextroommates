@@ -48,7 +48,7 @@ class UserPage extends Component {
   };
 
   getUserData() {
-    const poster = this.props.userData;
+    const poster = this.props.sUserData;
     if (!checkEmpty(poster)) {
       return (
       <React.Fragment> 
@@ -237,8 +237,8 @@ class UserPage extends Component {
   }
 }
 
-function mapStateToProps({ userData }) {
-  return { userData };
+function mapStateToProps({ sUserData }) {
+  return { sUserData };
 }
 
 

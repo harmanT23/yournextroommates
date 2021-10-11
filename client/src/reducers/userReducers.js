@@ -3,7 +3,6 @@ import {
   LOGIN,
   LOGOUT,
   FETCH_AUTH_USER,
-  FETCH_USER,
 }  from '../actions/types';
 
 const initialState = {};
@@ -17,7 +16,6 @@ const userReducer = function (state=initialState, action) {
     case LOGOUT:
       return false;
     case FETCH_AUTH_USER:
-    case FETCH_USER:
       return action.payload || false;
     default:
       return state;

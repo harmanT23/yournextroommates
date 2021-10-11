@@ -41,7 +41,7 @@ To run this application you'll need:
 - Python 3.9.7 or higher
 - NPM 7.21.0 or higher (update by using command ```npm i -g npm```)
 - Node.js 14.17.6 or higher
-- Google Geocoding API key
+- [Google Geocoding API key](https://developers.google.com/maps/documentation/geocoding/get-api-key)
     > ### Note
     > The API key can be added to a .env file where the expected API key name is GOOGLE_API_KEY. The .env file should be placed in core/core/ 
 - A local installation of [PostgreSQL](https://www.postgresql.org/download/)
@@ -82,12 +82,6 @@ below:
 - Change directory to client folder:  ```cd client```
 - Install dependencies: ```npm install```
 - Start frontend: ```npm start```
-
-#### Optional
-YNR uses the Google Geocoding API for verifying the address posted in a listing. In order to have this portion work, you will need
-to acquire an [API key](https://developers.google.com/maps/documentation/geocoding/get-api-key) and assign that to ```GOOGLE_API_KEY``` within the project settings located at ```.../yournextroommates/core/core/settings.py```
-
-Navigate to http://127.0.0.1:8000/
 
 ## YourNextRoommates API
 The application provides an API for authentication, user accounts, listings,

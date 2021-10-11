@@ -12,6 +12,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
+import PersonIcon from '@material-ui/icons/Person';
 import RoomIcon from '@material-ui/icons/Room';
 import SchoolIcon from '@material-ui/icons/School';
 import Typography from '@material-ui/core/Typography';
@@ -46,6 +47,11 @@ class UserPage extends Component {
   state = {
     error: false,
   };
+
+  computeAge(birthDate) {
+    //Note: const yearInMs = 3.15576e+10
+    return Math.floor((new Date() - new Date(birthDate).getTime()) / 3.15576e+10)
+  }
 
   getUserData() {
     const poster = this.props.sUserData;
@@ -160,6 +166,33 @@ class UserPage extends Component {
               }
               {
                 poster.profession &&
+                <Divider variant='inset' component='li' />
+              }
+              {
+                poster.date_of_birth && 
+                <ListItem>
+                  <ListItemIcon>
+                  <PersonIcon />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary= {
+                      <React.Fragment>
+                        <Typography
+                          variant='body1'
+                          align='left'
+                          color='textSecondary'
+                        >
+                          {
+                            'Age: ' + this.computeAge(poster.date_of_birth)
+                          }
+                        </Typography>
+                      </React.Fragment>
+                    }
+                  />
+                </ListItem>
+              }
+              {
+                poster.date_of_birth &&
                 <Divider variant='inset' component='li' />
               }
               {

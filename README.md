@@ -10,11 +10,10 @@ This project is currently hosted at https://yournextroommates.herokuapp.com/
      following a period of dormancy. 
 
 ## Screenshots 
-![Register](https://imgur.com/1wY2qgK.jpeg)
-![Homepage](https://imgur.com/kcqVkC9.jpeg)
-![Listing_1](https://imgur.com/ohr8KeK.jpeg)
-![Listing_2](https://imgur.com/M4Vbhww.jpeg)
-![UserProfile](https://imgur.com/8KbmUhW.jpeg)
+![Register](https://imgur.com/qPxAel6.jpeg)
+![Homepage](https://imgur.com/GbQFU1N.jpeg)
+![Listing_1](https://imgur.com/4yxZSux.jpeg)
+![Listing_2](https://imgur.com/laswgQ6.jpeg)
 
 ## Built With
 ### Stack Used

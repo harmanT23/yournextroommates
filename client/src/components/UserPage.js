@@ -80,7 +80,7 @@ class UserPage extends Component {
                     onContextMenu={(e) => {
                       e.preventDefault();
                     }}
-                    style={{ width: '100%', height: 'auto', margin: 'auto' }}
+                    style={{ objectFit: 'cover', width: '100%', height: '680px', margin: 'auto' }}
                     src={ele.image}
                     alt={'Unavailable'}
                   />
@@ -263,7 +263,9 @@ class UserPage extends Component {
 
   render() {
     return (
-      <div>
+      <div
+        style = {{width: '50%', margin: 'auto'}}
+      >
         {this.getUserData()}
       </div>
     );

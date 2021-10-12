@@ -1,4 +1,5 @@
 import React from 'react'
+import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography'
 import Slider from '@material-ui/core/Slider'
 import { useHistory } from 'react-router-dom'
@@ -175,6 +176,10 @@ const Form = React.forwardRef(() => {
   return (
     <div 
       className='form_container'
+      style={{
+        padding: '0 25px',
+        marginRight: '20px'
+      }}
     >
       <div 
         className='form_md'
@@ -182,7 +187,13 @@ const Form = React.forwardRef(() => {
         <div 
           className='head'
         >
-          <h2>Search Filters</h2>
+          <h2
+            style={{
+              margin: '0'
+            }}
+          >
+            Search Filters
+          </h2>
         </div>
         <form
           onSubmit={handleSubmit}
@@ -419,7 +430,7 @@ const Form = React.forwardRef(() => {
           </div>
           <div className='inputs'>
             <label htmlFor='rent_per_month_sort'>
-              Rent per Month Ascending/Descending
+              Rent per Month
               <br />
               <select
                 name='rent_per_month_sort'
@@ -434,7 +445,7 @@ const Form = React.forwardRef(() => {
           </div>
           <div className='inputs'>
             <label htmlFor='length_of_lease_sort'>
-              Length of Lease Ascending/Descending
+              Length of Lease
               <br />
               <select
                 name='length_of_lease_sort'
@@ -449,7 +460,7 @@ const Form = React.forwardRef(() => {
           </div>
           <div className='inputs'>
             <label htmlFor='earliest_move_in_date_sort'>
-              Earliest Move-in Date Ascending/Descending
+              Earliest Move-in Date
               <br />
               <select
                 name='earliest_move_in_date_sort'
@@ -462,9 +473,18 @@ const Form = React.forwardRef(() => {
               </select>
             </label>
           </div>
-          <button type='submit' className='submit_btn'>
+          <Button 
+            size='small' 
+            color='secondary'
+            style={{ 
+              marginTop: '20px',
+              marginBottom: '5px',
+              marginLeft: 'auto' 
+            }}
+            type='submit'
+          >
             Submit
-          </button>
+          </Button>
         </form>
       </div>
     </div>

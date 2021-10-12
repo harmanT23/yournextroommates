@@ -41,7 +41,7 @@ const useStyles = (theme) => ({
      },
      primary: {
       main: '#393E46'
-    },
+    }
   },
 });
 
@@ -76,7 +76,7 @@ class ListingPage extends Component {
                       onContextMenu={(e) => {
                         e.preventDefault();
                       }}
-                      style={{ width: '100%', height: 'auto', margin: 'auto' }}
+                      style={{ objectFit: 'cover', width: '100%', height: '680px', margin: 'auto' }}
                       src={ele.image}
                       alt={'Unavailable'}
                     />
@@ -519,7 +519,7 @@ class ListingPage extends Component {
   render() {
     return (
       <div
-        style={{ width: '80%', margin: 'auto' }}
+        style = {{width: '50%', margin: 'auto'}}
       >
         {this.getListingContent()}
       </div>
